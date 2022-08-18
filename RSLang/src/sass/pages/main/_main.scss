@@ -2,7 +2,8 @@
     min-height: 100%;
     width: 100%;
     display: grid;
-    grid-template: [start] "header" minmax(100px, auto) [row2] [row2] "content" 1fr [row3] [row3] "footer" minmax(100px, auto) [row-end] / 1fr;
+    //grid-template: [start] "header" minmax(100px, auto) [row2] [row2] "content" 1fr [row3] [row3] "footer" minmax(100px, auto) [row-end] / 1fr;
+    grid-template: [start] "header" minmax(100px, auto) [row2] [row2] "content" 1fr [row3] [row3] "handbook" minmax(500px, auto) [row4] [row4] "footer" minmax(100px, auto) [row-end] / 1fr;
 }
 
 .content {
