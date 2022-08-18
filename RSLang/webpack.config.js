@@ -10,6 +10,7 @@ const config = {
   devServer: {
     open: true,
     host: 'localhost',
+    watchFiles: ['src/*.html'],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -34,7 +35,7 @@ const config = {
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
-      },
+      },      
       {
         test: /\.ts$/,
         exclude: /node_modules/,
