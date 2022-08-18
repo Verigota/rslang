@@ -1,0 +1,19 @@
+/* base */
+@import './sass/base/normalize';
+
+/* components styles */
+@import './sass/components/menu';
+@import './sass/components/scope-card';
+@import './sass/components/member-card';
+@import './sass/components/section-title';
+
+/* pages */
+@import './sass/pages/main/main';
+
+/* layouts*/
+@import './sass/layout/header';
+@import './sass/layout/main/about';
+@import './sass/layout/main/scope';
+@import './sass/layout/main/team';
+@import './sass/layout/main/registartion';
+@import './sass/layout/footer';
