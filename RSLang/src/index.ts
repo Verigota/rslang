@@ -1,7 +1,7 @@
-import './style.scss';
 import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize.min';
-import App from './components/app';
+import './style.scss';
+import App from './app';
 
 const app = new App();
 app.start();
