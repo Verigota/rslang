@@ -1,0 +1,9 @@
+@mixin addFont ($font-family, $font-style, $font-weight, $font-size, $letter-spacing, $font_color, $line-height) {
+    font-family: $font-family;
+    font-style: $font-style;
+    font-weight: $font-weight;
+    font-size: $font-size;
+    letter-spacing: $letter-spacing;
+    color: $font_color;
+    line-height: $line-height;
+}
