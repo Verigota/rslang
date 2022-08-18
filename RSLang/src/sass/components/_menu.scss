@@ -1,0 +1,18 @@
+@import '../utils/variables';
+@import '../utils/mixines';
+
+.menu {
+    display: grid;
+    grid-auto-flow: column;
+    justify-items: center;
+    grid-column: 3 / 4;
+    
+    &__item-link {
+        text-decoration: none;
+        text-transform: uppercase;
+        @include addFont('Philosopher', normal, 600, 2rem, 0.06em, $text-light, 3rem);
+        &:hover {
+            background-color: $hover-dark;
+        }
+    }
+}
