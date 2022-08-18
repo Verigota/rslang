@@ -1,0 +1,27 @@
+.scope-card {
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    gap: 20px;
+    border: 1px solid #c0c0c0;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px $shadow-dark;
+
+    &__img {
+        width: 100px;
+        height: 100px;
+    }
+
+    &__title {
+        @include addFont('Philosopher', normal, 600, 3rem, 0.01em, $text-light, 3.5rem);
+        text-align: center
+    }
+
+    &__text {
+        @include addFont('Philosopher', normal, 400, 2rem, 0.01em, $text-light, 2.5rem);
+        text-align: justify;
+    }
+}
