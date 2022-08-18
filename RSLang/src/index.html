@@ -4,9 +4,183 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
     <title>RSLang</title>
 </head>
 <body>
-    
+    <div class="wrapper">
+       <header class="header">
+            <a href="#" class="header__logo">
+                <img src="./public/assets/icons/dictionary_logo.svg" alt="logo" class="header__logo-img">
+                <h1 class="header__title">RSlang</h1>
+            </a>
+            <nav class="header__menu">
+                <ul class="menu header__list">
+                    <li class="menu__item">
+                        <a href="" class="menu__item-link">Main</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="" class="menu__item-link">Handbook</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="" class="menu__item-link">Games</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="" class="menu__item-link">Score</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="" class="menu__item-link">Log In</a>
+                    </li>
+                </ul>
+                <div class="burger header__burger">
+                    <span></span>
+                </div>
+            </nav>
+        </header>
+        <main class="content">
+            <section class="about content__item">
+                <h2 class="section-title about__title">RSlang</h2>
+                <p class="about__text">С нашим приложением учить английский язык легко и увлекательно! Учите слова эффективно с нашим словарём, 
+                разделённым на уровни сложности. Играйте в мини-игры учите, запоминайте и закрепляйте знания. Следите за вашей статистикой и вдохновляётесь результатами!</p>
+                <div class="about__image-wrap">
+                    <img src="./public/assets/images/about.png" width="50" height="50" alt="" class="about__image">
+                </div>
+            </section>
+            <section class="scope content__item">
+                <h2 class="section-title scope__title">Преимущества нашего приложения</h2>
+                <p class="scope__text">Мы разработали для вас удобные средства для скореёшего изучения языка и быстрого закрепления результата.</p>
+                <div class="scope-card scope__item">
+                    <img class="scope-card__img" src="./public/assets/icons/games.svg" alt="games">
+                    <h3 class="scope-card__title">Игры</h3>
+                    <p class="scope-card__text">Для изучения слов и усиления запоминания в приложении есть игры: Sprint и Audio Challenge,
+                    которые помогут вам "прокачать" свой словарный запас в игровой форме.</p>
+                </div>
+                <div class="scope-card scope__item">
+                    <img class="scope-card__img" src="./public/assets/icons/dictionary.svg" alt="handbook">
+                    <h3 class="scope-card__title">Продуманный учебник</h3>
+                    <p class="scope-card__text">Наш учебник состоит из шести разделов, разделённых по уровням сложности. Словарь представляет собой интерактивные карточки, содержащие перевод
+                    слова, тематическое изображение, произношение как слова отдельно, так и в составе фразы.</p>
+                </div>
+                <div class="scope-card scope__item">
+                    <img class="scope-card__img" src="./public/assets/icons/statistics.svg" alt="statistics">
+                    <h3 class="scope-card__title">Статистика</h3>
+                    <p class="scope-card__text">Весь ход обучения можно просмотреть в статистике, в которой представлены данные как за текущий день, так и за весь период
+                    обучения. Для вашего удобства информация представляется в виде таблицы или в виде графиков.</p>
+                </div>
+                <div class="scope-card scope__item">
+                    <img class="scope-card__img" src="./public/assets/icons/ui.svg" alt="interface">
+                    <h3 class="scope-card__title">Удобный интерфейс</h3>
+                    <p class="scope-card__text">Интерфейс приложения подстраивается под ваш уровень языка для облегчения процесса обучения.</p>
+                </div>
+            </section>
+            <section class="team content__item">
+                <h2 class="section-title team__title">Наша команда</h2>
+                <div class="member-card team__item">
+                    <img src="./public/assets/icons/avatar-2.svg" alt="memeber photo" class="member-card__photo">
+                    <p class="member-card__role">Team leader</p>
+                    <p class="member-card__name">Татьяна</p>
+                    <p class="member-card__contribution">Разнообразный и богатый опыт постоянное информационно-пропогандистское обеспечение нашей деятельности играет важную роль в формировании системы массового участия. Для современного мира управление и развитие структуры способствует повышению качества модели развития. </p>
+                    <a href="#" class="member-card__github">
+                        <img class="member-card__github-img" src="./public/assets/icons/github.svg" alt="github">
+                        <span class="member-card__github-nickname">Github nick</span>
+                    </a>
+                </div>
+                <div class="member-card team__item">
+                    <img src="./public/assets/icons/avatar-1.svg" alt="memeber photo" class="member-card__photo">
+                    <p class="member-card__role">Developer</p>
+                    <p class="member-card__name">Артур</p>
+                    <p class="member-card__contribution">Задача организации, в особенности же постоянный количественный рост и сфера нашей активности играет важную роль в формировании дальнейших направлений развития. Таким образом социально-экономическое развитие требует анализа системы массового участия.</p>
+                    <a href="#" class="member-card__github">
+                        <img class="member-card__github-img" src="./public/assets/icons/github.svg" alt="github">
+                        <span class="member-card__github-nickname">Github nick</span>
+                    </a>
+                </div>
+                <div class="member-card team__item">
+                    <img src="./public/assets/icons/avatar-3.svg" alt="memeber photo" class="member-card__photo">
+                    <p class="member-card__role">Developer</p>
+                    <p class="member-card__name">Евгений</p>
+                    <p class="member-card__contribution">Таким образом дальнейшее развитие различных форм деятельности напрямую зависит от поэтапного и последовательного развития общества. Не вызывает сомнений, что рамки и место обучения кадров способствует повышению качества укрепления демократической системы.</p>
+                    <a href="#" class="member-card__github">
+                        <img class="member-card__github-img" src="./public/assets/icons/github.svg" alt="github">
+                        <span class="member-card__github-nickname">Github nick</span>
+                    </a>
+                </div>
+                <div class="member-card team__item">
+                    <img src="./public/assets/icons/avatar-4.svg" alt="memeber photo" class="member-card__photo">
+                    <p class="member-card__role">Mentor</p>
+                    <p class="member-card__name">Дмитрий</p>
+                    <p class="member-card__contribution">Задача организации, в особенности же дальнейшее развитие различных форм деятельности требует от нас анализа укрепления демократической системы. Не вызывает сомнений, что новая модель организационной деятельности позволяет выполнять важные задания по разработке поэтапного и последовательного развития общества. </p>
+                    <a href="#" class="member-card__github">
+                        <img class="member-card__github-img" src="./public/assets/icons/github.svg" alt="github">
+                        <span class="member-card__github-nickname">Github nick</span>
+                    </a>
+                </div>
+            </section>
+            <section class="registration content__item">
+                <h2 class="section-title registration__title">Регистрация</h2>
+                <p class="registration__text">Пройдите простую регистрацию. Она позволяет выбирать уровень сложности для изучения и игр, а также отслеживать Ваш прогресс за длительный период времени.</p>
+                <a href="#" class="registration__link">
+                    <button class="registration__regbtn">Зарегистрироваться!</button>
+                </a> 
+            </section>
+        </main>
+        <footer class="footer">
+            <a class="footer__githublink" href="https://github.com/Verigota/rslang" target="_blank">
+                <img class="footer__githubimg" width="70" height="70" src="./public/assets/icons/github.svg" alt="github">
+            </a>
+            <p class="footer__copyrights">©2022</p>
+            <a class="footer__rsschoollink" href="https://rs.school/js/" target="_blank">
+                <img class="footer__githubimg" width="150" height="50" src="./public/assets/icons/rs_school_js.svg" alt="rsschool">
+            </a>
+        </footer>
+    </div>
 </body>
 </html>
+<!--
+
+    <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="#" class="brand-logo">Logo</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+-->
+
+<!--
+        <header class="header nav-wrapper">
+            <nav class="header__nav light-blue lighten-1" role="navigation">
+                <div class="nav-wrapper container">
+                    <a id="logo-container" href="#" class="header__logo brand-logo">
+                        <i class="header__logo-icon large material-icons">cloud</i>
+                        RSlang project
+                    </a>
+                    <ul class="right hide-on-med-and-down">
+                        <li class="active"><a href="#">Main</a></li>
+                        <li><a href="#">Handbook</a></li>
+                        <li>
+                            <a class="dropdown-trigger" href="#!" data-target="dropdown1">Score
+                                <i class="material-icons right"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">Log in</a></li>
+                    </ul>
+        
+                    <ul id="nav-mobile" class="sidenav">
+                        <li><a href="#">Main</a></li>
+                        <li><a href="#">Handbook</a></li>
+                        <li><a href="#">Score</a></li>
+                        <li><a href="#">Log in</a></li>
+                    </ul>
+                    <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                </div>
+            </nav>
+        </header>
+
+-->
