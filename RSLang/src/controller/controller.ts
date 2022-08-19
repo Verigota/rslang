@@ -7,7 +7,8 @@ export default class Controller {
     this.wordsAPI = new WordsAPI();
   }
 
-  async test() {
-    console.log(await this.wordsAPI.getChunkOfWords(0, 0));
+  async cardHandler(group: number, page: number) {
+    const res = await this.wordsAPI.getChunkOfWords(group, page);
+    return res;
   }
 }

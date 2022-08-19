@@ -1,14 +1,14 @@
-import Textbook from './textbook/textbook';
+import Handbook from './handbook/handbook';
 import Iview from './Iview';
 
 export default class View implements Iview {
-  private textbook: Textbook;
+  private textbook: Handbook;
 
   constructor() {
-    this.textbook = new Textbook();
+    this.textbook = new Handbook();
   }
 
   renderView() {
-    this.textbook.renderTextBook();
+    this.textbook.renderHandbook();
   }
 }

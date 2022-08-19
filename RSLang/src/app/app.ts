@@ -2,6 +2,9 @@ import Controller from '../controller/controller';
 import View from '../view/view';
 import AppI from './appI';
 
+enum AppValues {
+  startPage,
+}
 export default class App implements AppI {
   private view: View;
 
@@ -14,6 +17,8 @@ export default class App implements AppI {
 
   startApp() {
     this.view.renderView();
-    this.controller.test();
+
+    const levelCards = document.querySelectorAll('#handbook__level-card');
+    levelCards.forEach((card, index) => card.addEventListener('click', async () => { console.log(await this.controller.cardHandler(index, AppValues.startPage)); }));
   }
 }
