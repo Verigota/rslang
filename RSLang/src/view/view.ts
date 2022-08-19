@@ -1,3 +1,4 @@
+import { WordsDataT } from '../types/types';
 import Handbook from './handbook/handbook';
 import Iview from './Iview';
 
@@ -8,7 +9,7 @@ export default class View implements Iview {
     this.textbook = new Handbook();
   }
 
-  renderView() {
-    this.textbook.renderHandbook();
+  renderHandbookView(wordData: WordsDataT) {
+    this.textbook.renderHandbook(wordData);
   }
 }

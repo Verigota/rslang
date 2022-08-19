@@ -1,3 +1,5 @@
+import { WordsDataT } from '../../types/types';
+
 export default interface IHandbook {
-  renderHandbook(): void;
+  renderHandbook(wordsData: WordsDataT): void;
 }
