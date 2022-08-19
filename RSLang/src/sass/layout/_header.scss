@@ -1,0 +1,27 @@
+
+@import '../base/fonts';
+@import '../utils/mixines';
+@import '../utils/variables';
+
+.header {
+    grid-area: header;
+    background-color: $background-dark;
+    display: grid;
+    align-items: center;
+    grid-template: 1fr / 1fr 20% 70% 1fr;
+
+    &__logo-img {
+        width: 70px;
+        height: 70px;
+        padding: 5px;
+    }
+
+    &__logo {
+        display: grid;
+        grid-template: 1fr / 60px 1fr;
+        align-items: center;
+        grid-column: 2 / 3;
+        @include addFont('Philosopher', normal, 600, 2rem, 0.06em, $text-light, 1rem);
+        gap: 10px;
+    }
+}

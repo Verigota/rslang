@@ -1,0 +1,3 @@
+.section-title {
+    @include addFont('Philosopher', normal, 600, 5rem, 0.01em, $text-dark, 5rem);
+}

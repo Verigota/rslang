@@ -1,0 +1,39 @@
+@import '../utils/variables';
+
+.pagination {
+    width: 450px;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    display: grid;
+    grid-template: 50px / repeat(9, 50px);
+    gap: 2px;
+    justify-self: center;
+    padding: 30px 0px;
+    &__link {
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid $background-gray;
+        border-radius: 7px;
+        transition: .2s all;
+        @include addFont('Philosopher', normal, 400, 1.5rem, 0.01em, $text-dark, 2.2rem);
+        
+        &:hover {
+            box-shadow: 2px 2px 5px $shadow-dark;
+            transform: translateY(1px);
+            transition: .1s all;
+        }
+
+        &.selected {
+            background-color: $background-selected;
+            font-weight: 600;
+        }
+    }
+
+    &.bottom {
+        grid-row: 4/5;
+    }
+}

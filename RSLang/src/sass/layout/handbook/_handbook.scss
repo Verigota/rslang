@@ -1,0 +1,10 @@
+.handbook {
+    padding: 50px 10px;
+    align-items: center;
+    grid-area: handbook;
+    display: grid;
+    grid-template: auto auto auto / 1fr $grid-container-width 1fr;
+    background-color: $background-light;
+    gap: 10px;
+}
+

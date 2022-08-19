@@ -1,0 +1,25 @@
+/* base */
+@import './sass/base/normalize';
+
+/* components styles */
+@import './sass/components/menu';
+@import './sass/components/scope-card';
+@import './sass/components/member-card';
+@import './sass/components/section-title';
+@import './sass/components/word';
+@import './sass/components/gamespanel';
+@import './sass/components/pagination';
+@import './sass/components/word';
+
+/* pages */
+@import './sass/pages/main/main';
+
+/* layouts*/
+@import './sass/layout/header';
+@import './sass/layout/main/about';
+@import './sass/layout/main/scope';
+@import './sass/layout/main/team';
+@import './sass/layout/main/registartion';
+@import './sass/layout/footer';
+@import './sass/layout/handbook/handbook';
+@import './sass/layout/handbook/dictionary';
