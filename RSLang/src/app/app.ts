@@ -1,6 +1,6 @@
 import WordsAPI from '../APIs/wordsApi/wordsApi';
 import Controller from '../controller/controller';
-import { WordsDataT } from '../types/types';
+import { WordDataT, WordsDataT } from '../types/types';
 import View from '../view/view';
 import AppI from './appI';
 
@@ -29,13 +29,22 @@ export default class App implements AppI {
       (await this.wordsAPI.getChunkOfWords(AppValues.startGroup, AppValues.startPage)).data;
 
       this.view.renderHandbookView(wordsData);
+      this.view.renderHandbookInformationCardView(wordsData[0], this.controller);
 
-      const levelCards = document.querySelectorAll('#handbook__level-card');
-      levelCards.forEach((card, index) => card.addEventListener('click', async () => { console.log(await this.controller.cardHandler(index, AppValues.startPage)); }));
+      const levelCards = document.querySelectorAll('.handbook__level-card');
+      levelCards.forEach((card, index) => {
+        card.addEventListener('click', async () => { console.log(await this.controller.cardHandler(index, AppValues.startPage)); });
+      });
 
-      const wordCards = document.querySelectorAll('.handbook__word-card');
+      const wordCards = <NodeListOf<HTMLDivElement>>document.querySelectorAll('.handbook__word-card');
 
-      wordCards.forEach((wordCard) => wordCard.addEventListener('click', (e) => console.log(e.target)));
+      wordCards.forEach((wordCard) => wordCard.addEventListener('click', async () => {
+        const id = <string>wordCard.dataset.wordCardId;
+        this.view.renderHandbookInformationCardView(
+          <WordDataT>(await this.wordsAPI.getWordWithAssetsById(id)).data,
+          this.controller,
+        );
+      }));
     });
   }
 }

@@ -1,7 +1,8 @@
 import { WordsDataT } from '../../../types/types';
-import getNewElement from '../templatesForElements/templateForCreatingNewElement';
+import { getNewElement } from '../templatesForElements/templateForCreatingNewElement';
+import IwordCards from './IwordCards';
 
-export default class WordCards {
+export default class WordCards implements IwordCards {
   private wordsSelector: '#handbook__word-cards';
 
   constructor() {

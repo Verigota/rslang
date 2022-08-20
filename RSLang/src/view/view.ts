@@ -1,15 +1,24 @@
-import { WordsDataT } from '../types/types';
+import Controller from '../controller/controller';
+import { WordDataT, WordsDataT } from '../types/types';
 import Handbook from './handbook/handbook';
+import WordCardInfo from './handbook/wordCardInfo/wordCardInfo';
 import Iview from './Iview';
 
 export default class View implements Iview {
-  private textbook: Handbook;
+  private handbook: Handbook;
+
+  private wordCardInfo: WordCardInfo;
 
   constructor() {
-    this.textbook = new Handbook();
+    this.handbook = new Handbook();
+    this.wordCardInfo = new WordCardInfo();
   }
 
-  renderHandbookView(wordData: WordsDataT) {
-    this.textbook.renderHandbook(wordData);
+  renderHandbookView(wordsData: WordsDataT) {
+    this.handbook.renderHandbook(wordsData);
+  }
+
+  renderHandbookInformationCardView(wordData: WordDataT, controller: Controller) {
+    this.wordCardInfo.renderWordCardInfo(wordData, controller);
   }
 }

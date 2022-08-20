@@ -1,6 +1,7 @@
-import getNewElement from '../templatesForElements/templateForCreatingNewElement';
+import { getNewElement } from '../templatesForElements/templateForCreatingNewElement';
+import IlevelCards from './IlevelCards';
 
-export default class LevelCards {
+export default class LevelCards implements IlevelCards {
   private levelsSelector: '#handbook__levels';
 
   private levelCardsContent: string[];

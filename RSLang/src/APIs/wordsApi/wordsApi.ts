@@ -15,7 +15,7 @@ export default class WordsAPI extends APIRequestsTemplate implements IwordsAPI {
     return super.getData(`${this.wordsPath}?group=${group}&page=${page}`);
   }
 
-  async getWordWithAssetsById<T, K>(wordId: number):
+  async getWordWithAssetsById<T, K>(wordId: string):
   Promise<AxiosResponse<T, K>> {
     return super.getData(`${this.wordsPath}/${wordId}`);
   }

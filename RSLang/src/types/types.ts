@@ -1,4 +1,6 @@
-export type WordsDataT = {
+export type WordsDataT = WordDataT[];
+
+export type WordDataT = {
   id: string,
   group: number,
   page: number,
@@ -13,4 +15,4 @@ export type WordsDataT = {
   wordTranslate: string,
   textMeaningTranslate: string,
   textExampleTranslate: string,
-}[];
+};

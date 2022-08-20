@@ -1,5 +1,5 @@
-import { WordsDataT } from '../types/types';
+import { WordDataT, WordsDataT } from '../types/types';
 
 export default interface Iview {
-  renderHandbookView(wordsData: WordsDataT): void
+  renderHandbookView(wordsData: WordsDataT, wordData: WordDataT): void
 }

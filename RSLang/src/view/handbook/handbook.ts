@@ -1,6 +1,6 @@
 import { WordsDataT } from '../../types/types';
 import IHandbook from './Ihandbook';
-import LevelCards from './levelCard/levelCards';
+import LevelCards from './levelCards/levelCards';
 import WordCards from './wordCards/wordCards';
 
 export default class Handbook implements IHandbook {
@@ -19,7 +19,10 @@ export default class Handbook implements IHandbook {
       </div>
       <div id="handbook__words" class="handbook__words">
         <h4>Слова</h4>
-        <div id="handbook__word-cards" class="handbook__word-cards"></div>
+        <div id="handbook__word-cards" class="handbook__word-cards">
+        </div>
+        <div id="handbook__word-card-info" class="handbook__word-card-info word-card-info">
+        </div>
       </div>
     </div>`;
     this.levelCards = new LevelCards();
