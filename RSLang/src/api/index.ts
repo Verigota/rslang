@@ -1,5 +1,7 @@
-import axios, { AxiosInstance } from 'axios';
-import { IApi, IUserInfo, IUserSingIn } from './interfaces';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import {
+  IApi, IRefreshTokenResponse, ISingInResponse, IUserInfo, IUserSingIn,
+} from './interfaces';
 
 export class Api implements IApi {
   apiClient: AxiosInstance;
@@ -15,12 +17,15 @@ export class Api implements IApi {
     return resp;
   }
 
-  public async singIn(userInfo: IUserSingIn) {
-    const resp = await this.apiClient.post('/singin', userInfo);
+  public async signIn(userInfo: IUserSingIn): Promise<AxiosResponse<ISingInResponse>> {
+    const resp = await this.apiClient.post('/signin', userInfo);
     return resp;
   }
 
-  public async refreshTokens(userId: string, refreshToken: string) {
+  public async refreshTokens(
+    userId: string,
+    refreshToken: string,
+  ): Promise<AxiosResponse<IRefreshTokenResponse>> {
     const resp = await this.apiClient.post(`/users/${userId}/tokens`, {
       headers: {
         Authorization: `Bearer ${refreshToken}`,

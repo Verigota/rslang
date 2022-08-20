@@ -31,7 +31,7 @@ export interface IUserSingIn {
 }
 export interface IApi {
   createUser: (userRegistration: IUserInfo) => Promise<AxiosResponse<IUserCreateResponse>>,
-  singIn: (userInfo: IUserSingIn) => Promise<AxiosResponse<ISingInResponse>>,
+  signIn: (userInfo: IUserSingIn) => Promise<AxiosResponse<ISingInResponse>>,
   refreshTokens: (
     userId: string,
     refreshToken: string,
