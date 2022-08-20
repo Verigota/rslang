@@ -1,0 +1,43 @@
+.member-card {
+    height: 100%;
+    border: 1px solid $border-color-light;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 30px 20px;
+    box-shadow: 1px 1px 5px $shadow-dark;
+
+    &__photo {
+        width: 150px;
+        height: 150px;
+    }
+
+    &__role {
+        @include addFont('Philosopher', normal, 600, 2rem, 0.01em, $text-dark, 2.5rem);
+    }
+
+    &__name {
+        @include addFont('Philosopher', normal, 600, 1.5rem, 0.01em, $text-dark, 2rem);
+    }
+
+    &__contribution {
+        @include addFont('Philosopher', normal, 400, 1.7rem, 0.01em, $text-dark, 2rem);
+        flex: 1 1 auto;
+        text-align: justify;
+    }
+
+    &__github {
+        @include addFont('Philosopher', normal, 600, 1.5rem, 0.01em, $text-dark, 2rem);
+    }
+
+    &__github-img {
+        width: 30px;
+        height: 30px;
+    }
+    
+    &__github-nickname {
+        @include addFont('Philosopher', normal, 600, 1.5rem, 0.01em, $text-dark, 2rem);
+    }
+}

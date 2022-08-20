@@ -1,0 +1,46 @@
+.registration {
+    padding: 50px 10px;
+    display: grid;
+    align-items: center;
+    grid-column: 2/3;
+    grid-row: 5/6;
+    display: grid;
+    grid-template: 1fr 1fr 1fr / 1fr $grid-container-width 1fr;
+    background-color: $background-dark;
+    gap: 30px;
+
+    &__title {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+        text-align: center;
+        color: $text-light;
+    }
+
+    &__text {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+        text-align: justify;
+        @include addFont('Philosopher', normal, 600, 3rem, 0.01em, $text-light, 4rem);
+    }
+
+    &__link {
+        display: flex;
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
+        justify-content: center;
+    }
+
+    &__regbtn {
+        width: 40%;
+        height: 70px;
+        background-color: $background-light;
+        border-radius: 5px;
+        box-shadow: 3px 3px 7px $shadow-dark;
+        transition: .2s all ease;
+        @include addFont('Philosopher', normal, 600, 3rem, 0.01em, $text-dark, 4rem);
+        &:hover {
+            transform: translateY(2px);
+            transition: .2s all ease;
+        }
+    }
+}

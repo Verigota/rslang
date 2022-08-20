@@ -1,0 +1,35 @@
+@import '../utils/variables';
+
+.footer {
+    grid-area: footer;
+    display: grid;
+    align-items: center;
+
+    grid-template: 1fr / 1fr minmax(auto, 480px) minmax(auto, 480px) minmax(auto, 480px) 1fr;
+    background-color: $background-light;
+
+    &__githublink {
+        grid-column: 2 / 3;
+        justify-self: center;
+        width: 70px;
+        height: 70px;
+    }
+
+    &__copyrights {
+        grid-column: 3 / 4;
+        justify-self: center;
+        font-size: 14px;
+        color: $border-color-dark;
+        @include addFont('Philosopher', normal, 600, 2rem, 0.06em, $text-dark, 1rem);
+        transition: all .5s;
+    }
+
+    &__rsschoollink {
+        grid-column: 4 / 5;
+        justify-self: center;
+        width: 150px;
+        height: 50px;
+        transition: all 1s;
+        background-repeat: no-repeat;
+    }
+}
