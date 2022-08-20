@@ -10,6 +10,7 @@
 @import './sass/components/gamespanel';
 @import './sass/components/pagination';
 @import './sass/components/word';
+@import './sass/components/registration-modal';
 
 /* pages */
 @import './sass/pages/main/main';
@@ -23,3 +24,5 @@
 @import './sass/layout/footer';
 @import './sass/layout/handbook/handbook';
 @import './sass/layout/handbook/dictionary';
+@import './sass/layout/modal';
+@import './sass/layout/blackout';

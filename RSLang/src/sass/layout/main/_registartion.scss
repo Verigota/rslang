@@ -31,7 +31,8 @@
     }
 
     &__regbtn {
-        width: 40%;
+        width: fit-content;
+        padding: 0 1rem;
         height: 70px;
         background-color: $background-light;
         border-radius: 5px;

@@ -30,7 +30,6 @@
     "start": "webpack serve"
   },
   "dependencies": {
-    "axios": "^0.27.2",
-    "materialize-css": "^1.0.0-rc.2"
+    "axios": "^0.27.2"
   }
 }
