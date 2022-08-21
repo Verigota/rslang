@@ -27,7 +27,7 @@ export interface IRefreshTokenResponse {
   token: string,
   refreshToken: string,
 }
-export interface IUserSingIn {
+export interface IUserSingIn extends Indexed {
   email: string,
   password: string,
 }

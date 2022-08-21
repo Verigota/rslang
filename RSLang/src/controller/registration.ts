@@ -1,9 +1,9 @@
-import { Api, herokuApi } from '../api';
-import { IUserInfo } from '../api/interfaces';
+import { herokuApi } from '../api';
+import { IApi, IUserInfo } from '../api/interfaces';
 import { IRegistrationController } from './interfaces';
 
 class RegistrationController implements IRegistrationController {
-  api: Api;
+  api: IApi;
 
   constructor() {
     this.api = herokuApi;
