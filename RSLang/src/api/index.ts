@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import authStorage from '../controller/auth-storage';
 import {
   IApi, IRefreshTokenResponse, ISingInResponse, IUserInfo, IUserSingIn,
 } from './interfaces';
@@ -9,6 +10,14 @@ export class Api implements IApi {
   constructor(baseUrl: string) {
     this.apiClient = axios.create({
       baseURL: baseUrl,
+    });
+    this.apiClient.interceptors.request.use((config) => {
+      const token = authStorage.get()?.token;
+      if (config?.headers && token && !config.headers.Authorization) {
+        const { headers } = config;
+        headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
     });
   }
 
