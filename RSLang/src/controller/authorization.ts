@@ -1,34 +1,40 @@
-import { Api, herokuApi } from '../api';
-import { IUserSingIn } from '../api/interfaces';
+import { IApi, IAuthInfo, IUserSingIn } from '../api/interfaces';
+import authStorage from './auth-storage';
+import { IAuthManager, IAuthStorage } from './interfaces';
 
-export class AuthManager {
-  api: Api;
+class AuthManager implements IAuthManager {
+  api: IApi;
 
-  constructor() {
-    this.api = herokuApi;
+  authStore: IAuthStorage;
+
+  constructor(api: IApi, authStore: IAuthStorage) {
+    this.api = api;
+    this.authStore = authStore;
   }
 
   async authorizeUser(userInfo: IUserSingIn) {
     const resp = await this.api.signIn(userInfo);
-    const info = {
+    const info: IAuthInfo = {
       userId: resp.data.userId,
-      userName: resp.data.name,
-      userToken: resp.data.token,
-      userRefreshToken: resp.data.refreshToken,
+      name: resp.data.name,
+      token: resp.data.token,
+      refreshToken: resp.data.refreshToken,
     };
-    localStorage.setItem('user', JSON.stringify(info));
+    this.authStore.set(info);
   }
 
   async getNewToken() {
-    const data = localStorage.getItem('user');
-    const user = JSON.parse(data as string);
-    const resp = await this.api.refreshTokens(user.userId, user.refreshToken);
-    user.token = resp.data.token;
-    user.refreshToken = resp.data.refreshToken;
-    localStorage.setItem('user', JSON.stringify(user));
+    const user = authStorage.get();
+    if (user) {
+      const resp = await this.api.refreshTokens(user.userId, user.refreshToken);
+      user.token = resp.data.token;
+      user.refreshToken = resp.data.refreshToken;
+      this.authStore.set(user);
+    }
+  }
+
+  logOutUser() {
+    this.authStore.remove();
   }
 }
-
-export function logOutUser():void {
-  localStorage.removeItem('user');
-}
+export default AuthManager;

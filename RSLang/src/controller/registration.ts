@@ -1,6 +1,6 @@
 import { Api, herokuApi } from '../api';
 import { IUserInfo } from '../api/interfaces';
-import IRegistrationController from './interfaces';
+import { IRegistrationController } from './interfaces';
 
 class RegistrationController implements IRegistrationController {
   api: Api;

@@ -21,6 +21,8 @@ export interface ISingInResponse {
   userId: string,
   name: string,
 }
+
+export type IAuthInfo = Pick<ISingInResponse, 'token' | 'refreshToken' | 'userId' | 'name' >;
 export interface IRefreshTokenResponse {
   token: string,
   refreshToken: string,
