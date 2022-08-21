@@ -1,0 +1,8 @@
+@import '../utils/variables';
+
+.modal {
+    background-color: $background-light;
+    .modal__form {
+        background-color: $background-light;
+    }
+}
