@@ -19,16 +19,16 @@
             <nav class="header__menu">
                 <ul class="menu header__list">
                     <li class="menu__item">
-                        <a href="" class="menu__item-link">Главная</a>
+                        <a id="main-page" href="#" class="menu__item-link">Главная</a>
                     </li>
                     <li class="menu__item">
-                        <a href="" class="menu__item-link">Учебник</a>
+                        <a id="handbook-page" href="#" class="menu__item-link">Учебник</a>
                     </li>
                     <li class="menu__item">
-                        <a href="" class="menu__item-link">Игры</a>
+                        <a id="games-page" href="#" class="menu__item-link">Игры</a>
                     </li>
-                    <li class="menu__item">
-                        <a href="" class="menu__item-link">Статистика</a>
+                    <li  class="menu__item">
+                        <a id="stat-page" href="#" class="menu__item-link">Статистика</a>
                     </li>
                     <li class="menu__item">
                         <button class="registration__regbtn" id="singin-btn">Войти</button>
@@ -40,20 +40,69 @@
             </nav>
         </header>
 
-        <main class="content">
-            <div class="modal content__item modal_hidden" id="registration-modal">
-                <button></button>
-                <h3 class="modal__title section-title">Регистрация</h3>
-                <form class="modal__form registration-form" id="create-user-form">
-                    <input type="text" placeholder="Имя" name='name' class="form-input" required>
-                    <input type="email" placeholder="E-mail" name='email' class="form-input" required>
-                    <input type="password" placeholder="Пароль" name='password' class="form-input" required>
-                    <input type="password" placeholder="Подтвердите пароль" name='confirmPassword' class="form-input" required>
-                    <button type="submit" id="register-user-btn" class="registration__regbtn">Зарегистрироваться</button>
-                </form>
-            </div>
-            <section class="about content__item">
-                <h2 class="section-title about__title">RSlang</h2>
+        <main class="content main">
+            <section class="audio-game content__item">
+                <div class="audio-game__about">
+                    <h2 class="audio-game__title">Аудиовызов</h2>
+                    <p class="audio-game__desc">Тренировка Аудиовызов улучшает восприятие речи на слух.</p>
+                </div>
+                <div class="audio-game__help">
+                    <p class="audio-game__help-item">Чтобы играть с помощью клавиатуры, используйте клавиши:</p>
+                    <p class="audio-game__help-item">1, 2, 3, 4, 5 - чтобы дать ответ,</p>
+                    <p class="audio-game__help-item">space - для воспроизведения звука,</p>
+                    <p class="audio-game__help-item">enter - чтобы пропустить вопрос,</p>
+                    <p class="audio-game__help-item">стрелка-вправо - чтобы перейти к следующему вопросу.</p>
+                </div>
+            </section>
+
+            <section class="choice-panel content__item">
+                <div class="choice">
+                    <h2 class="choice__title">Мини игры</h2>
+                    <div class="choice__wrap sprint">
+                        <h3 class="choice__name">Спринт</h3>
+                        <img src="./public/assets/images/sprint.png" width="40" height="40" alt="" class="choice__img">
+                        <button class="choice__btn" id="audio-game">
+                            <img src="./public/assets/icons/play.svg" width="30" height="30" alt="">
+                        </button>
+                    </div>
+                    <div class="choice__wrap audio">
+                        <h3 class="choice__name">Аудиовызов</h3>
+                        <img src="./public/assets/images/audio.png" width="40" height="40" alt="" class="choice__img">
+                        <button class="choice__btn" id="sprint-game">
+                            <img src="./public/assets/icons/play.svg" width="30" height="30" alt="">
+                        </button>
+                    </div>
+                    <div class="choice__levels">
+                        <a id="A1" href="#" class="choice__level">A1</a>
+                        <a id="A2" href="#" class="choice__level">A2</a>
+                        <a id="B1" href="#" class="choice__level">B1</a>
+                        <a id="B2" href="#" class="choice__level">B2</a>
+                        <a id="C1" href="#" class="choice__level">C1</a>
+                        <a id="C2" href="#" class="choice__level">C2</a>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+        
+        <footer class="footer">
+            <a class="footer__githublink" href="https://github.com/Verigota/rslang" target="_blank">
+                <img class="footer__githubimg" width="70" height="70" src="./public/assets/icons/github.svg"
+                    alt="github">
+            </a>
+            <p class="footer__copyrights">©2022</p>
+            <a class="footer__rsschoollink" href="https://rs.school/js/" target="_blank">
+                <img class="footer__githubimg" width="150" height="50" src="./public/assets/icons/rs_school_js.svg"
+                    alt="rsschool">
+            </a>
+        </footer>
+    </div>
+</body>
+
+</html>
+
+<!--<section class="about content__item">
+                <h2 class="section-title about__title">RSlang111111111111111111</h2>
                 <p class="about__text">С нашим приложением учить английский язык легко и увлекательно! Учите слова
                     эффективно с нашим словарём,
                     разделённым на уровни сложности. Играйте в мини-игры учите, запоминайте и закрепляйте знания.
@@ -155,488 +204,186 @@
                 <a href="#" class="registration__link">
                     <button class="registration__regbtn">Поехали!</button>
                 </a>
-            </section>
-        </main>
-        <div class="handbook">
-            <section class="game-panel handbook__item">
-                <a href="#" class="game-panel__link">Аудиовызов</a>
-                <a href="#" class="game-panel__link">Спринт</a>
-            </section>
-            <section class="pagination handbook__item">
-                <a id="prev" href="#" class="pagination__link">
-                    <img src="./public/assets/icons/arrow-left.svg" width="20" height="20" alt="prev">
-                </a>
-                <a id="first" href="#" class="pagination__link selected">1</a>
-                <a id="page1" href="#" class="pagination__link">2</a>
-                <a id="page2" href="#" class="pagination__link">3</a>
-                <a id="page3" href="#" class="pagination__link">4</a>
-                <a id="page4" href="#" class="pagination__link">5</a>
-                <a id="page5" href="#" class="pagination__link">6</a>
-                <a id="last" href="#" class="pagination__link">30</a>
-                <a id="next" href="#" class="pagination__link">
-                    <img src="./public/assets/icons/arrow-right.svg" width="20" height="20" alt="prev">
-                </a>
-            </section>
-            <section class="dictionary handbook__item">
-                <div class="dictionary__words">
-                    <div class="word dictionary__words-item">
-                        <div class="word__wrap">
-                            <h4 class="word__word-full">
-                                <span class="word__word">appropriate</span>
-                                <span class="word__transcription">[əpróuprièit]</span>
-                            </h4>
-                            <a href="#" class="word__play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
+            </section>-->
 
-                            <p class="word__translation">подходящее</p>
-                        </div>
-                        <div class="word__image-wrap">
-                            <img src="./public/assets/words/04_0061.jpg" alt="word">
-                        </div>
-                        <div class="word__examples">
-                            <p class="word__example">When a thing is appropriate, it is right or normal.</p>
-                            <a href="#" class="word__example-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
-                            <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
-                            <a href="#" class="word__mean-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
-                        </div>
-                    </div>
-                    <div class="word known-word dictionary__words-item">
-                        <div class="word__wrap">
-                            <h4 class="word__word-full">
-                                <span class="word__word">appropriate</span>
-                                <span class="word__transcription">[əpróuprièit]</span>
-                            </h4>
-                            <a href="#" class="word__play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
+            <!--
+                                    <section class="games content__item">
+                                        <div class="game-panel">
+                                            <a href="#" class="game-panel__link">Аудиовызов</a>
+                                            <a href="#" class="game-panel__link">Спринт</a>
+                                        </div>
+                                    </section>
+                                    <section class="pagination-panel top content__item">
+                                        <div class="pagination">
+                                            <a id="prev" href="#" class="pagination__link">
+                                            <img src="./public/assets/icons/arrow-left.svg" width="20" height="20" alt="prev">
+                                            </a>
+                                            <a id="first" href="#" class="pagination__link">1</a>
+                                            <a id="page1" href="#" class="pagination__link">2</a>
+                                            <a id="page2" href="#" class="pagination__link">3</a>
+                                            <a id="page3" href="#" class="pagination__link">4</a>
+                                            <a id="page4" href="#" class="pagination__link">5</a>
+                                            <a id="page5" href="#" class="pagination__link">6</a>
+                                            <a id="last" href="#" class="pagination__link">30</a>
+                                            <a id="next" href="#" class="pagination__link">
+                                                <img src="./public/assets/icons/arrow-right.svg" width="20" height="20" alt="prev">
+                                            </a>
+                                        </div>
+                                    </section>
+                                    <section class="dictionary-panel content__item">
+                                        <div class="dictionary">
+                                            <div class="dictionary__words">
+                                                <div class="word dictionary__words-item">
+                                                    <div class="word__wrap">
+                                                        <h4 class="word__word-full">
+                                                            <span class="word__word">appropriate</span>
+                                                            <span class="word__transcription">[əpróuprièit]</span>
+                                                        </h4>
+                                                        <a href="#" class="word__play play-btn">
+                                                            <img src="./public/assets/icons/play.svg" alt="play">
+                                                        </a>
+                                            
+                                                        <p class="word__translation">подходящее</p>
+                                                    </div>
+                                                    <div class="word__image-wrap">
+                                                        <img src="./public/assets/words/04_0061.jpg" alt="word">
+                                                    </div>
+                                                    <div class="word__examples">
+                                                        <p class="word__example">When a thing is appropriate, it is right or normal.</p>
+                                                        <a href="#" class="word__example-play play-btn">
+                                                            <img src="./public/assets/icons/play.svg" alt="play">
+                                                        </a>
+                                                        <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
+                                                        <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
+                                                        <a href="#" class="word__mean-play play-btn">
+                                                            <img src="./public/assets/icons/play.svg" alt="play">
+                                                        </a>
+                                                        <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
+                                                    </div>
+                                                </div>
+                                                <div class="word dictionary__words-item">
+                                                    <div class="word__wrap">
+                                                        <h4 class="word__word-full">
+                                                            <span class="word__word">appropriate</span>
+                                                            <span class="word__transcription">[əpróuprièit]</span>
+                                                        </h4>
+                                                        <a href="#" class="word__play play-btn">
+                                                            <img src="./public/assets/icons/play.svg" alt="play">
+                                                        </a>
+                                            
+                                                        <p class="word__translation">подходящее</p>
+                                                    </div>
+                                                    <div class="word__image-wrap">
+                                                        <img src="./public/assets/words/04_0061.jpg" alt="word">
+                                                    </div>
+                                                    <div class="word__examples">
+                                                        <p class="word__example">When a thing is appropriate, it is right or normal.</p>
+                                                        <a href="#" class="word__example-play play-btn">
+                                                            <img src="./public/assets/icons/play.svg" alt="play">
+                                                        </a>
+                                                        <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
+                                                        <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
+                                                        <a href="#" class="word__mean-play play-btn">
+                                                            <img src="./public/assets/icons/play.svg" alt="play">
+                                                        </a>
+                                                        <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
+                                                    </div>
+                                                </div>
+                                                <div class="word dictionary__words-item">
+                                                    <div class="word__wrap">
+                                                        <h4 class="word__word-full">
+                                                            <span class="word__word">appropriate</span>
+                                                            <span class="word__transcription">[əpróuprièit]</span>
+                                                        </h4>
+                                                        <a href="#" class="word__play play-btn">
+                                                            <img src="./public/assets/icons/play.svg" alt="play">
+                                                        </a>
+                                            
+                                                        <p class="word__translation">подходящее</p>
+                                                    </div>
+                                                    <div class="word__image-wrap">
+                                                        <img src="./public/assets/words/04_0061.jpg" alt="word">
+                                                    </div>
+                                                    <div class="word__examples">
+                                                        <p class="word__example">When a thing is appropriate, it is right or normal.</p>
+                                                        <a href="#" class="word__example-play play-btn">
+                                                            <img src="./public/assets/icons/play.svg" alt="play">
+                                                        </a>
+                                                        <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
+                                                        <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
+                                                        <a href="#" class="word__mean-play play-btn">
+                                                            <img src="./public/assets/icons/play.svg" alt="play">
+                                                        </a>
+                                                        <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
+                                                    </div>
+                                                </div>
+                                                <div class="word dictionary__words-item">
+                                                    <div class="word__wrap">
+                                                        <h4 class="word__word-full">
+                                                            <span class="word__word">appropriate</span>
+                                                            <span class="word__transcription">[əpróuprièit]</span>
+                                                        </h4>
+                                                        <a href="#" class="word__play play-btn">
+                                                            <img src="./public/assets/icons/play.svg" alt="play">
+                                                        </a>
+                                            
+                                                        <p class="word__translation">подходящее</p>
+                                                    </div>
+                                                    <div class="word__image-wrap">
+                                                        <img src="./public/assets/words/04_0061.jpg" alt="word">
+                                                    </div>
+                                                    <div class="word__examples">
+                                                        <p class="word__example">When a thing is appropriate, it is right or normal.</p>
+                                                        <a href="#" class="word__example-play play-btn">
+                                                            <img src="./public/assets/icons/play.svg" alt="play">
+                                                        </a>
+                                                        <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
+                                                        <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
+                                                        <a href="#" class="word__mean-play play-btn">
+                                                            <img src="./public/assets/icons/play.svg" alt="play">
+                                                        </a>
+                                                        <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+                                            <div class="dictionary__levels">
+                                                <a id="A1" href="#" class="dictionary__link selected">A1</a>
+                                                <a id="A2" href="#" class="dictionary__link">A2</a>
+                                                <a id="B1" href="#" class="dictionary__link">B1</a>
+                                                <a id="B2" href="#" class="dictionary__link">B2</a>
+                                                <a id="C1" href="#" class="dictionary__link">C1</a>
+                                                <a id="C2" href="#" class="dictionary__link">C2</a>
+                                            </div>
+            
+                                        </div>
+                                    </section>
+                                    <section class="pagination-panel bottom content__item">
+                                        <div class="pagination">
+                                            <a id="prev-bottom" href="#" class="pagination__link">
+                                                <img src="./public/assets/icons/arrow-left.svg" width="20" height="20" alt="prev">
+                                            </a>
+                                            <a id="first-bottom" href="#" class="pagination__link">1</a>
+                                            <a id="page1-bottom" href="#" class="pagination__link">2</a>
+                                            <a id="page2-bottom" href="#" class="pagination__link">3</a>
+                                            <a id="page3-bottom" href="#" class="pagination__link">4</a>
+                                            <a id="page4-bottom" href="#" class="pagination__link">5</a>
+                                            <a id="page5-bottom" href="#" class="pagination__link">6</a>
+                                            <a id="last-bottom" href="#" class="pagination__link">30</a>
+                                            <a id="next-bottom" href="#" class="pagination__link">
+                                                <img src="./public/assets/icons/arrow-right.svg" width="20" height="20" alt="prev">
+                                            </a>
+                                        </div>
+                                    </section>-->
 
-                            <p class="word__translation">подходящее</p>
-                        </div>
-                        <div class="word__image-wrap">
-                            <img src="./public/assets/words/04_0061.jpg" alt="word">
-                        </div>
-                        <div class="word__examples">
-                            <p class="word__example">When a thing is appropriate, it is right or normal.</p>
-                            <a href="#" class="word__example-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
-                            <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
-                            <a href="#" class="word__mean-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
-                        </div>
-                    </div>
-                    <div class="word hard-word dictionary__words-item">
-                        <div class="word__wrap">
-                            <h4 class="word__word-full">
-                                <span class="word__word">appropriate</span>
-                                <span class="word__transcription">[əpróuprièit]</span>
-                            </h4>
-                            <a href="#" class="word__play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-
-                            <p class="word__translation">подходящее</p>
-                        </div>
-                        <div class="word__image-wrap">
-                            <img src="./public/assets/words/04_0061.jpg" alt="word">
-                        </div>
-                        <div class="word__examples">
-                            <p class="word__example">When a thing is appropriate, it is right or normal.</p>
-                            <a href="#" class="word__example-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
-                            <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
-                            <a href="#" class="word__mean-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
-                        </div>
-                    </div>
-                    <div class="word dictionary__words-item">
-                        <div class="word__wrap">
-                            <h4 class="word__word-full">
-                                <span class="word__word">appropriate</span>
-                                <span class="word__transcription">[əpróuprièit]</span>
-                            </h4>
-                            <a href="#" class="word__play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-
-                            <p class="word__translation">подходящее</p>
-                        </div>
-                        <div class="word__image-wrap">
-                            <img src="./public/assets/words/04_0061.jpg" alt="word">
-                        </div>
-                        <div class="word__examples">
-                            <p class="word__example">When a thing is appropriate, it is right or normal.</p>
-                            <a href="#" class="word__example-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
-                            <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
-                            <a href="#" class="word__mean-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
-                        </div>
-                    </div>
-                    <div class="word dictionary__words-item">
-                        <div class="word__wrap">
-                            <h4 class="word__word-full">
-                                <span class="word__word">appropriate</span>
-                                <span class="word__transcription">[əpróuprièit]</span>
-                            </h4>
-                            <a href="#" class="word__play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-
-                            <p class="word__translation">подходящее</p>
-                        </div>
-                        <div class="word__image-wrap">
-                            <img src="./public/assets/words/04_0061.jpg" alt="word">
-                        </div>
-                        <div class="word__examples">
-                            <p class="word__example">When a thing is appropriate, it is right or normal.</p>
-                            <a href="#" class="word__example-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
-                            <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
-                            <a href="#" class="word__mean-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
-                        </div>
-                    </div>
-                    <div class="word dictionary__words-item">
-                        <div class="word__wrap">
-                            <h4 class="word__word-full">
-                                <span class="word__word">appropriate</span>
-                                <span class="word__transcription">[əpróuprièit]</span>
-                            </h4>
-                            <a href="#" class="word__play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-
-                            <p class="word__translation">подходящее</p>
-                        </div>
-                        <div class="word__image-wrap">
-                            <img src="./public/assets/words/04_0061.jpg" alt="word">
-                        </div>
-                        <div class="word__examples">
-                            <p class="word__example">When a thing is appropriate, it is right or normal.</p>
-                            <a href="#" class="word__example-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
-                            <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
-                            <a href="#" class="word__mean-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
-                        </div>
-                    </div>
-                    <div class="word dictionary__words-item">
-                        <div class="word__wrap">
-                            <h4 class="word__word-full">
-                                <span class="word__word">appropriate</span>
-                                <span class="word__transcription">[əpróuprièit]</span>
-                            </h4>
-                            <a href="#" class="word__play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-
-                            <p class="word__translation">подходящее</p>
-                        </div>
-                        <div class="word__image-wrap">
-                            <img src="./public/assets/words/04_0061.jpg" alt="word">
-                        </div>
-                        <div class="word__examples">
-                            <p class="word__example">When a thing is appropriate, it is right or normal.</p>
-                            <a href="#" class="word__example-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
-                            <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
-                            <a href="#" class="word__mean-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
-                        </div>
-                    </div>
-                    <div class="word dictionary__words-item">
-                        <div class="word__wrap">
-                            <h4 class="word__word-full">
-                                <span class="word__word">appropriate</span>
-                                <span class="word__transcription">[əpróuprièit]</span>
-                            </h4>
-                            <a href="#" class="word__play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-
-                            <p class="word__translation">подходящее</p>
-                        </div>
-                        <div class="word__image-wrap">
-                            <img src="./public/assets/words/04_0061.jpg" alt="word">
-                        </div>
-                        <div class="word__examples">
-                            <p class="word__example">When a thing is appropriate, it is right or normal.</p>
-                            <a href="#" class="word__example-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
-                            <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
-                            <a href="#" class="word__mean-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
-                        </div>
-                    </div>
-                    <div class="word dictionary__words-item">
-                        <div class="word__wrap">
-                            <h4 class="word__word-full">
-                                <span class="word__word">appropriate</span>
-                                <span class="word__transcription">[əpróuprièit]</span>
-                            </h4>
-                            <a href="#" class="word__play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-
-                            <p class="word__translation">подходящее</p>
-                        </div>
-                        <div class="word__image-wrap">
-                            <img src="./public/assets/words/04_0061.jpg" alt="word">
-                        </div>
-                        <div class="word__examples">
-                            <p class="word__example">When a thing is appropriate, it is right or normal.</p>
-                            <a href="#" class="word__example-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
-                            <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
-                            <a href="#" class="word__mean-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
-                        </div>
-                    </div>
-                    <div class="word dictionary__words-item">
-                        <div class="word__wrap">
-                            <h4 class="word__word-full">
-                                <span class="word__word">appropriate</span>
-                                <span class="word__transcription">[əpróuprièit]</span>
-                            </h4>
-                            <a href="#" class="word__play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-
-                            <p class="word__translation">подходящее</p>
-                        </div>
-                        <div class="word__image-wrap">
-                            <img src="./public/assets/words/04_0061.jpg" alt="word">
-                        </div>
-                        <div class="word__examples">
-                            <p class="word__example">When a thing is appropriate, it is right or normal.</p>
-                            <a href="#" class="word__example-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
-                            <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
-                            <a href="#" class="word__mean-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
-                        </div>
-                    </div>
-                    <div class="word dictionary__words-item">
-                        <div class="word__wrap">
-                            <h4 class="word__word-full">
-                                <span class="word__word">appropriate</span>
-                                <span class="word__transcription">[əpróuprièit]</span>
-                            </h4>
-                            <a href="#" class="word__play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-
-                            <p class="word__translation">подходящее</p>
-                        </div>
-                        <div class="word__image-wrap">
-                            <img src="./public/assets/words/04_0061.jpg" alt="word">
-                        </div>
-                        <div class="word__examples">
-                            <p class="word__example">When a thing is appropriate, it is right or normal.</p>
-                            <a href="#" class="word__example-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
-                            <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
-                            <a href="#" class="word__mean-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
-                        </div>
-                    </div>
-                    <div class="word dictionary__words-item">
-                        <div class="word__wrap">
-                            <h4 class="word__word-full">
-                                <span class="word__word">appropriate</span>
-                                <span class="word__transcription">[əpróuprièit]</span>
-                            </h4>
-                            <a href="#" class="word__play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-
-                            <p class="word__translation">подходящее</p>
-                        </div>
-                        <div class="word__image-wrap">
-                            <img src="./public/assets/words/04_0061.jpg" alt="word">
-                        </div>
-                        <div class="word__examples">
-                            <p class="word__example">When a thing is appropriate, it is right or normal.</p>
-                            <a href="#" class="word__example-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
-                            <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
-                            <a href="#" class="word__mean-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
-                        </div>
-                    </div>
-                    <div class="word dictionary__words-item">
-                        <div class="word__wrap">
-                            <h4 class="word__word-full">
-                                <span class="word__word">appropriate</span>
-                                <span class="word__transcription">[əpróuprièit]</span>
-                            </h4>
-                            <a href="#" class="word__play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-
-                            <p class="word__translation">подходящее</p>
-                        </div>
-                        <div class="word__image-wrap">
-                            <img src="./public/assets/words/04_0061.jpg" alt="word">
-                        </div>
-                        <div class="word__examples">
-                            <p class="word__example">When a thing is appropriate, it is right or normal.</p>
-                            <a href="#" class="word__example-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
-                            <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
-                            <a href="#" class="word__mean-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
-                        </div>
-                    </div>
-                    <div class="word dictionary__words-item">
-                        <div class="word__wrap">
-                            <h4 class="word__word-full">
-                                <span class="word__word">appropriate</span>
-                                <span class="word__transcription">[əpróuprièit]</span>
-                            </h4>
-                            <a href="#" class="word__play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-
-                            <p class="word__translation">подходящее</p>
-                        </div>
-                        <div class="word__image-wrap">
-                            <img src="./public/assets/words/04_0061.jpg" alt="word">
-                        </div>
-                        <div class="word__examples">
-                            <p class="word__example">When a thing is appropriate, it is right or normal.</p>
-                            <a href="#" class="word__example-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
-                            <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
-                            <a href="#" class="word__mean-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
-                        </div>
-                    </div>
-                    <div class="word dictionary__words-item">
-                        <div class="word__wrap">
-                            <h4 class="word__word-full">
-                                <span class="word__word">appropriate</span>
-                                <span class="word__transcription">[əpróuprièit]</span>
-                            </h4>
-                            <a href="#" class="word__play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-
-                            <p class="word__translation">подходящее</p>
-                        </div>
-                        <div class="word__image-wrap">
-                            <img src="./public/assets/words/04_0061.jpg" alt="word">
-                        </div>
-                        <div class="word__examples">
-                            <p class="word__example">When a thing is appropriate, it is right or normal.</p>
-                            <a href="#" class="word__example-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__example-transl">Когда вещь уместна, она правильная или нормальная</p>
-                            <p class="word__mean">It`s appropriate to wear a suit when you go to the office.</p>
-                            <a href="#" class="word__mean-play play-btn">
-                                <img src="./public/assets/icons/play.svg" alt="play">
-                            </a>
-                            <p class="word__mean-transl">Уместно носить костюм, когда вы идете в офис</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="dictionary__levels">
-                    <a id="A1" href="#" class="dictionary__link selected">A1</a>
-                    <a id="A2" href="#" class="dictionary__link">A2</a>
-                    <a id="B1" href="#" class="dictionary__link">B1</a>
-                    <a id="B2" href="#" class="dictionary__link">B2</a>
-                    <a id="C1" href="#" class="dictionary__link">C1</a>
-                    <a id="C2" href="#" class="dictionary__link">C2</a>
-                </div>
-            </section>
-            <section class="pagination bottom handbook__item">
-                <a id="prev-bottom" href="#" class="pagination__link">
-                    <img src="./public/assets/icons/arrow-left.svg" width="20" height="20" alt="prev">
-                </a>
-                <a id="first-bottom" href="#" class="pagination__link selected">1</a>
-                <a id="page1-bottom" href="#" class="pagination__link">2</a>
-                <a id="page2-bottom" href="#" class="pagination__link">3</a>
-                <a id="page3-bottom" href="#" class="pagination__link">4</a>
-                <a id="page4-bottom" href="#" class="pagination__link">5</a>
-                <a id="page5-bottom" href="#" class="pagination__link">6</a>
-                <a id="last-bottom" href="#" class="pagination__link">30</a>
-                <a id="next-bottom" href="#" class="pagination__link">
-                    <img src="./public/assets/icons/arrow-right.svg" width="20" height="20" alt="prev">
-                </a>
-            </section>
-        </div>
-        <footer class="footer">
-            <a class="footer__githublink" href="https://github.com/Verigota/rslang" target="_blank">
-                <img class="footer__githubimg" width="70" height="70" src="./public/assets/icons/github.svg"
-                    alt="github">
-            </a>
-            <p class="footer__copyrights">©2022</p>
-            <a class="footer__rsschoollink" href="https://rs.school/js/" target="_blank">
-                <img class="footer__githubimg" width="150" height="50" src="./public/assets/icons/rs_school_js.svg"
-                    alt="rsschool">
-            </a>
-        </footer>
-    </div>
-</body>
-
-</html>
+                                            <!-- <div class="modal content__item modal_hidden" id="registration-modal">
+                                                            <button></button>
+                                                            <h3 class="modal__title section-title">Регистрация</h3>
+                                                            <form class="modal__form registration-form" id="create-user-form">
+                                                                <input type="text" placeholder="Имя" name='name' class="form-input" required>
+                                                                <input type="email" placeholder="E-mail" name='email' class="form-input" required>
+                                                                <input type="password" placeholder="Пароль" name='password' class="form-input" required>
+                                                                <input type="password" placeholder="Подтвердите пароль" name='confirmPassword' class="form-input" required>
+                                                                <button type="submit" id="register-user-btn" class="registration__regbtn">Зарегистрироваться</button>
+                                                            </form>
+                                                        </div>-->
