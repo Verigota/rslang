@@ -47,7 +47,7 @@ export default class WordCardInfo implements IwordCardInfo {
       getMeaningOrExampleContainer(
         'word-card-info__example-container',
         'word-card-info__example-title',
-        'Значение',
+        'Пример',
         'word-card-info__example-ru',
         wordData.textExample,
         'word-card-info__example-en',

@@ -16,3 +16,10 @@ export type WordDataT = {
   textMeaningTranslate: string,
   textExampleTranslate: string,
 };
+
+export type RsLangHandbookDataT = {
+  group: number,
+  page: number,
+  currPage: number,
+  activeWordCardIndex: number
+};
