@@ -35,11 +35,14 @@ export class Api implements IApi {
     userId: string,
     refreshToken: string,
   ): Promise<AxiosResponse<IRefreshTokenResponse>> {
-    const resp = await this.apiClient.post(`/users/${userId}/tokens`, {
-      headers: {
-        Authorization: `Bearer ${refreshToken}`,
+    const resp = await this.apiClient.get(
+      `/users/${userId}/tokens`,
+      {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
       },
-    });
+    );
     return resp;
   }
 }

@@ -31,6 +31,7 @@ class AuthManager implements IAuthManager {
       user.refreshToken = resp.data.refreshToken;
       this.authStore.set(user);
     }
+    setTimeout(() => this.getNewToken(), 4 * 60 * 60 * 1000);
   }
 
   logOutUser() {

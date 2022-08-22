@@ -36,6 +36,7 @@ export class AuthEventHandlers {
       deleteContent(modalsContainer);
       showHideBlackout(blackout);
     }
+    setTimeout(() => this.authorizationController.getNewToken(), 4 * 60 * 60 * 1000);
   }
 
   initRegistration(event: Event, blackout: HTMLElement, modalsContainer: HTMLElement) {
