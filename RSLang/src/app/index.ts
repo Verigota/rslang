@@ -3,12 +3,16 @@ import RegistrationController from '../controller/registration';
 import { clearForm, collectNewUserInfo } from '../view/forms';
 import showHideModal from '../view/modal';
 import IApp from './interfaces';
+import AppView from '../view/appView';
 
 class App implements IApp {
   registrationController: RegistrationController;
 
+  appView: AppView;
+
   constructor() {
     this.registrationController = new RegistrationController();
+    this.appView = AppView.getInstance();
   }
 
   public start() {
