@@ -47,7 +47,7 @@ export default class Handbook implements IHandbook {
 
   renderHandbook(wordsData: WordsDataT, wordData: WordDataT, controller: Controller): void {
     document.body.insertAdjacentHTML('beforeend', this.handbook);
-    this.levelCards.renderLevelCards();
+    this.levelCards.renderLevelCards(controller, this.wordCards, this.wordCardInfo);
     this.wordCards.renderWordCards(wordsData, controller);
     this.wordCardInfo.renderWordCardInfo(wordData, controller);
     this.handlePaginationButtons(controller);

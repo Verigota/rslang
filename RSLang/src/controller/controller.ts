@@ -131,4 +131,34 @@ export default class Controller implements Icontroller {
       activeWordCardIndex: wordCardIndex,
     }));
   }
+
+  async levelCardHandler(
+    activeLevelCard: HTMLDivElement,
+    levelCard: HTMLElement,
+    contentIndex: number,
+    page: number,
+    currPage: number,
+    activeWordCardIndex: number,
+    wordsPaginationCurrPage: HTMLDivElement,
+    wordsPaginationPrevButton: HTMLButtonElement,
+  ) {
+    activeLevelCard.classList.remove('active-level-card');
+    levelCard.classList.add('active-level-card');
+
+    const [wordsData, wordsPaginationCurrPageCopy, wordsPaginationPrevButtonCopy] = [<WordsDataT>
+    await (await this.getChunkOfWords(contentIndex, page)).data,
+    wordsPaginationCurrPage, wordsPaginationPrevButton];
+
+    localStorage.setItem('rsLangHandbookData', JSON.stringify({
+      group: contentIndex,
+      page,
+      currPage,
+      activeWordCardIndex,
+    }));
+
+    wordsPaginationCurrPageCopy.textContent = `${1}`;
+    wordsPaginationPrevButtonCopy.disabled = true;
+
+    return wordsData;
+  }
 }

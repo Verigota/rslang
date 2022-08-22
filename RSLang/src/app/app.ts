@@ -26,10 +26,5 @@ export default class App implements AppI {
       wordsData[rsLangHandbookData.activeWordCardIndex],
       this.controller,
     );
-
-    const levelCards = document.querySelectorAll('.handbook__level-card');
-    levelCards.forEach((card, index) => {
-      card.addEventListener('click', async () => { console.log(await this.controller.getChunkOfWords(index, rsLangHandbookData.page)); });
-    });
   }
 }
