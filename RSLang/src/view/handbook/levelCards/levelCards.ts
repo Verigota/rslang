@@ -32,8 +32,6 @@ export default class LevelCards implements IlevelCards {
     const levels = <HTMLDivElement>document.querySelector(this.levelsSelector);
     const RsLangHandbookData: RsLangHandbookDataT = JSON.parse(<string>localStorage.getItem('rsLangHandbookData'));
 
-    const activeLevelCard = <HTMLDivElement>document.querySelector('.active-level-card');
-
     this.levelCardsContent.forEach((content, contentIndex) => {
       const levelCard = getNewElement('div', 'handbook__level-card', content);
 
@@ -42,6 +40,8 @@ export default class LevelCards implements IlevelCards {
       }
 
       levelCard.addEventListener('click', async () => {
+        const activeLevelCard = <HTMLDivElement>document.querySelector('.active-level-card');
+
         await this.levelCardHandler(
           activeLevelCard,
           levelCard,

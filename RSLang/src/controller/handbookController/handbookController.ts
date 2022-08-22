@@ -146,6 +146,7 @@ export default class HandbookController implements IhandbookController {
     wordsPaginationCurrPage: HTMLDivElement,
     wordsPaginationPrevButton: HTMLButtonElement,
   ) {
+    console.log(activeLevelCard);
     activeLevelCard.classList.remove('active-level-card');
     levelCard.classList.add('active-level-card');
 
