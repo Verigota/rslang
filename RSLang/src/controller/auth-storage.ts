@@ -9,7 +9,7 @@ const authStorage: IAuthStorage = {
   },
   get: () => {
     const userInfo = localStorage.getItem(STORAGE_KEY);
-    return userInfo ? JSON.parse(userInfo) : undefined;
+    return userInfo ? JSON.parse(userInfo) : null;
   },
   remove: () => localStorage.removeItem(STORAGE_KEY),
 };
