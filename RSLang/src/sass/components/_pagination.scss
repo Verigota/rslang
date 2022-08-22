@@ -2,9 +2,9 @@
 
 .pagination {
     width: 450px;
-    grid-column: 2/3;
-    grid-row: 2/3;
     display: grid;
+    grid-column: 2/3;
+    grid-row: 1/2;
     grid-template: 50px / repeat(9, 50px);
     gap: 2px;
     justify-self: center;
@@ -31,9 +31,5 @@
             background-color: $background-selected;
             font-weight: 600;
         }
-    }
-
-    &.bottom {
-        grid-row: 4/5;
     }
 }
