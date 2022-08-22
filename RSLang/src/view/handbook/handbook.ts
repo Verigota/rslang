@@ -37,6 +37,15 @@ export default class Handbook implements IHandbook {
           <button class="words-pagination__next-button">Next</button>
         </div>
       </div>
+      <div id="handbook__games" class="handbook__games">
+        <h4>Игры</h4>
+        <div id="handbook__audio-call" class="handbook__audio-call">
+          <h5>Аудиовызов</h5>
+        </div>
+        <div id="handbook__sprint" class="handbook__sprint">
+          <h5>Спринт</h5>
+        </div>
+      </div>
     </div>`;
     this.levelCards = new LevelCards();
     this.wordCards = new WordCards();
@@ -51,6 +60,9 @@ export default class Handbook implements IHandbook {
     this.wordCards.renderWordCards(wordsData, controller);
     this.wordCardInfo.renderWordCardInfo(wordData, controller);
     this.handlePaginationButtons(controller);
+
+    const games = [document.querySelector('#handbook__audio-call'), document.querySelector('#handbook__sprint')];
+    games.forEach((game) => game?.addEventListener('click', () => console.log('click'))); // links for future games
   }
 
   handlePaginationButtons(controller: Controller) {
