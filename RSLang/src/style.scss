@@ -7,13 +7,15 @@
 @import './sass/components/member-card';
 @import './sass/components/section-title';
 @import './sass/components/word';
-@import './sass/components/gamespanel';
 @import './sass/components/pagination';
 @import './sass/components/word';
 @import './sass/components/registration-modal';
+@import './sass/components/gamespanel';
 
 /* pages */
 @import './sass/pages/main/main';
+@import './sass/pages/handbook/handbook';
+@import './sass/pages/choice/choice';
 
 /* layouts*/
 @import './sass/layout/header';
@@ -22,7 +24,7 @@
 @import './sass/layout/main/team';
 @import './sass/layout/main/registartion';
 @import './sass/layout/footer';
-@import './sass/layout/handbook/handbook';
 @import './sass/layout/handbook/dictionary';
+@import './sass/layout/choice/choice';
 @import './sass/layout/modal';
 @import './sass/layout/blackout';
