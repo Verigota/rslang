@@ -1,4 +1,4 @@
-import { Indexed } from '../api/interfaces';
+import { Indexed } from '../../api/interfaces';
 
 export function collectNewUserInfo<Info extends Indexed>(
   form: HTMLFormElement,
