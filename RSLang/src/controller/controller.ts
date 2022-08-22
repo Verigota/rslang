@@ -57,7 +57,7 @@ export default class Controller implements Icontroller {
     step: number,
     currPage: HTMLDivElement,
     pageLimit: number,
-  ) {
+  ): Promise<WordsDataT> {
     const [rsLangHandbookData,
       inactiveButtonCopy,
       activeButtonCopy,
@@ -93,7 +93,11 @@ export default class Controller implements Icontroller {
     return wordsData;
   }
 
-  async handbookButtonHandler() {
+  async handbookButtonHandler():
+  Promise<{
+    wordsData: WordsDataT;
+    rsLangHandbookData: RsLangHandbookDataT;
+  }> {
     if (!localStorage.getItem('rsLangHandbookData')) {
       localStorage.setItem('rsLangHandbookData', JSON.stringify({
         group: 0,
@@ -118,7 +122,7 @@ export default class Controller implements Icontroller {
     wordCard: HTMLDivElement,
     activeWordCard: HTMLDivElement,
     wordCardIndex: number,
-  ) {
+  ): Promise<void> {
     activeWordCard.classList.remove('active-word-card');
     wordCard.classList.add('active-word-card');
 

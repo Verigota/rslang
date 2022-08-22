@@ -24,7 +24,7 @@ export default class LevelCards implements IlevelCards {
     this.defaultActiveWordCardIndex = 0;
   }
 
-  renderLevelCards(controller: Controller, wordCards: WordCards, wordCardInfo: WordCardInfo) {
+  renderLevelCards(controller: Controller, wordCards: WordCards, wordCardInfo: WordCardInfo): void {
     const levels = <HTMLDivElement>document.querySelector(this.levelsSelector);
     const RsLangHandbookData: RsLangHandbookDataT = JSON.parse(<string>localStorage.getItem('rsLangHandbookData'));
 
@@ -58,7 +58,7 @@ export default class LevelCards implements IlevelCards {
     contentIndex: number,
     wordCards: WordCards,
     wordCardInfo: WordCardInfo,
-  ) {
+  ): Promise<void> {
     const [
       wordsPaginationPrevButton,
       wordsPaginationCurrPage,

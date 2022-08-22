@@ -13,7 +13,7 @@ export default class WordCardInfo implements IwordCardInfo {
     this.wordCardInfoSelector = '#handbook__word-card-info';
   }
 
-  renderWordCardInfo(wordData: WordDataT, controller: Controller) {
+  renderWordCardInfo(wordData: WordDataT, controller: Controller): void {
     const [wordCardInfo, img, playAudioButton, audio, playCounter] = [
       <HTMLDivElement>document.querySelector(this.wordCardInfoSelector), getNewImageElement('word-card-info__img', `${this.baseURL}/${wordData.image}`, 'word-image'),
       getNewElement('button', 'word-card-info__play-audio-button', 'play'),
