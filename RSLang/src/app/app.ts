@@ -20,11 +20,12 @@ export default class App implements AppI {
   }
 
   async handbookButtonHandler() {
-    const { wordsData, rsLangHandbookData } = await this.controller.handbookButtonHandler();
+    const handbookController = this.controller.getHandbookController();
+    const { wordsData, rsLangHandbookData } = await handbookController.handbookButtonHandler();
     this.view.renderHandbookView(
       wordsData,
       wordsData[rsLangHandbookData.activeWordCardIndex],
-      this.controller,
+      handbookController,
     );
   }
 }

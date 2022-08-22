@@ -1,11 +1,15 @@
-import Controller from '../../controller/controller';
+import HandbookController from '../../controller/handbookController/handbookController';
 import { WordDataT, WordsDataT } from '../../types/types';
 
 export default interface IHandbook {
-  renderHandbook(wordsData: WordsDataT, wordData: WordDataT, controller: Controller): void;
-  handlePaginationButtons(controller: Controller): void
+  renderHandbook(
+    wordsData: WordsDataT,
+    wordData: WordDataT,
+    handbookController: HandbookController,
+  ): void;
+  handlePaginationButtons(handbookController: HandbookController): void
   paginationButtonHandler(
-    controller: Controller,
+    handbookController: HandbookController,
     activeButton: HTMLButtonElement,
     inactiveButton: HTMLButtonElement,
     step: number,

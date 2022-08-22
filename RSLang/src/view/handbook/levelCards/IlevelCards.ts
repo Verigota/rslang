@@ -1,13 +1,15 @@
-import Controller from '../../../controller/controller';
+import HandbookController from '../../../controller/handbookController/handbookController';
 import WordCardInfo from '../wordCardInfo/wordCardInfo';
 import WordCards from '../wordCards/wordCards';
 
 export default interface IlevelCards {
-  renderLevelCards(controller: Controller, wordCards: WordCards, wordCardInfo: WordCardInfo): void;
+  renderLevelCards(
+    handbookController: HandbookController,
+    wordCards: WordCards, wordCardInfo: WordCardInfo): void;
   levelCardHandler(
     activeLevelCard: HTMLDivElement,
     levelCard: HTMLElement,
-    controller: Controller,
+    handbookController: HandbookController,
     contentIndex: number,
     wordCards: WordCards,
     wordCardInfo: WordCardInfo,

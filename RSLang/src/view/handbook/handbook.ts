@@ -1,4 +1,4 @@
-import Controller from '../../controller/controller';
+import HandbookController from '../../controller/handbookController/handbookController';
 import { RsLangHandbookDataT, WordDataT, WordsDataT } from '../../types/types';
 import IHandbook from './Ihandbook';
 import LevelCards from './levelCards/levelCards';
@@ -54,18 +54,22 @@ export default class Handbook implements IHandbook {
     this.lastPage = 30;
   }
 
-  renderHandbook(wordsData: WordsDataT, wordData: WordDataT, controller: Controller): void {
+  renderHandbook(
+    wordsData: WordsDataT,
+    wordData: WordDataT,
+    handbookController: HandbookController,
+  ): void {
     document.body.insertAdjacentHTML('beforeend', this.handbook);
-    this.levelCards.renderLevelCards(controller, this.wordCards, this.wordCardInfo);
-    this.wordCards.renderWordCards(wordsData, controller);
-    this.wordCardInfo.renderWordCardInfo(wordData, controller);
-    this.handlePaginationButtons(controller);
+    this.levelCards.renderLevelCards(handbookController, this.wordCards, this.wordCardInfo);
+    this.wordCards.renderWordCards(wordsData, handbookController);
+    this.wordCardInfo.renderWordCardInfo(wordData, handbookController);
+    this.handlePaginationButtons(handbookController);
 
     const games = [document.querySelector('#handbook__audio-call'), document.querySelector('#handbook__sprint')];
     games.forEach((game) => game?.addEventListener('click', () => console.log('click'))); // links for future games
   }
 
-  handlePaginationButtons(controller: Controller) {
+  handlePaginationButtons(handbookController: HandbookController) {
     const [
       wordsPaginationPrevButton,
       wordsPaginationCurrPage,
@@ -94,7 +98,7 @@ export default class Handbook implements IHandbook {
 
     wordsPaginationPrevButton.addEventListener('click', async () => {
       await this.paginationButtonHandler(
-        controller,
+        handbookController,
         wordsPaginationPrevButton,
         wordsPaginationNextButton,
         -step,
@@ -105,7 +109,7 @@ export default class Handbook implements IHandbook {
 
     wordsPaginationNextButton.addEventListener('click', async () => {
       await this.paginationButtonHandler(
-        controller,
+        handbookController,
         wordsPaginationNextButton,
         wordsPaginationPrevButton,
         step,
@@ -116,7 +120,7 @@ export default class Handbook implements IHandbook {
   }
 
   async paginationButtonHandler(
-    controller: Controller,
+    handbookController: HandbookController,
     activeButton: HTMLButtonElement,
     inactiveButton: HTMLButtonElement,
     step: number,
@@ -124,7 +128,7 @@ export default class Handbook implements IHandbook {
     firstOrLastPage: number,
   ) {
     const [wordsData, firstCardIndex] = [await
-    controller.wordsPaginationButtonHandler(
+    handbookController.wordsPaginationButtonHandler(
       activeButton,
       inactiveButton,
       +step,
@@ -132,10 +136,10 @@ export default class Handbook implements IHandbook {
       firstOrLastPage,
     ), 0];
 
-    this.wordCards.renderWordCards(wordsData, controller);
+    this.wordCards.renderWordCards(wordsData, handbookController);
     this.wordCardInfo.renderWordCardInfo(
       wordsData[firstCardIndex],
-      controller,
+      handbookController,
     );
   }
 }

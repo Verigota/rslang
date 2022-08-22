@@ -1,4 +1,4 @@
-import Controller from '../../../controller/controller';
+import HandbookController from '../../../controller/handbookController/handbookController';
 import { WordDataT } from '../../../types/types';
 import { getNewElement, getNewImageElement, getMeaningOrExampleContainer } from '../templatesForElements/templateForCreatingNewElement';
 import IwordCardInfo from './IwordCardInfo';
@@ -13,7 +13,7 @@ export default class WordCardInfo implements IwordCardInfo {
     this.wordCardInfoSelector = '#handbook__word-card-info';
   }
 
-  renderWordCardInfo(wordData: WordDataT, controller: Controller): void {
+  renderWordCardInfo(wordData: WordDataT, handbookController: HandbookController): void {
     const [wordCardInfo, img, playAudioButton, audio, playCounter] = [
       <HTMLDivElement>document.querySelector(this.wordCardInfoSelector), getNewImageElement('word-card-info__img', `${this.baseURL}/${wordData.image}`, 'word-image'),
       getNewElement('button', 'word-card-info__play-audio-button', 'play'),
@@ -23,7 +23,7 @@ export default class WordCardInfo implements IwordCardInfo {
 
     wordCardInfo.innerHTML = '';
     audio.addEventListener('ended', () => {
-      controller.wordInfoAudioHandler(wordData, audio, playCounter);
+      handbookController.wordInfoAudioHandler(wordData, audio, playCounter);
     });
 
     playAudioButton.addEventListener('click', () => audio.play());

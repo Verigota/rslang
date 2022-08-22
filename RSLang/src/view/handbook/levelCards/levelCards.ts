@@ -1,4 +1,4 @@
-import Controller from '../../../controller/controller';
+import HandbookController from '../../../controller/handbookController/handbookController';
 import { RsLangHandbookDataT } from '../../../types/types';
 import { getNewElement } from '../templatesForElements/templateForCreatingNewElement';
 import WordCardInfo from '../wordCardInfo/wordCardInfo';
@@ -24,7 +24,11 @@ export default class LevelCards implements IlevelCards {
     this.defaultActiveWordCardIndex = 0;
   }
 
-  renderLevelCards(controller: Controller, wordCards: WordCards, wordCardInfo: WordCardInfo): void {
+  renderLevelCards(
+    handbookController: HandbookController,
+    wordCards: WordCards,
+    wordCardInfo: WordCardInfo,
+  ): void {
     const levels = <HTMLDivElement>document.querySelector(this.levelsSelector);
     const RsLangHandbookData: RsLangHandbookDataT = JSON.parse(<string>localStorage.getItem('rsLangHandbookData'));
 
@@ -41,7 +45,7 @@ export default class LevelCards implements IlevelCards {
         await this.levelCardHandler(
           activeLevelCard,
           levelCard,
-          controller,
+          handbookController,
           contentIndex,
           wordCards,
           wordCardInfo,
@@ -54,7 +58,7 @@ export default class LevelCards implements IlevelCards {
   async levelCardHandler(
     activeLevelCard: HTMLDivElement,
     levelCard: HTMLElement,
-    controller: Controller,
+    handbookController: HandbookController,
     contentIndex: number,
     wordCards: WordCards,
     wordCardInfo: WordCardInfo,
@@ -66,7 +70,7 @@ export default class LevelCards implements IlevelCards {
         <HTMLButtonElement>document.querySelector('.words-pagination__prev-button'), <HTMLDivElement>document.querySelector('.words-pagination__curr-page'),
     ];
 
-    const wordsData = await controller.levelCardHandler(
+    const wordsData = await handbookController.levelCardHandler(
       activeLevelCard,
       levelCard,
       contentIndex,
@@ -77,7 +81,7 @@ export default class LevelCards implements IlevelCards {
       wordsPaginationPrevButton,
     );
 
-    wordCards.renderWordCards(wordsData, controller);
-    wordCardInfo.renderWordCardInfo(wordsData[this.defaultActiveWordCardIndex], controller);
+    wordCards.renderWordCards(wordsData, handbookController);
+    wordCardInfo.renderWordCardInfo(wordsData[this.defaultActiveWordCardIndex], handbookController);
   }
 }

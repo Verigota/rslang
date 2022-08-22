@@ -1,4 +1,4 @@
-import Controller from '../../../controller/controller';
+import HandbookController from '../../../controller/handbookController/handbookController';
 import { RsLangHandbookDataT, WordDataT, WordsDataT } from '../../../types/types';
 import { getNewElement } from '../templatesForElements/templateForCreatingNewElement';
 import WordCardInfo from '../wordCardInfo/wordCardInfo';
@@ -14,7 +14,7 @@ export default class WordCards implements IwordCards {
     this.wordCardInfo = new WordCardInfo();
   }
 
-  renderWordCards(wordsData: WordsDataT, controller: Controller) {
+  renderWordCards(wordsData: WordsDataT, handbookController: HandbookController) {
     const words = <HTMLDivElement>document.querySelector(this.wordsSelector);
     words.innerHTML = '';
     wordsData.forEach((data) => {
@@ -32,11 +32,11 @@ export default class WordCards implements IwordCards {
 
     wordCards.forEach((wordCard, wordCardIndex) => wordCard.addEventListener('click', async () => {
       const activeWordCard = <HTMLDivElement>document.querySelector('.active-word-card');
-      controller.wordCardHandler(wordCard, activeWordCard, wordCardIndex);
+      handbookController.wordCardHandler(wordCard, activeWordCard, wordCardIndex);
       const id = <string>wordCard.dataset.wordCardId;
       this.wordCardInfo.renderWordCardInfo(
-        <WordDataT>(await controller.getWordWithAssetsById(id)).data,
-        controller,
+        <WordDataT>(await handbookController.getWordWithAssetsById(id)).data,
+        handbookController,
       );
     }));
   }
