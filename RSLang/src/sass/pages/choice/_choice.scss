@@ -1,0 +1,50 @@
+@import '../../utils/variables';
+@import '../../utils/mixines';
+
+.choice-panel {
+    display: grid;
+    justify-self: center;
+    align-items: center;
+    grid-column: 1/3;
+    grid-row: 1/2;
+    grid-template: 1fr/1fr $grid-container-width 1fr;
+    width: 100%;
+}
+
+.choice {
+    grid-column: 2/3;
+}
+
+.choice__wrap {
+    justify-self: center;
+    &.audio {
+        grid-column: 1/2;
+        grid-row: 2/3;
+    }
+    
+    &.sprint {
+        grid-column: 3/4;
+        grid-row: 2/3;
+    }
+}
+
+.choice__levels {
+    justify-self: center;
+    grid-column: 2/3;
+    grid-row: 2/3;
+}
+
+.choice__title {
+    grid-column: 1/4;
+    grid-row: 1/2;
+    align-self: center;
+    justify-self: center;
+    padding: 2rem;
+}
+
+.choice__hint {
+    grid-column: 1/4;
+    grid-row: 3/4;
+    align-self: center;
+    justify-self: center;
+}
