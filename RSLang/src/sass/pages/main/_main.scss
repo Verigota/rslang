@@ -2,12 +2,27 @@
     min-height: 100%;
     width: 100%;
     display: grid;
-    //grid-template: [start] "header" minmax(100px, auto) [row2] [row2] "content" 1fr [row3] [row3] "footer" minmax(100px, auto) [row-end] / 1fr;
-    grid-template: [start] "header" minmax(100px, auto) [row2] [row2] "content" 1fr [row3] [row3] "handbook" minmax(500px, auto) [row4] [row4] "footer" minmax(100px, auto) [row-end] / 1fr;
+    grid-template: [start] "header" minmax(100px, auto) [row2] [row2] "content" 1fr [row3] [row3] "footer" minmax(100px, auto) [row-end] / 1fr;
+    //grid-template: [start] "header" minmax(100px, auto) [row2] [row2] "content" 1fr [row3] [row3] "handbook" minmax(500px, auto) [row4] [row4] "footer" minmax(100px, auto) [row-end] / 1fr;
 }
 
 .content {
     grid-area: content;
     display: grid;
-    grid-template: repeat(4, auto)  / 1fr;
+    
+    &.main {
+        grid-template: repeat(4, auto)  / 1fr;
+    }
+
+    &.handbook {
+        grid-template: repeat(3, auto)  / 1fr;
+    }
+
+    &.gamechoice {
+        grid-template: auto / 1fr;
+    }    
+
+    &.audiogame {
+        grid-template: repeat(3, auto)  / 1fr;
+    }    
 }
