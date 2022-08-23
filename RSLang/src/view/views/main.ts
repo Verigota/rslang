@@ -96,12 +96,3 @@ export const sectionTeam = `<section class="team content__item">
                     </a>
                 </div>
                 </section>`;
-
-export const sectionRegistration = `<section class="registration content__item">
-                <h2 class="section-title registration__title">Давайте познакомимся поближе!</h2>
-                <p class="registration__text">Чтобы выбирать уровень сложности для
-                    изучения и игр, а также отслеживать Ваш прогресс за длительный период времени, пожалуйста, войдите или пройдите простую регистрацию.</p>
-                <a href="#" class="registration__link">
-                    <button class="registration__regbtn">Поехали!</button>
-                </a>
-                </section>`;
