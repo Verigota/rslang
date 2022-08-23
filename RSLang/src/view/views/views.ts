@@ -26,3 +26,13 @@ export const gameAudioStart: ViewType = {
   sections: [sectionAudioGameStart],
   name: 'audiogame-start',
 };
+
+export const gameAudioBody: ViewType = {
+  sections: [sectionAudioGameBody],
+  name: 'audiogame-body',
+};
+
+export const popupMsg: ViewType = {
+  sections: [popupMessage],
+  name: 'message',
+};
