@@ -11,11 +11,14 @@
 @import './sass/components/word';
 @import './sass/components/registration-modal';
 @import './sass/components/gamespanel';
+@import './sass/components/popup';
+@import './sass/components/answer';
 
 /* pages */
 @import './sass/pages/main/main';
 @import './sass/pages/handbook/handbook';
 @import './sass/pages/choice/choice';
+@import './sass/pages/audiogame/audiogame';
 
 /* layouts*/
 @import './sass/layout/header';
@@ -26,5 +29,6 @@
 @import './sass/layout/footer';
 @import './sass/layout/handbook/dictionary';
 @import './sass/layout/choice/choice';
+@import './sass/layout/audiogame/audiogame';
 @import './sass/layout/modal';
 @import './sass/layout/blackout';
