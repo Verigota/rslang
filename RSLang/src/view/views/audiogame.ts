@@ -21,7 +21,7 @@ export const sectionAudioGameBody = `
             <section class="audio-game content__item">
                 <div class="audio-game__audio">
                     <a href="#" class="audio-game__audio-btn">
-                        <img src="./public/assets/icons/play.svg" alt="play" class="audio-game__audio-img">
+                        <img src="./public/assets/icons/sound-beat.svg" alt="play" class="audio-game__audio-img">
                     </a>
                 </div>
                 <div class="answers audio-game__answers">
