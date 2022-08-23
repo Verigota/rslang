@@ -1,4 +1,4 @@
-import { IAuthInfo } from '../api/interfaces';
+import { IAuthInfo } from '../../api/interfaces';
 import { IAuthStorage } from './interfaces';
 
 const STORAGE_KEY = 'user';

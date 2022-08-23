@@ -1,8 +1,6 @@
 import authModals from '../view/authorization/modal-elements';
 import IApp from './interfaces';
 import { AuthEventHandlers, IAuthEventHandlers } from '../view/authorization/event-handlers';
-import { IAuthManager } from '../controller/interfaces';
-import AuthManager from '../controller/authorization';
 import { herokuApi } from '../api';
 import authStorage from '../controller/auth-storage';
 import AppView from '../view/appView';
@@ -26,8 +24,10 @@ class App implements IApp {
   }
 
   public start() {
-    const signInBtns = document.querySelectorAll('.registration__regbtn');
+    const signInBtn = document.querySelector<HTMLElement>('.registration__regbtn');
+    const logOutBtn = document.querySelector<HTMLElement>('#log-out-btn');
     const blackout = document.querySelector<HTMLElement>('.blackout');
+
     window.addEventListener('load', () => this.authorizationController.getNewToken());
     if (blackout && authModals) signInBtns.forEach((btn) => btn?.addEventListener('click', () => this.authEventHandlers.renderAuthModal(blackout, authModals)));
 

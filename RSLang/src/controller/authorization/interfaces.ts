@@ -1,6 +1,6 @@
 import {
-  IApi, IAuthInfo, IUserInfo, IUserSingIn,
-} from '../api/interfaces';
+  IApi, IUserInfo, IAuthInfo, IUserSingIn,
+} from '../../api/interfaces';
 
 export interface IRegistrationController {
   api: IApi;
