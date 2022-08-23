@@ -1,12 +1,12 @@
 import { herokuApi } from '../../api';
 import { IUserInfo, IUserSingIn } from '../../api/interfaces';
-import authStorage from '../../controller/auth-storage';
-import AuthManager from '../../controller/authorization';
-import { IAuthManager, IRegistrationController } from '../../controller/interfaces';
-import RegistrationController from '../../controller/registration';
+import authStorage from '../../controller/authorization/auth-storage';
+import AuthManager from '../../controller/authorization/authorization';
+import { IRegistrationController, IAuthManager } from '../../controller/authorization/interfaces';
+import RegistrationController from '../../controller/authorization/registration';
 import { deleteContent, drawContent } from '../draw-content';
 import { clearForm, collectNewUserInfo } from './forms';
-import { showHideBlackout, showHideModal } from './modal';
+import { showHideBlackout, showHideElem } from './show-hide-elem';
 import findModalElements from './page-elements';
 
 export interface IAuthEventHandlers {
@@ -74,11 +74,11 @@ export class AuthEventHandlers {
 
     authModal.registerLink?.addEventListener('click', (e: Event) => {
       e.preventDefault();
-      showHideModal([authModal.registrationModal, authModal.signInModal] as HTMLElement[]);
+      showHideElem([authModal.registrationModal, authModal.signInModal] as HTMLElement[], 'modal_hidden');
     });
     authModal.signInLink?.addEventListener('click', (e) => {
       e.preventDefault();
-      showHideModal([authModal.registrationModal, authModal.signInModal] as HTMLElement[]);
+      showHideElem([authModal.registrationModal, authModal.signInModal] as HTMLElement[], 'modal_hidden');
     });
   }
 }

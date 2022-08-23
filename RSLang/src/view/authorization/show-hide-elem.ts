@@ -1,5 +1,5 @@
-export function showHideModal(modals: HTMLElement[]): void {
-  modals.forEach((modal) => modal?.classList.toggle('modal_hidden'));
+export function showHideElem(modals: HTMLElement[], className: string): void {
+  modals.forEach((modal) => modal?.classList.toggle(className));
 }
 
 export function showHideBlackout(blackout: HTMLElement):void {
