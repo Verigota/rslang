@@ -1,34 +1,26 @@
-import { IUserInfo } from '../api/interfaces';
-import RegistrationController from '../controller/registration';
-import { clearForm, collectNewUserInfo } from '../view/forms';
-import showHideModal from '../view/modal';
+import authModals from '../view/authorization/modal-elements';
 import IApp from './interfaces';
+import { AuthEventHandlers, IAuthEventHandlers } from '../view/authorization/event-handlers';
+import { IAuthManager } from '../controller/interfaces';
+import AuthManager from '../controller/authorization';
+import { herokuApi } from '../api';
+import authStorage from '../controller/auth-storage';
 
 class App implements IApp {
-  registrationController: RegistrationController;
+  authEventHandlers: IAuthEventHandlers;
+
+  authorizationController: IAuthManager;
 
   constructor() {
-    this.registrationController = new RegistrationController();
+    this.authEventHandlers = new AuthEventHandlers();
+    this.authorizationController = new AuthManager(herokuApi, authStorage);
   }
 
   public start() {
-    const registerBtn = document.querySelector('#register-user-btn');
-    const registrationModal = document.querySelector<HTMLElement>('#registration-modal');
-    const registerBtns = document.querySelectorAll('.registration__regbtn');
+    const signInBtns = document.querySelectorAll('.registration__regbtn');
     const blackout = document.querySelector<HTMLElement>('.blackout');
-
-    blackout?.addEventListener('click', () => showHideModal(registrationModal as HTMLElement, blackout));
-    registerBtns.forEach((btn) => btn?.addEventListener('click', () => showHideModal(registrationModal as HTMLElement, blackout as HTMLElement)));
-    registerBtn?.addEventListener('click', (e) => {
-      e.preventDefault();
-      const registrateForm = document.querySelector<HTMLFormElement>('#create-user-form');
-      const newUser = collectNewUserInfo<IUserInfo>(
-        registrateForm as HTMLFormElement,
-        ['confirmPassword'],
-      );
-      this.registrationController.registerNewUser(newUser);
-      if (registrateForm) clearForm(registrateForm);
-    });
+    window.addEventListener('load', () => this.authorizationController.getNewToken());
+    if (blackout && authModals) signInBtns.forEach((btn) => btn?.addEventListener('click', () => this.authEventHandlers.renderAuthModal(blackout, authModals)));
   }
 }
 export default App;

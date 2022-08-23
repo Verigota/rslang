@@ -1,6 +1,19 @@
-import { IUserInfo } from '../api/interfaces';
+import {
+  IApi, IAuthInfo, IUserInfo, IUserSingIn,
+} from '../api/interfaces';
 
-interface IRegistrationController {
+export interface IRegistrationController {
+  api: IApi;
   registerNewUser: (newUser: IUserInfo) => void
 }
-export default IRegistrationController;
+export interface IAuthStorage {
+  set: (userInfo: IAuthInfo) => void;
+  get: () => IAuthInfo | undefined;
+  remove: () => void;
+}
+
+export interface IAuthManager {
+  authorizeUser: (userInfo: IUserSingIn) => void;
+  getNewToken: () => void;
+  logOutUser: () => void;
+}
