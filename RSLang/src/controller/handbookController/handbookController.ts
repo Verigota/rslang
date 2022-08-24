@@ -1,3 +1,4 @@
+import axios from 'axios';
 import WordsAPI from '../../APIs/wordsApi/wordsApi';
 import { WordDataT, WordsDataT, RsLangHandbookDataT } from '../../types/types';
 import IhandbookController from './IhandbookController';
@@ -5,7 +6,7 @@ import IhandbookController from './IhandbookController';
 export default class HandbookController implements IhandbookController {
   private wordsAPI: WordsAPI;
 
-  private baseURL: 'https://rsschool-lang-app.herokuapp.com';
+  private baseURL: string | undefined;
 
   private diffBetweenArrIndexAndPageNum: number;
 
@@ -15,7 +16,7 @@ export default class HandbookController implements IhandbookController {
 
   constructor() {
     this.wordsAPI = new WordsAPI();
-    this.baseURL = 'https://rsschool-lang-app.herokuapp.com';
+    this.baseURL = axios.defaults.baseURL;
     this.diffBetweenArrIndexAndPageNum = 1;
     this.firstCardIndex = 0;
     this.localStorageKey = 'rsLangHandbookData';

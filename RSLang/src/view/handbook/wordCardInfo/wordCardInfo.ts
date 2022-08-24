@@ -1,3 +1,4 @@
+import axios from 'axios';
 import HandbookController from '../../../controller/handbookController/handbookController';
 import { WordDataT } from '../../../types/types';
 import { getNewElement, getNewImageElement, getMeaningOrExampleContainer } from '../templatesForElements/templateForCreatingNewElement';
@@ -6,14 +7,15 @@ import IwordCardInfo from './IwordCardInfo';
 export default class WordCardInfo implements IwordCardInfo {
   private wordCardInfoSelector: '#handbook__word-card-info';
 
-  private baseURL: 'https://rsschool-lang-app.herokuapp.com';
+  private baseURL: string | undefined;
 
   constructor() {
-    this.baseURL = 'https://rsschool-lang-app.herokuapp.com';
+    this.baseURL = axios.defaults.baseURL;
     this.wordCardInfoSelector = '#handbook__word-card-info';
   }
 
   renderWordCardInfo(wordData: WordDataT, handbookController: HandbookController): void {
+    console.log(this.baseURL);
     const [wordCardInfo, img, playAudioButton, audio, playCounter] = [
       <HTMLDivElement>document.querySelector(this.wordCardInfoSelector), getNewImageElement('word-card-info__img', `${this.baseURL}/${wordData.image}`, 'word-image'),
       getNewElement('button', 'word-card-info__play-audio-button', 'play'),

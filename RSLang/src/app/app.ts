@@ -8,8 +8,8 @@ export default class App implements AppI {
   private controller: Controller;
 
   constructor() {
-    this.view = new View();
     this.controller = new Controller();
+    this.view = new View();
   }
 
   async startApp() {
