@@ -1,6 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import WordsAPI from '../../APIs/wordsApi/wordsApi';
 import { WordDataT, WordsDataT, RsLangHandbookDataT } from '../../types/types';
+import { DIFF_BETWEEN_ARR_INDEX_AND_PAGE_NUM, FIRST_CARD_INDEX, LOCAL_STORAGE_KEY } from './handbookControllerConstants';
+import { getHandbookDataFromLocalStorage, setHandbookDataToLocalStorage } from './handbookLocalStorageAPI';
 import IhandbookController from './IhandbookController';
 
 export default class HandbookController implements IhandbookController {
@@ -17,17 +19,17 @@ export default class HandbookController implements IhandbookController {
   constructor() {
     this.wordsAPI = new WordsAPI();
     this.baseURL = axios.defaults.baseURL;
-    this.diffBetweenArrIndexAndPageNum = 1;
-    this.firstCardIndex = 0;
-    this.localStorageKey = 'rsLangHandbookData';
+    this.diffBetweenArrIndexAndPageNum = DIFF_BETWEEN_ARR_INDEX_AND_PAGE_NUM;
+    this.firstCardIndex = FIRST_CARD_INDEX;
+    this.localStorageKey = LOCAL_STORAGE_KEY;
   }
 
-  async getChunkOfWords(group: number, page: number) {
+  async getChunkOfWords(group: number, page: number): Promise<AxiosResponse<WordsDataT>> {
     const res = await this.wordsAPI.getChunkOfWords(group, page);
     return res;
   }
 
-  async getWordWithAssetsById(wordId: string) {
+  async getWordWithAssetsById(wordId: string): Promise<AxiosResponse<WordDataT>> {
     const res = await this.wordsAPI.getWordWithAssetsById(wordId);
     return res;
   }
@@ -59,28 +61,32 @@ export default class HandbookController implements IhandbookController {
     currPage: HTMLDivElement,
     pageLimit: number,
   ): Promise<WordsDataT> {
-    const [rsLangHandbookData,
+    const [
+      rsLangHandbookData,
       inactiveButtonCopy,
       activeButtonCopy,
       currPageCopy,
-    ] = [<RsLangHandbookDataT>JSON.parse(
-      <string>localStorage.getItem(this.localStorageKey),
-    ), inactiveButton, activeButton, currPage];
+    ] = [
+      getHandbookDataFromLocalStorage(this.localStorageKey),
+      inactiveButton,
+      activeButton,
+      currPage,
+    ];
 
     inactiveButtonCopy.disabled = false;
 
     rsLangHandbookData.currPage += step;
     rsLangHandbookData.page += step;
 
-    localStorage.setItem(this.localStorageKey, JSON.stringify({
-      group: rsLangHandbookData.group,
-      page: rsLangHandbookData.currPage - this.diffBetweenArrIndexAndPageNum,
-      currPage: rsLangHandbookData.currPage,
-      activeWordCardIndex: this.firstCardIndex,
-    }));
+    setHandbookDataToLocalStorage(
+      this.localStorageKey,
+      rsLangHandbookData.group,
+      rsLangHandbookData.currPage - this.diffBetweenArrIndexAndPageNum,
+      rsLangHandbookData.currPage,
+      this.firstCardIndex,
+    );
 
-    const wordsData = <WordsDataT> await
-    (await this.getChunkOfWords(
+    const wordsData = <WordsDataT>(await this.getChunkOfWords(
       rsLangHandbookData.group,
       rsLangHandbookData.page,
     )).data;
@@ -99,18 +105,14 @@ export default class HandbookController implements IhandbookController {
     wordsData: WordsDataT;
     rsLangHandbookData: RsLangHandbookDataT;
   }> {
-    if (!localStorage.getItem('rsLangHandbookData')) {
-      localStorage.setItem('rsLangHandbookData', JSON.stringify({
-        group: 0,
-        page: 0,
-        currPage: 1,
-        activeWordCardIndex: 0,
-      }));
+    if (!getHandbookDataFromLocalStorage(this.localStorageKey)) {
+      setHandbookDataToLocalStorage(this.localStorageKey, 0, 0, 1, 0);
     }
 
-    const rsLangHandbookData: RsLangHandbookDataT = JSON.parse(<string>localStorage.getItem('rsLangHandbookData'));
+    const rsLangHandbookData:
+    RsLangHandbookDataT = getHandbookDataFromLocalStorage(this.localStorageKey);
 
-    const wordsData = <WordsDataT> await
+    const wordsData = <WordsDataT>
     (await this.getChunkOfWords(
       rsLangHandbookData.group,
       rsLangHandbookData.page,
@@ -127,14 +129,16 @@ export default class HandbookController implements IhandbookController {
     activeWordCard.classList.remove('active-word-card');
     wordCard.classList.add('active-word-card');
 
-    const rsLangHandbookData: RsLangHandbookDataT = JSON.parse(<string>localStorage.getItem('rsLangHandbookData'));
+    const rsLangHandbookData:
+    RsLangHandbookDataT = getHandbookDataFromLocalStorage(this.localStorageKey);
 
-    localStorage.setItem('rsLangHandbookData', JSON.stringify({
-      group: rsLangHandbookData.group,
-      page: rsLangHandbookData.currPage - this.diffBetweenArrIndexAndPageNum,
-      currPage: rsLangHandbookData.currPage,
-      activeWordCardIndex: wordCardIndex,
-    }));
+    setHandbookDataToLocalStorage(
+      this.localStorageKey,
+      rsLangHandbookData.group,
+      rsLangHandbookData.currPage - this.diffBetweenArrIndexAndPageNum,
+      rsLangHandbookData.currPage,
+      wordCardIndex,
+    );
   }
 
   async levelCardHandler(
@@ -146,23 +150,30 @@ export default class HandbookController implements IhandbookController {
     activeWordCardIndex: number,
     wordsPaginationCurrPage: HTMLDivElement,
     wordsPaginationPrevButton: HTMLButtonElement,
+    wordsPaginationNextButton: HTMLButtonElement,
   ) {
     activeLevelCard.classList.remove('active-level-card');
     levelCard.classList.add('active-level-card');
 
-    const [wordsData, wordsPaginationCurrPageCopy, wordsPaginationPrevButtonCopy] = [<WordsDataT>
-    await (await this.getChunkOfWords(contentIndex, page)).data,
-    wordsPaginationCurrPage, wordsPaginationPrevButton];
+    const [wordsData,
+      wordsPaginationCurrPageCopy,
+      wordsPaginationPrevButtonCopy,
+      wordsPaginationNextButtonCopy,
+    ] = [<WordsDataT>
+    (await this.getChunkOfWords(contentIndex, page)).data,
+    wordsPaginationCurrPage, wordsPaginationPrevButton, wordsPaginationNextButton];
 
-    localStorage.setItem('rsLangHandbookData', JSON.stringify({
-      group: contentIndex,
+    setHandbookDataToLocalStorage(
+      this.localStorageKey,
+      contentIndex,
       page,
       currPage,
       activeWordCardIndex,
-    }));
+    );
 
-    wordsPaginationCurrPageCopy.textContent = `${1}`;
+    wordsPaginationCurrPageCopy.textContent = '1';
     wordsPaginationPrevButtonCopy.disabled = true;
+    wordsPaginationNextButtonCopy.disabled = false;
 
     return wordsData;
   }

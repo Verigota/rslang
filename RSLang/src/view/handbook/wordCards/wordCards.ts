@@ -1,4 +1,5 @@
 import HandbookController from '../../../controller/handbookController/handbookController';
+import { getHandbookDataFromLocalStorage } from '../../../controller/handbookController/handbookLocalStorageAPI';
 import { RsLangHandbookDataT, WordDataT, WordsDataT } from '../../../types/types';
 import { getNewElement } from '../templatesForElements/templateForCreatingNewElement';
 import WordCardInfo from '../wordCardInfo/wordCardInfo';
@@ -26,7 +27,7 @@ export default class WordCards implements IwordCards {
 
     const wordCards = <NodeListOf<HTMLDivElement>>document.querySelectorAll('.handbook__word-card');
 
-    const newRsLangHandbookData: RsLangHandbookDataT = JSON.parse(<string>localStorage.getItem('rsLangHandbookData'));
+    const newRsLangHandbookData: RsLangHandbookDataT = getHandbookDataFromLocalStorage('rsLangHandbookData');
 
     wordCards[newRsLangHandbookData.activeWordCardIndex].classList.add('active-word-card');
 

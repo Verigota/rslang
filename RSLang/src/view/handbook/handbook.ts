@@ -1,25 +1,52 @@
 import HandbookController from '../../controller/handbookController/handbookController';
+import { getHandbookDataFromLocalStorage } from '../../controller/handbookController/handbookLocalStorageAPI';
 import { RsLangHandbookDataT, WordDataT, WordsDataT } from '../../types/types';
 import IHandbook from './Ihandbook';
 import LevelCards from './levelCards/levelCards';
 import WordCardInfo from './wordCardInfo/wordCardInfo';
 import WordCards from './wordCards/wordCards';
 
-export default class Handbook implements IHandbook {
-  private handbook: string;
+function getPaginationElementsAndDataForThem():
+[HTMLButtonElement, HTMLDivElement, HTMLButtonElement, RsLangHandbookDataT, number] {
+  return [
+    <HTMLButtonElement>document.querySelector('.words-pagination__prev-button'),
+    <HTMLDivElement>document.querySelector('.words-pagination__curr-page'),
+    <HTMLButtonElement>document.querySelector('.words-pagination__next-button'),
+    getHandbookDataFromLocalStorage('rsLangHandbookData'),
+    1,
+  ];
+}
 
+function disablePaginationButton(
+  button: HTMLButtonElement,
+  currPage: number,
+  firstOrLastPage: number,
+) {
+  if (currPage === firstOrLastPage) {
+    const buttonCopy = button;
+    buttonCopy.disabled = true;
+  }
+}
+
+export default class Handbook implements IHandbook {
   private levelCards: LevelCards;
 
   private wordCards: WordCards;
 
   private wordCardInfo: WordCardInfo;
 
-  private firstPage: number;
-
-  private lastPage: number;
-
   constructor() {
-    this.handbook = `
+    this.levelCards = new LevelCards();
+    this.wordCards = new WordCards();
+    this.wordCardInfo = new WordCardInfo();
+  }
+
+  renderHandbook(
+    wordsData: WordsDataT,
+    wordData: WordDataT,
+    handbookController: HandbookController,
+  ): void {
+    const handbook = `
     <section id="handbook" class="handbook">
       <h4>Учебник</h4>
       <div id="handbook__levels" class="handbook__levels">
@@ -47,19 +74,7 @@ export default class Handbook implements IHandbook {
         </div>
       </div>
     </div>`;
-    this.levelCards = new LevelCards();
-    this.wordCards = new WordCards();
-    this.wordCardInfo = new WordCardInfo();
-    this.firstPage = 1;
-    this.lastPage = 30;
-  }
-
-  renderHandbook(
-    wordsData: WordsDataT,
-    wordData: WordDataT,
-    handbookController: HandbookController,
-  ): void {
-    document.body.insertAdjacentHTML('beforeend', this.handbook);
+    document.body.insertAdjacentHTML('beforeend', handbook);
     this.levelCards.renderLevelCards(handbookController, this.wordCards, this.wordCardInfo);
     this.wordCards.renderWordCards(wordsData, handbookController);
     this.wordCardInfo.renderWordCardInfo(wordData, handbookController);
@@ -76,45 +91,34 @@ export default class Handbook implements IHandbook {
       wordsPaginationNextButton,
       rsLangHandbookData,
       step,
-    ] = [
-        <HTMLButtonElement>document.querySelector('.words-pagination__prev-button'), <HTMLDivElement>document.querySelector('.words-pagination__curr-page'), <HTMLButtonElement>document.querySelector('.words-pagination__next-button'), <RsLangHandbookDataT>JSON.parse(<string>localStorage.getItem('rsLangHandbookData')), 1,
-    ];
+    ] = getPaginationElementsAndDataForThem();
 
     wordsPaginationCurrPage.textContent = `${rsLangHandbookData.currPage}`;
 
-    function disablePaginationButton(
-      button: HTMLButtonElement,
-      currPage: number,
-      firstOrLastPage: number,
-    ) {
-      if (currPage === firstOrLastPage) {
-        const buttonCopy = button;
-        buttonCopy.disabled = true;
-      }
-    }
+    const [firstPage, lastPage] = [1, 30];
 
-    disablePaginationButton(wordsPaginationPrevButton, rsLangHandbookData.currPage, this.firstPage);
-    disablePaginationButton(wordsPaginationNextButton, rsLangHandbookData.currPage, this.lastPage);
+    disablePaginationButton(wordsPaginationPrevButton, rsLangHandbookData.currPage, firstPage);
+    disablePaginationButton(wordsPaginationNextButton, rsLangHandbookData.currPage, lastPage);
 
-    wordsPaginationPrevButton.addEventListener('click', async () => {
-      await this.paginationButtonHandler(
+    wordsPaginationPrevButton.addEventListener('click', () => {
+      this.paginationButtonHandler(
         handbookController,
         wordsPaginationPrevButton,
         wordsPaginationNextButton,
         -step,
         wordsPaginationCurrPage,
-        this.firstPage,
+        firstPage,
       );
     });
 
-    wordsPaginationNextButton.addEventListener('click', async () => {
-      await this.paginationButtonHandler(
+    wordsPaginationNextButton.addEventListener('click', () => {
+      this.paginationButtonHandler(
         handbookController,
         wordsPaginationNextButton,
         wordsPaginationPrevButton,
         step,
         wordsPaginationCurrPage,
-        this.lastPage,
+        lastPage,
       );
     });
   }

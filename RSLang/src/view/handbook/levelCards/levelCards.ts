@@ -1,4 +1,5 @@
 import HandbookController from '../../../controller/handbookController/handbookController';
+import { getHandbookDataFromLocalStorage } from '../../../controller/handbookController/handbookLocalStorageAPI';
 import { RsLangHandbookDataT } from '../../../types/types';
 import { getNewElement } from '../templatesForElements/templateForCreatingNewElement';
 import WordCardInfo from '../wordCardInfo/wordCardInfo';
@@ -30,7 +31,7 @@ export default class LevelCards implements IlevelCards {
     wordCardInfo: WordCardInfo,
   ): void {
     const levels = <HTMLDivElement>document.querySelector(this.levelsSelector);
-    const RsLangHandbookData: RsLangHandbookDataT = JSON.parse(<string>localStorage.getItem('rsLangHandbookData'));
+    const RsLangHandbookData: RsLangHandbookDataT = getHandbookDataFromLocalStorage('rsLangHandbookData');
 
     this.levelCardsContent.forEach((content, contentIndex) => {
       const levelCard = getNewElement('div', 'handbook__level-card', content);
@@ -39,10 +40,10 @@ export default class LevelCards implements IlevelCards {
         levelCard.classList.add('active-level-card');
       }
 
-      levelCard.addEventListener('click', async () => {
+      levelCard.addEventListener('click', () => {
         const activeLevelCard = <HTMLDivElement>document.querySelector('.active-level-card');
 
-        await this.levelCardHandler(
+        this.levelCardHandler(
           activeLevelCard,
           levelCard,
           handbookController,
@@ -66,8 +67,10 @@ export default class LevelCards implements IlevelCards {
     const [
       wordsPaginationPrevButton,
       wordsPaginationCurrPage,
+      wordsPaginationNextButton,
     ] = [
         <HTMLButtonElement>document.querySelector('.words-pagination__prev-button'), <HTMLDivElement>document.querySelector('.words-pagination__curr-page'),
+        <HTMLButtonElement>document.querySelector('.words-pagination__next-button'),
     ];
 
     const wordsData = await handbookController.levelCardHandler(
@@ -79,6 +82,7 @@ export default class LevelCards implements IlevelCards {
       this.defaultActiveWordCardIndex,
       wordsPaginationCurrPage,
       wordsPaginationPrevButton,
+      wordsPaginationNextButton,
     );
 
     wordCards.renderWordCards(wordsData, handbookController);

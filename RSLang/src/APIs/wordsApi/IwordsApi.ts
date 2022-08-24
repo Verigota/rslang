@@ -1,8 +1,9 @@
 import { AxiosResponse } from 'axios';
+import { WordDataT, WordsDataT } from '../../types/types';
 
 export default interface IwordsAPI {
-  getChunkOfWords<T, K>(group: number, page: number):
-  Promise<AxiosResponse<T, K>>
-  getWordWithAssetsById<T, K>(wordId: string):
-  Promise<AxiosResponse<T, K>>
+  getChunkOfWords(group: number, page: number):
+  Promise<AxiosResponse<WordsDataT>>
+  getWordWithAssetsById(wordId: string):
+  Promise<AxiosResponse<WordDataT>>
 }

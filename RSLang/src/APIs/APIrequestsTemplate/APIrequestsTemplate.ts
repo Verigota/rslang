@@ -14,7 +14,7 @@ export default class APIRequestsTemplate implements IAPIRequestsTemplate {
     });
   }
 
-  async getData<T, K>(url: string): Promise<AxiosResponse<T, K>> {
+  async getData(url: string): Promise<AxiosResponse> {
     const res = await this.apiClient.get(url);
     return res;
   }

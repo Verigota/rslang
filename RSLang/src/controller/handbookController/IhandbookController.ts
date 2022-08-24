@@ -2,9 +2,9 @@ import { AxiosResponse } from 'axios';
 import { WordDataT, WordsDataT, RsLangHandbookDataT } from '../../types/types';
 
 export default interface IhandbookController {
-  getChunkOfWords(group: number, page: number): Promise<AxiosResponse<unknown, unknown>>;
+  getChunkOfWords(group: number, page: number): Promise<AxiosResponse<WordsDataT>>;
 
-  getWordWithAssetsById(wordId: string): Promise<AxiosResponse<unknown, unknown>>;
+  getWordWithAssetsById(wordId: string): Promise<AxiosResponse<WordDataT>>;
 
   wordInfoAudioHandler(
     wordData: WordDataT,
@@ -40,5 +40,6 @@ export default interface IhandbookController {
     activeWordCardIndex: number,
     wordsPaginationCurrPage: HTMLDivElement,
     wordsPaginationPrevButton: HTMLButtonElement,
+    wordsPaginationNextButton: HTMLButtonElement,
   ): Promise<WordsDataT>
 }

@@ -12,11 +12,9 @@ export default class App implements AppI {
     this.view = new View();
   }
 
-  async startApp() {
-    const handbookButton = document.querySelector('button'); // must be changed to nav button
-    handbookButton?.addEventListener('click', async () => {
-      await this.handbookButtonHandler();
-    });
+  startApp() {
+    const handbookButton = document.querySelector('#handbook__button'); // must be changed to nav button
+    handbookButton?.addEventListener('click', () => this.handbookButtonHandler());
   }
 
   async handbookButtonHandler() {

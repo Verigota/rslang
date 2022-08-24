@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { WordDataT, WordsDataT } from '../../types/types';
 import APIRequestsTemplate from '../APIrequestsTemplate/APIrequestsTemplate';
 import IwordsAPI from './IwordsApi';
 
@@ -10,13 +11,13 @@ export default class WordsAPI extends APIRequestsTemplate implements IwordsAPI {
     this.wordsPath = '/words';
   }
 
-  async getChunkOfWords<T, K>(group: number, page: number):
-  Promise<AxiosResponse<T, K>> {
+  async getChunkOfWords(group: number, page: number):
+  Promise<AxiosResponse<WordsDataT>> {
     return super.getData(`${this.wordsPath}?group=${group}&page=${page}`);
   }
 
-  async getWordWithAssetsById<T, K>(wordId: string):
-  Promise<AxiosResponse<T, K>> {
+  async getWordWithAssetsById(wordId: string):
+  Promise<AxiosResponse<WordDataT>> {
     return super.getData(`${this.wordsPath}/${wordId}`);
   }
 }
