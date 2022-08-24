@@ -22,6 +22,7 @@ class AuthManager implements IAuthManager {
       refreshToken: resp.data.refreshToken,
     };
     this.authStore.set(info);
+    return info;
   }
 
   async getNewToken() {

@@ -29,7 +29,18 @@ class App implements IApp {
     const blackout = document.querySelector<HTMLElement>('.blackout');
 
     window.addEventListener('load', () => this.authorizationController.getNewToken());
-    if (blackout && authModals) signInBtns.forEach((btn) => btn?.addEventListener('click', () => this.authEventHandlers.renderAuthModal(blackout, authModals)));
+          if (!localStorage.getItem('user') && signInBtn && logOutBtn && mainView) {
+        this.appView.createView(mainView);
+        showHideElem([signInBtn, logOutBtn], 'btn_hidden');
+      }
+    });
+    if (blackout && authModals) signInBtn?.addEventListener('click', () => this.authEventHandlers.renderAuthModal(blackout, authModals));
+    if (signInBtn) {
+      logOutBtn?.addEventListener('click', () => {
+        this.authorizationController.logOutUser();
+        showHideElem([signInBtn, logOutBtn], 'btn_hidden');
+      });
+    }
 
     const handbookPage = <HTMLAnchorElement>document.querySelector('#handbook-page');
     handbookPage?.addEventListener('click', () => this.handbookLinkHandler());
