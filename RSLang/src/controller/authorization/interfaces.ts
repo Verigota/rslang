@@ -13,7 +13,7 @@ export interface IAuthStorage {
 }
 
 export interface IAuthManager {
-  authorizeUser: (userInfo: IUserSingIn) => void;
+  authorizeUser: (userInfo: IUserSingIn) => Promise<IAuthInfo> | undefined;
   getNewToken: () => void;
   logOutUser: () => void;
 }

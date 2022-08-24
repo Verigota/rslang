@@ -25,19 +25,24 @@ export class AuthEventHandlers {
     this.authorizationController = new AuthManager(herokuApi, authStorage);
   }
 
-  initSignIn(event: Event, blackout: HTMLElement, modalsContainer: HTMLElement) {
+  async initSignIn(event: Event, blackout: HTMLElement, modalsContainer: HTMLElement) {
     event.preventDefault();
     const signInForm = document.querySelector<HTMLFormElement>('#sign-in-form');
     const user = collectNewUserInfo<IUserSingIn>(
       signInForm as HTMLFormElement,
       [],
     );
-    this.authorizationController.authorizeUser(user);
     if (signInForm) clearForm(signInForm);
     if (blackout && modalsContainer) {
       deleteContent(modalsContainer);
       showHideBlackout(blackout);
     }
+    try {
+      await this.authorizationController.authorizeUser(user);
+    } catch { return; }
+    const signInBtn = document.querySelector<HTMLElement>('.registration__regbtn');
+    const logOutBtn = document.querySelector<HTMLElement>('#log-out-btn');
+    if (signInBtn && logOutBtn) showHideElem([signInBtn, logOutBtn], 'btn_hidden');
     setTimeout(() => this.authorizationController.getNewToken(), 4 * 60 * 60 * 1000);
   }
 

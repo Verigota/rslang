@@ -25,12 +25,17 @@ class App implements IApp {
     window.addEventListener('load', () => this.authorizationController.getNewToken());
     window.addEventListener('storage', () => {
       if (!localStorage.getItem('user') && signInBtn && logOutBtn && mainView) {
-        AppView.createView(mainView);
+        this.appView.createView(mainView);
         showHideElem([signInBtn, logOutBtn], 'btn_hidden');
       }
     });
     if (blackout && authModals) signInBtn?.addEventListener('click', () => this.authEventHandlers.renderAuthModal(blackout, authModals));
-    if (signInBtn) logOutBtn?.addEventListener('click', () => showHideElem([signInBtn, logOutBtn], 'btn_hidden'));
+    if (signInBtn) {
+      logOutBtn?.addEventListener('click', () => {
+        this.authorizationController.logOutUser();
+        showHideElem([signInBtn, logOutBtn], 'btn_hidden');
+      });
+    }
   }
 }
 export default App;
