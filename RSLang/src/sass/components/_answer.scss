@@ -12,7 +12,8 @@
     width: 100%;
     gap: 10px;
     transition: .2s all;
-    
+    background-color: $background-light;
+
     &__ok,
     &__fault {
         grid-column: 1/2;
