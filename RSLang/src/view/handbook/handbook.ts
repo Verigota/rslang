@@ -66,7 +66,7 @@ export default class Handbook implements IHandbook {
     this.handlePaginationButtons(handbookController);
 
     const games = [document.querySelector('#handbook__audio-call'), document.querySelector('#handbook__sprint')];
-    games.forEach((game) => game?.addEventListener('click', () => console.log('click'))); // links for future games
+    games.forEach((game) => game?.addEventListener('click', () => '')); // links for future games
   }
 
   handlePaginationButtons(handbookController: HandbookController) {

@@ -15,7 +15,6 @@ export default class WordCardInfo implements IwordCardInfo {
   }
 
   renderWordCardInfo(wordData: WordDataT, handbookController: HandbookController): void {
-    console.log(this.baseURL);
     const [wordCardInfo, img, playAudioButton, audio, playCounter] = [
       <HTMLDivElement>document.querySelector(this.wordCardInfoSelector), getNewImageElement('word-card-info__img', `${this.baseURL}/${wordData.image}`, 'word-image'),
       getNewElement('button', 'word-card-info__play-audio-button', 'play'),
