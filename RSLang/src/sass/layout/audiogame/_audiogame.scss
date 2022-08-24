@@ -1,0 +1,82 @@
+@import '../../utils/variables';
+@import '../../utils/mixines';
+
+.audio-game {
+    gap: 20px;
+
+    &__title {
+        @include addFont('Philosopher', normal, 600, 5rem, 0.01em, $text-dark, 5.2rem);
+        padding: 20px;
+    }
+
+    &__desc {
+        @include addFont('Philosopher', normal, 400, 3rem, 0.01em, $text-dark, 3.2rem);
+        padding: 20px; 
+    }
+
+    &__icon {
+        width: 100%;
+        height: auto;
+    }
+
+    &__help {
+        border: 3px solid $background-dark;
+        box-shadow: 2px 2px 5px $background-dark;
+        border: 3px solid #3a4b83;
+        box-shadow: 2px 2px 5px #3a4b83;
+        width: auto;
+    
+        border-radius: 15px;
+        padding: 30px;
+    }
+
+    &__help-item {
+        @include addFont('Philosopher', normal, 600, 1.5rem, 0.01em, $text-dark, 2rem);
+    }
+
+    &__start {
+        padding: 20px;
+    }
+
+    &__start-btn,
+    &__skip-btn {
+        width: auto;
+        height: 4rem;
+        @include addFont('Philosopher', normal, 600, 2.5rem, 0.01em, $text-light, 3.2rem);
+        background-color: $background-dark;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px $background-dark;
+        transition: all 0.1s linear;
+        justify-self: center;
+        padding: 0px 20px;
+        &:hover {
+            color: $text-white;
+        }
+
+        &:active {
+            transform: translateY(2px);
+            transition: all 0.2s linear;
+        }
+    }
+    
+    &__audio-img {
+        width: 100px;
+        height: 100px;
+        box-shadow:  2px 2px 5px $background-dark;
+        border-radius: 50%;
+        align-self: center;
+
+        &:hover {
+            box-shadow: 3px 3px 7px $background-dark;
+            transition: .2s all;
+        }
+    
+        &:active {
+            transition: .2s all;
+            transform: translateY(3px);
+        }
+    }
+}
+
+
+

@@ -6,7 +6,7 @@
     align-items: center;
 
     grid-template: 1fr / 1fr minmax(auto, 480px) minmax(auto, 480px) minmax(auto, 480px) 1fr;
-    background-color: $background-light;
+    background-color: $background-dark;
 
     &__githublink {
         grid-column: 2 / 3;
@@ -20,7 +20,7 @@
         justify-self: center;
         font-size: 14px;
         color: $border-color-dark;
-        @include addFont('Philosopher', normal, 600, 2rem, 0.06em, $text-dark, 1rem);
+        @include addFont('Philosopher', normal, 600, 2rem, 0.06em, $text-light, 1rem);
         transition: all .5s;
     }
 

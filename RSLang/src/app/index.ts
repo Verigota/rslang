@@ -5,15 +5,20 @@ import { IAuthManager } from '../controller/interfaces';
 import AuthManager from '../controller/authorization';
 import { herokuApi } from '../api';
 import authStorage from '../controller/auth-storage';
+import AppView from '../view/appView';
+
 
 class App implements IApp {
   authEventHandlers: IAuthEventHandlers;
 
   authorizationController: IAuthManager;
+  
+  appView: AppView;
 
   constructor() {
     this.authEventHandlers = new AuthEventHandlers();
     this.authorizationController = new AuthManager(herokuApi, authStorage);
+    this.appView = AppView.getInstance();
   }
 
   public start() {

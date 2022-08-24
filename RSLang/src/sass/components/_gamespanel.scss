@@ -1,14 +1,11 @@
 @import '../utils/variables';
 
 .game-panel {
-    width: 70%;
+    width: 100%;
     justify-self: center;
     align-items: center;
-    grid-column: 2/3;
-    grid-row: 1/2;
     display: grid;
     grid-template: 150px / repeat(4, 1fr);
-    background-color: $background-gray;
     border-radius: 20px;
     gap: 10px;
     &__link {
