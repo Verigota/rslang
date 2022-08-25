@@ -29,8 +29,7 @@ class App implements IApp {
     const blackout = document.querySelector<HTMLElement>('.blackout');
 
     window.addEventListener('load', () => this.authorizationController.getNewToken());
-          if (!localStorage.getItem('user') && signInBtn && logOutBtn && mainView) {
-        this.appView.createView(mainView);
+     window.addEventListener('storage', () => {        this.appView.createView(mainView);
         showHideElem([signInBtn, logOutBtn], 'btn_hidden');
       }
     });
