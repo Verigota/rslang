@@ -3,7 +3,7 @@ import {
   mainView, handbookView, gamesChoiceView, popupMsg, gameAudioStart, gameAudioBody,
 } from './views/views';
 
-import { AudioCallController } from '../games/AudioCall/audiocall';
+import { AudioCallController } from '../controller/games/AudioCall/audiocall';
 // import { createJSDocCallbackTag } from 'typescript';
 
 class AppView {
