@@ -6,15 +6,16 @@ interface IGameStart {
   page: string;
 }
 
-class GameController {
+export default class GameController {
   api: IApi;
+  // words:
 
   constructor(startOpt: IGameStart) {
     this.api = herokuApi;
     if (startOpt.page) {
-      // выбираем страницу
+      // this.words = данные со страницы
     } else {
-      // выбираем случайную страницу
+      // this.words = выбираем случайную страницу
     }
   }
 }
