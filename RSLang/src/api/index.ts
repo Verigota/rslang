@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import authStorage from '../controller/auth-storage';
+import authStorage from '../controller/authorization/auth-storage';
 import { WordDataT, WordsDataT } from '../types/types';
 import {
   IApi, IRefreshTokenResponse, ISingInResponse, IUserInfo, IUserSingIn,

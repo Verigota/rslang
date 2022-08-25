@@ -6,7 +6,7 @@ import { IRegistrationController, IAuthManager } from '../../controller/authoriz
 import RegistrationController from '../../controller/authorization/registration';
 import { deleteContent, drawContent } from '../draw-content';
 import { clearForm, collectNewUserInfo } from './forms';
-import { showHideBlackout, showHideElem } from './show-hide-elem';
+import showHideBlackout from './show-hide-elem';
 import findModalElements from './page-elements';
 
 export interface IAuthEventHandlers {
@@ -42,7 +42,10 @@ export class AuthEventHandlers {
     } catch { return; }
     const signInBtn = document.querySelector<HTMLElement>('.registration__regbtn');
     const logOutBtn = document.querySelector<HTMLElement>('#log-out-btn');
-    if (signInBtn && logOutBtn) showHideElem([signInBtn, logOutBtn], 'btn_hidden');
+    if (signInBtn && logOutBtn) {
+      signInBtn?.classList.add('btn_hidden');
+      logOutBtn?.classList.remove('btn_hidden');
+    }
     setTimeout(() => this.authorizationController.getNewToken(), 4 * 60 * 60 * 1000);
   }
 
@@ -79,11 +82,13 @@ export class AuthEventHandlers {
 
     authModal.registerLink?.addEventListener('click', (e: Event) => {
       e.preventDefault();
-      showHideElem([authModal.registrationModal, authModal.signInModal] as HTMLElement[], 'modal_hidden');
+      authModal.registrationModal?.classList.remove('modal_hidden');
+      authModal.signInModal?.classList.add('modal_hidden');
     });
     authModal.signInLink?.addEventListener('click', (e) => {
       e.preventDefault();
-      showHideElem([authModal.registrationModal, authModal.signInModal] as HTMLElement[], 'modal_hidden');
+      authModal.registrationModal?.classList.add('modal_hidden');
+      authModal.signInModal?.classList.remove('modal_hidden');
     });
   }
 }
