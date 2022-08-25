@@ -1,6 +1,6 @@
-import { ViewType } from '../../view/views/viewType';
-import { gameAudioStart, gameAudioBody } from '../../view/views/views';
-import AppView from '../../view/appView';
+import { ViewType } from '../../../view/views/viewType';
+import { gameAudioStart, gameAudioBody } from '../../../view/views/views';
+import AppView from '../../../view/appView';
 
 export type DataType<PropType> = Array<PropType>;
 export type WordList = DataType<IWord>;
