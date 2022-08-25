@@ -1,5 +1,5 @@
-import HandbookController from '../../../controller/handbookController/handbookController';
 import { getHandbookDataFromLocalStorage } from '../../../controller/handbookController/handbookLocalStorageAPI';
+import IhandbookController from '../../../controller/handbookController/IhandbookController';
 import { RsLangHandbookDataT } from '../../../types/types';
 import { getNewElement } from '../templatesForElements/templateForCreatingNewElement';
 import WordCardInfo from '../wordCardInfo/wordCardInfo';
@@ -26,7 +26,7 @@ export default class LevelCards implements IlevelCards {
   }
 
   renderLevelCards(
-    handbookController: HandbookController,
+    handbookController: IhandbookController,
     wordCards: WordCards,
     wordCardInfo: WordCardInfo,
   ): void {
@@ -59,7 +59,7 @@ export default class LevelCards implements IlevelCards {
   async levelCardHandler(
     activeLevelCard: HTMLDivElement,
     levelCard: HTMLElement,
-    handbookController: HandbookController,
+    handbookController: IhandbookController,
     contentIndex: number,
     wordCards: WordCards,
     wordCardInfo: WordCardInfo,

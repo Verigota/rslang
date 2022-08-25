@@ -1,5 +1,5 @@
 import axios from 'axios';
-import HandbookController from '../../../controller/handbookController/handbookController';
+import IhandbookController from '../../../controller/handbookController/IhandbookController';
 import { WordDataT } from '../../../types/types';
 import { getNewElement, getNewImageElement, getMeaningOrExampleContainer } from '../templatesForElements/templateForCreatingNewElement';
 import IwordCardInfo from './IwordCardInfo';
@@ -14,7 +14,7 @@ export default class WordCardInfo implements IwordCardInfo {
     this.wordCardInfoSelector = '#handbook__word-card-info';
   }
 
-  renderWordCardInfo(wordData: WordDataT, handbookController: HandbookController): void {
+  renderWordCardInfo(wordData: WordDataT, handbookController: IhandbookController): void {
     const [wordCardInfo, img, playAudioButton, audio, playCounter] = [
       <HTMLDivElement>document.querySelector(this.wordCardInfoSelector), getNewImageElement('word-card-info__img', `${this.baseURL}/${wordData.image}`, 'word-image'),
       getNewElement('button', 'word-card-info__play-audio-button', 'play'),

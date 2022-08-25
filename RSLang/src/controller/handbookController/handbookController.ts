@@ -1,12 +1,13 @@
 import axios, { AxiosResponse } from 'axios';
-import WordsAPI from '../../APIs/wordsApi/wordsApi';
+import { herokuApi } from '../../api';
+import { IApi } from '../../api/interfaces';
 import { WordDataT, WordsDataT, RsLangHandbookDataT } from '../../types/types';
 import { DIFF_BETWEEN_ARR_INDEX_AND_PAGE_NUM, FIRST_CARD_INDEX, LOCAL_STORAGE_KEY } from './handbookControllerConstants';
 import { getHandbookDataFromLocalStorage, setHandbookDataToLocalStorage } from './handbookLocalStorageAPI';
 import IhandbookController from './IhandbookController';
 
 export default class HandbookController implements IhandbookController {
-  private wordsAPI: WordsAPI;
+  private herokuApi: IApi;
 
   private baseURL: string | undefined;
 
@@ -17,7 +18,7 @@ export default class HandbookController implements IhandbookController {
   private localStorageKey: 'rsLangHandbookData';
 
   constructor() {
-    this.wordsAPI = new WordsAPI();
+    this.herokuApi = herokuApi;
     this.baseURL = axios.defaults.baseURL;
     this.diffBetweenArrIndexAndPageNum = DIFF_BETWEEN_ARR_INDEX_AND_PAGE_NUM;
     this.firstCardIndex = FIRST_CARD_INDEX;
@@ -25,12 +26,12 @@ export default class HandbookController implements IhandbookController {
   }
 
   async getChunkOfWords(group: number, page: number): Promise<AxiosResponse<WordsDataT>> {
-    const res = await this.wordsAPI.getChunkOfWords(group, page);
+    const res = await this.herokuApi.getChunkOfWords(group, page);
     return res;
   }
 
   async getWordWithAssetsById(wordId: string): Promise<AxiosResponse<WordDataT>> {
-    const res = await this.wordsAPI.getWordWithAssetsById(wordId);
+    const res = await this.herokuApi.getWordWithAssetsById(wordId);
     return res;
   }
 

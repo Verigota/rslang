@@ -1,5 +1,5 @@
-import HandbookController from '../../../controller/handbookController/handbookController';
 import { getHandbookDataFromLocalStorage } from '../../../controller/handbookController/handbookLocalStorageAPI';
+import IhandbookController from '../../../controller/handbookController/IhandbookController';
 import { RsLangHandbookDataT, WordDataT, WordsDataT } from '../../../types/types';
 import { getNewElement } from '../templatesForElements/templateForCreatingNewElement';
 import WordCardInfo from '../wordCardInfo/wordCardInfo';
@@ -15,7 +15,7 @@ export default class WordCards implements IwordCards {
     this.wordCardInfo = new WordCardInfo();
   }
 
-  renderWordCards(wordsData: WordsDataT, handbookController: HandbookController) {
+  renderWordCards(wordsData: WordsDataT, handbookController: IhandbookController) {
     const words = <HTMLDivElement>document.querySelector(this.wordsSelector);
     words.innerHTML = '';
     wordsData.forEach((data) => {

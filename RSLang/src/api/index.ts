@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import authStorage from '../controller/auth-storage';
+import { WordDataT, WordsDataT } from '../types/types';
 import {
   IApi, IRefreshTokenResponse, ISingInResponse, IUserInfo, IUserSingIn,
 } from './interfaces';
@@ -7,9 +8,13 @@ import {
 export class Api implements IApi {
   apiClient: AxiosInstance;
 
+  private baseURL: string;
+
   constructor(baseUrl: string) {
+    this.baseURL = baseUrl;
+    this.setBaseUrlInAxios();
     this.apiClient = axios.create({
-      baseURL: baseUrl,
+      baseURL: this.baseURL,
     });
     this.apiClient.interceptors.request.use((config) => {
       const token = authStorage.get()?.token;
@@ -19,6 +24,12 @@ export class Api implements IApi {
       }
       return config;
     });
+  }
+
+  setBaseUrlInAxios() {
+    if (!axios.defaults.baseURL) {
+      axios.defaults.baseURL = this.baseURL;
+    }
   }
 
   public async createUser(userRegistration: IUserInfo) {
@@ -44,6 +55,16 @@ export class Api implements IApi {
       },
     );
     return resp;
+  }
+
+  public async getChunkOfWords(group: number, page: number):
+  Promise<AxiosResponse<WordsDataT>> {
+    return this.apiClient.get(`/words?group=${group}&page=${page}`);
+  }
+
+  public async getWordWithAssetsById(wordId: string):
+  Promise<AxiosResponse<WordDataT>> {
+    return this.apiClient.get(`/words/${wordId}`);
   }
 }
 export const herokuApi = new Api('https://rsschool-lang-app.herokuapp.com');

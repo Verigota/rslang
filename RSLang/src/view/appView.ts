@@ -1,9 +1,12 @@
 import { ViewType } from './views/viewType';
 import {
-  mainView, handbookView, gamesChoiceView, popupMsg, gameAudioStart, gameAudioBody,
+  mainView, gamesChoiceView, popupMsg, gameAudioStart, gameAudioBody,
 } from './views/views';
 
 import { AudioCallController } from '../games/AudioCall/audiocall';
+import Handbook from './handbook/handbook';
+import { WordDataT, WordsDataT } from '../types/types';
+import IhandbookController from '../controller/handbookController/IhandbookController';
 // import { createJSDocCallbackTag } from 'typescript';
 
 class AppView {
@@ -15,8 +18,11 @@ class AppView {
 
   private body: HTMLBodyElement | null = null;
 
+  private handbook: Handbook;
+
   private constructor() {
     this.initView();
+    this.handbook = new Handbook();
     this.currentView = '';
   }
 
@@ -88,7 +94,6 @@ class AppView {
     });
     handbookLink.addEventListener('click', () => {
       AppView.clearLinkClasses([mainLink, handbookLink, gamesChoiceLink]);
-      this.createView(handbookView);
       handbookLink.classList.add('selected');
     });
     gamesChoiceLink.addEventListener('click', () => {
@@ -143,6 +148,14 @@ class AppView {
       return true;
     }
     return false;
+  }
+
+  public renderHandbookView(
+    wordsData: WordsDataT,
+    wordData: WordDataT,
+    handbookController: IhandbookController,
+  ) {
+    this.handbook.renderHandbook(wordsData, wordData, handbookController);
   }
 }
 

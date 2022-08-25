@@ -1,5 +1,5 @@
-import HandbookController from '../../controller/handbookController/handbookController';
 import { getHandbookDataFromLocalStorage } from '../../controller/handbookController/handbookLocalStorageAPI';
+import IhandbookController from '../../controller/handbookController/IhandbookController';
 import { RsLangHandbookDataT, WordDataT, WordsDataT } from '../../types/types';
 import IHandbook from './Ihandbook';
 import LevelCards from './levelCards/levelCards';
@@ -44,7 +44,7 @@ export default class Handbook implements IHandbook {
   renderHandbook(
     wordsData: WordsDataT,
     wordData: WordDataT,
-    handbookController: HandbookController,
+    handbookController: IhandbookController,
   ): void {
     const handbook = `
     <section id="handbook" class="handbook">
@@ -74,7 +74,9 @@ export default class Handbook implements IHandbook {
         </div>
       </div>
     </div>`;
-    document.body.insertAdjacentHTML('beforeend', handbook);
+    const main = <HTMLElement>document.querySelector('#main');
+    main.innerHTML = '';
+    main.insertAdjacentHTML('beforeend', handbook);
     this.levelCards.renderLevelCards(handbookController, this.wordCards, this.wordCardInfo);
     this.wordCards.renderWordCards(wordsData, handbookController);
     this.wordCardInfo.renderWordCardInfo(wordData, handbookController);
@@ -84,7 +86,7 @@ export default class Handbook implements IHandbook {
     games.forEach((game) => game?.addEventListener('click', () => '')); // links for future games
   }
 
-  handlePaginationButtons(handbookController: HandbookController) {
+  handlePaginationButtons(handbookController: IhandbookController) {
     const [
       wordsPaginationPrevButton,
       wordsPaginationCurrPage,
@@ -124,7 +126,7 @@ export default class Handbook implements IHandbook {
   }
 
   async paginationButtonHandler(
-    handbookController: HandbookController,
+    handbookController: IhandbookController,
     activeButton: HTMLButtonElement,
     inactiveButton: HTMLButtonElement,
     step: number,
