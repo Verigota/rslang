@@ -1,6 +1,5 @@
-import { ViewType } from '../../view/views/viewType';
-import { gameAudioStart, gameAudioBody } from '../../view/views/views';
-import AppView from '../../view/appView';
+import { gameAudioStart, gameAudioBody } from '../../view/viewsContent/views';
+import MainView from '../../view/main/mainView';
 
 export type DataType<PropType> = Array<PropType>;
 export type WordList = DataType<IWord>;
@@ -29,7 +28,7 @@ interface IGameControllers {
 export class AudioCallController {
   private content: HTMLElement | null;
 
-  private appView: AppView;
+  private appView: MainView;
 
   private gameCtrls: IGameControllers;
 
@@ -37,7 +36,7 @@ export class AudioCallController {
 
   constructor() {
     this.content = document.querySelector('.content') as HTMLElement;
-    this.appView = AppView.getInstance();
+    this.appView = new MainView();
     this.appView.createView(gameAudioStart);
     this.addStartAction();
     this.gameCtrls = {

@@ -1,6 +1,6 @@
 import {
-  IApi, IAuthInfo, IUserInfo, IUserSingIn,
-} from '../api/interfaces';
+  IApi, IUserInfo, IAuthInfo, IUserSingIn,
+} from '../../api/interfaces';
 
 export interface IRegistrationController {
   api: IApi;
@@ -13,7 +13,7 @@ export interface IAuthStorage {
 }
 
 export interface IAuthManager {
-  authorizeUser: (userInfo: IUserSingIn) => void;
-  getNewToken: () => void;
+  authorizeUser: (userInfo: IUserSingIn) => Promise<IAuthInfo> | undefined;
+  getNewToken: () => Promise<void>;
   logOutUser: () => void;
 }

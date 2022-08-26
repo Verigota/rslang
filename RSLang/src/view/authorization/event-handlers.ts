@@ -1,12 +1,12 @@
 import { herokuApi } from '../../api';
 import { IUserInfo, IUserSingIn } from '../../api/interfaces';
-import authStorage from '../../controller/auth-storage';
-import AuthManager from '../../controller/authorization';
-import { IAuthManager, IRegistrationController } from '../../controller/interfaces';
-import RegistrationController from '../../controller/registration';
+import authStorage from '../../controller/authorization/auth-storage';
+import AuthManager from '../../controller/authorization/authorization';
+import { IRegistrationController, IAuthManager } from '../../controller/authorization/interfaces';
+import RegistrationController from '../../controller/authorization/registration';
 import { deleteContent, drawContent } from '../draw-content';
 import { clearForm, collectNewUserInfo } from './forms';
-import { showHideBlackout, showHideModal } from './modal';
+import showHideBlackout from './show-hide-elem';
 import findModalElements from './page-elements';
 
 export interface IAuthEventHandlers {
@@ -25,18 +25,26 @@ export class AuthEventHandlers {
     this.authorizationController = new AuthManager(herokuApi, authStorage);
   }
 
-  initSignIn(event: Event, blackout: HTMLElement, modalsContainer: HTMLElement) {
+  async initSignIn(event: Event, blackout: HTMLElement, modalsContainer: HTMLElement) {
     event.preventDefault();
     const signInForm = document.querySelector<HTMLFormElement>('#sign-in-form');
     const user = collectNewUserInfo<IUserSingIn>(
       signInForm as HTMLFormElement,
       [],
     );
-    this.authorizationController.authorizeUser(user);
     if (signInForm) clearForm(signInForm);
     if (blackout && modalsContainer) {
       deleteContent(modalsContainer);
       showHideBlackout(blackout);
+    }
+    try {
+      await this.authorizationController.authorizeUser(user);
+    } catch { return; }
+    const signInBtn = document.querySelector<HTMLElement>('.registration__regbtn');
+    const logOutBtn = document.querySelector<HTMLElement>('#log-out-btn');
+    if (signInBtn && logOutBtn) {
+      signInBtn?.classList.add('btn_hidden');
+      logOutBtn?.classList.remove('btn_hidden');
     }
     setTimeout(() => this.authorizationController.getNewToken(), 4 * 60 * 60 * 1000);
   }
@@ -74,11 +82,13 @@ export class AuthEventHandlers {
 
     authModal.registerLink?.addEventListener('click', (e: Event) => {
       e.preventDefault();
-      showHideModal([authModal.registrationModal, authModal.signInModal] as HTMLElement[]);
+      authModal.registrationModal?.classList.remove('modal_hidden');
+      authModal.signInModal?.classList.add('modal_hidden');
     });
     authModal.signInLink?.addEventListener('click', (e) => {
       e.preventDefault();
-      showHideModal([authModal.registrationModal, authModal.signInModal] as HTMLElement[]);
+      authModal.registrationModal?.classList.add('modal_hidden');
+      authModal.signInModal?.classList.remove('modal_hidden');
     });
   }
 }
