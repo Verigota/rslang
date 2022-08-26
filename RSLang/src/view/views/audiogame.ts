@@ -10,10 +10,10 @@ export const sectionAudioGameStart = `
                     <p class="audio-game__help-item">1, 2, 3, 4, 5 - чтобы дать ответ,</p>
                     <p class="audio-game__help-item">space - для воспроизведения звука,</p>
                     <p class="audio-game__help-item">enter - чтобы пропустить вопрос,</p>
-                    <p class="audio-game__help-item">стрелка-вправо - чтобы перейти к следующему вопросу.</p>
+                    <p class="audio-game__help-item"></p>
                 </div>
                 <div class="audio-game__start">
-                    <button class="audio-game__start-btn">Начнём!</button>
+                    <button class="audio-game__start-btn button">Начнём!</button>
                 </div>
             </section>`;
 
@@ -52,6 +52,6 @@ export const sectionAudioGameBody = `
                     </a>
                 </div>
                 <div class="audio-game__skip">
-                    <button class="audio-game__skip-btn">Не знаю</button>
+                    <button class="audio-game__skip-btn button">Не знаю</button>
                 </div>
             </section>`;
