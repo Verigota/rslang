@@ -1,6 +1,6 @@
 import { ViewType } from './views/viewType';
 import {
-  mainView, handbookView, gamesChoiceView, popupMsg, gameAudioStart, gameAudioBody,
+  mainView, handbookView, gamesChoiceView, popupMsg, popupGameStat
 } from './views/views';
 
 import { AudioCallController } from '../controller/games/AudioCall/audiocall';
@@ -55,8 +55,8 @@ class AppView {
       popup.classList.add('popup');
       popup.setAttribute('id', 'message');
       popup.innerHTML = popupMsg.sections.join('');
-      popup.classList.add('open');
       (this.body as HTMLBodyElement).append(popup);
+      popup.classList.add('open');
     } else {
       popup.classList.add('open');
     }
@@ -64,6 +64,32 @@ class AppView {
     const popupMessage = popup.querySelector('.popup__message') as HTMLParagraphElement;
     popupTitle.innerText = title;
     popupMessage.innerText = message;
+
+    const popupArea = popup.querySelector('.popup__area') as HTMLAnchorElement;
+    const popupClose = popup.querySelector('.popup__close') as HTMLAnchorElement;
+    const popupCloseBtn = popup.querySelector('.popup__close-btn') as HTMLButtonElement;
+    const buttons = [popupArea, popupClose, popupCloseBtn];
+    buttons.forEach((el) => {
+      el.addEventListener('click', () => {
+        popup.classList.remove('open');
+      });
+    });
+  }
+
+  public showGameStat(gameName: string) {
+    let popup = document.querySelector('#game-stat') as HTMLDivElement;
+    if (popup !== null) {
+      popup.remove();
+    }
+    popup = document.createElement('div');
+    popup.classList.add('popup');
+    popup.setAttribute('id', 'game-stat');
+    popup.innerHTML = popupGameStat.sections.join('');
+    (this.body as HTMLBodyElement).append(popup);
+    popup.classList.add('open');
+
+    const gameStatTitle = popup.querySelector('.game-stat__title') as HTMLHeadingElement;
+    gameStatTitle.innerText = gameName;
 
     const popupArea = popup.querySelector('.popup__area') as HTMLAnchorElement;
     const popupClose = popup.querySelector('.popup__close') as HTMLAnchorElement;
@@ -130,7 +156,7 @@ class AppView {
     const sprintGameBtn = document.querySelector('#sprint-game') as HTMLAnchorElement;
     sprintGameBtn.addEventListener('click', () => {
       if (AppView.checkLevelsBtns()) {
-        console.log('starting sprint game');
+        //console.log('starting sprint game');
       } else {
         this.showMessage('Не выбран уровень сложности!', 'Выберите уровень сложности, чтобы продолжить!');
       }
