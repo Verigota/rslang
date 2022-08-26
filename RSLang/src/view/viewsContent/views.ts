@@ -3,7 +3,7 @@ import { sectionAbout, sectionScope, sectionTeam } from './main';
 import sectionGamesChoice from './gameschoice';
 import { sectionAudioGameStart, sectionAudioGameBody } from './audiogame';
 import { popupMessage } from './popup';
-import { popupGameStatView } from './gamesstat'
+import { popupGameStatView } from './gamesstat';
 
 export const mainView: ViewType = {
   sections: [sectionAbout, sectionScope, sectionTeam],
