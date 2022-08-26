@@ -6,6 +6,7 @@ import {
 import sectionGamesChoice from './gameschoice';
 import { sectionAudioGameStart, sectionAudioGameBody } from './audiogame';
 import { popupMessage } from './popup';
+import { popupGameStatView } from './gamesstat'
 
 export const mainView: ViewType = {
   sections: [sectionAbout, sectionScope, sectionTeam],
@@ -35,4 +36,9 @@ export const gameAudioBody: ViewType = {
 export const popupMsg: ViewType = {
   sections: [popupMessage],
   name: 'message',
+};
+
+export const popupGameStat: ViewType = {
+  sections: [popupGameStatView],
+  name: 'game-statistics',
 };
