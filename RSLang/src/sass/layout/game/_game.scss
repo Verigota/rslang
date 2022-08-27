@@ -1,7 +1,7 @@
 @import '../../utils/variables';
 @import '../../utils/mixines';
 
-.audio-game {
+.game {
     gap: 20px;
 
     &__title {
@@ -55,7 +55,34 @@
             transform: translateY(3px);
         }
     }
+
+    &__word-img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+    }
+
+    &__word-img &__answer-img {
+        display: none;
+    }
+
+    &__word-img.answer-ok &__answer-img {
+        display: block;
+    }
+
+    &__word-img.answer-ok &__question-img {
+        display: none;
+    }
+
+    &__answer-img,
+    &__question-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    &__word, 
+    &__word-translate {
+        @include addFont('Philosopher', normal, 600, 2rem, 0.06em, $text-dark, 1rem);
+    }
 }
-
-
-
