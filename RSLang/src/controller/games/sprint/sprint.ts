@@ -1,22 +1,14 @@
-import { WordsDataT, WordDataT } from '../../../types/types';
+import { WordsDataT } from '../../../types/types';
+import { ISprintGame, IStageInfo } from './interfaces';
 
-class SprintGame {
+export function isRightTranslation(stageInfo: IStageInfo): boolean {
+  return stageInfo.rightTranslation === stageInfo.translation;
+}
+export class SprintGame implements ISprintGame {
   gameWords: WordsDataT;
 
-  word: WordDataT;
-
-  engWord: WordDataT['word'];
-
-  rightTranslation: WordDataT['wordTranslate'];
-
-  translation: WordDataT['wordTranslate'];
-
-  constuctor(words: WordsDataT) {
+  constructor(words: WordsDataT) {
     this.gameWords = words;
-    this.word = this.getRandomWord();
-    this.engWord = this.word.word;
-    this.rightTranslation = this.word.wordTranslate;
-    this.translation = this.getRandomWord().wordTranslate;
   }
 
   getRandomWord() {
@@ -25,8 +17,15 @@ class SprintGame {
     return this.gameWords[elementId];
   }
 
-  isRightAnswer():boolean {
-    return this.rightTranslation === this.translation;
+  createNewStage() {
+    const word = this.getRandomWord();
+    const engWord = word.word;
+    const rightTranslation = word.wordTranslate;
+    const translation = this.getRandomWord().wordTranslate;
+    return {
+      engWord,
+      rightTranslation,
+      translation,
+    };
   }
 }
-export default SprintGame;
