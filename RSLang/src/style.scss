@@ -15,23 +15,24 @@
 @import './sass/components/answer';
 @import './sass/components/gamestat';
 @import './sass/components/button';
+@import './sass/components/button-reg';
+@import './sass/components/timer';
 
 /* pages */
 @import './sass/pages/main/main';
 @import './sass/pages/handbook/handbook';
 @import './sass/pages/choice/choice';
-@import './sass/pages/audiogame/audiogame';
+@import './sass/pages/game/game';
 
 /* layouts*/
 @import './sass/layout/header';
 @import './sass/layout/main/about';
 @import './sass/layout/main/scope';
 @import './sass/layout/main/team';
-@import './sass/layout/main/registartion';
 @import './sass/layout/footer';
 @import './sass/layout/handbook/dictionary';
 @import './sass/layout/choice/choice';
-@import './sass/layout/audiogame/audiogame';
+@import './sass/layout/game/game';
 @import './sass/layout/modal';
 @import './sass/layout/blackout';
 @import './sass/layout/tempHandbook';
