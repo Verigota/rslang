@@ -66,5 +66,9 @@ export class Api implements IApi {
   Promise<AxiosResponse<WordDataT>> {
     return this.apiClient.get(`/words/${wordId}`);
   }
+
+  playAudio(filePath: string) {
+    this.apiClient.get(filePath);
+  }
 }
 export const herokuApi = new Api('https://rsschool-lang-app.herokuapp.com');
