@@ -1,23 +1,23 @@
 .scope {
-    padding: 50px 10px;
+    padding: 70px 10px;
     grid-column: 2/3;
     grid-row: 2/3;
     display: grid;
     align-items: center;
-    grid-template: 5rem 100px auto / 1fr repeat(4, $grid-container-width * 0.25) 1fr;
+    grid-template: 5rem 100px auto auto/ 1fr repeat(2, calc(($grid-container-width - $grid-container-gap) * 0.5)) 1fr;
     background-color: $background-dark;
-
-    gap: 30px;
+    gap: $grid-container-gap;
 
     &__title {
-        grid-column: 2 / 6;
+        grid-column: 2 / 4;
         grid-row: 1 / 2;
         justify-self: center;
         color: $text-light;
     }
 
     &__text {
-        grid-column: 2 / 6;
+        text-align: justify;
+        grid-column: 2 / 4;
         grid-row: 2 / 3;
         @include addFont('Philosopher', normal, 600, 3rem, 0.01em, $text-light, 4rem);
     }
@@ -31,11 +31,11 @@
         grid-row: 3 / 4;
     }
     & :nth-child(5) {
-        grid-column: 4 / 5;
-        grid-row: 3 / 4;
+        grid-column: 2 / 3;
+        grid-row: 4 / 5;
     }
     & :nth-child(6) {
-        grid-column: 5 / 6;
-        grid-row: 3 / 4;
+        grid-column: 3 / 4;
+        grid-row: 4 / 5;
     }
 }

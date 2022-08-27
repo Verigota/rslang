@@ -2,13 +2,15 @@
 @import '../utils/mixines';
 
 .answer {
-    display: grid;
-    grid-template: 45px / 50px 1fr;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
     height: 45px;
     border-radius: 10px;
     box-shadow: 2px 2px 5px $background-dark;
     align-items: center;
-    padding: 0px 20px;
+    padding: 0px 50px;
     width: 100%;
     gap: 10px;
     transition: .2s all;
@@ -16,9 +18,11 @@
 
     &__ok,
     &__fault {
-        grid-column: 1/2;
-        grid-row: 1/2;
         display: none;
+        position: absolute;
+        top: 8px;
+        left: 10px;
+
         &.visible {
             display: block;
         }

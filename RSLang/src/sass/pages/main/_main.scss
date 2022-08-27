@@ -1,3 +1,5 @@
+@import '../../utils/variables';
+
 .wrapper {
     min-height: 100%;
     width: 100%;
@@ -9,23 +11,5 @@
     grid-area: content;
     display: grid;
     
-    &.main {
-        grid-template: repeat(3, auto)  / 1fr;
-    }
-
-    &.handbook {
-        grid-template: 1fr / 1fr;
-    }
-
-    &.gamechoice {
-        grid-template: auto / 1fr;
-    }    
-
-    &.audiogame-start {
-        grid-template: repeat(3, auto)  / 1fr;
-    }
-
-    &.audiogame-body {
-        grid-template: 10% 1fr 10%/1fr;
-    }
+    grid-template: 1fr / 1fr;
 }

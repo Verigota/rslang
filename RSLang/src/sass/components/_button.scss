@@ -1,0 +1,19 @@
+.button {
+    height: 4rem;
+    @include addFont('Philosopher', normal, 600, 2.5rem, 0.01em, $text-light, 3.2rem);
+    background-color: $background-dark;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px $background-dark;
+    transition: all 0.1s linear;
+    justify-self: center;
+    padding: 0px 20px;
+
+    &:hover {
+        color: $text-white;
+    }
+
+    &:active {
+        transform: translateY(2px);
+        transition: all 0.2s linear;
+    }
+}

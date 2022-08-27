@@ -1,20 +1,81 @@
 export const sectionSprintGameStart = `
-            <section class="sprint-game content__item">
-                <div class="sprint-game__about">
-                    <h2 class="sprint-game__title">Спринт</h2>
-                    <p class="sprint-game__desc">Используйте эту тренировку для ...</p>
-                    <img class="sprint-game__icon" src="./public/assets/images/sprint.png" width="300" height="150" alt="">
+            <section class="game content__item">
+                <div class="game__about">
+                    <h2 class="game__title">Спринт</h2>
+                    <p class="game__desc">Используйте эту тренировку для ...</p>
+                    <img class="game__icon" src="./public/assets/images/sprint.png" width="300" height="150" alt="">
                 </div>
-                <div class="sprint-game__help">
-                    <p class="sprint-game__help-item">Текст помощи</p>
-                    <p class="sprint-game__help-item">Текст помощи</p>
-                    <p class="sprint-game__help-item">Текст помощи</p>
-                    <p class="sprint-game__help-item">Текст помощи</p>
-                    <p class="sprint-game__help-item">Текст помощи</p>
+                <div class="game__help">
+                    <p class="game__help-item">Для игры с помощью клавиатуры, используйте клавиши:</p>
+                    <p class="game__help-item">1, 2 - чтобы дать ответ,</p>
+                    <p class="game__help-item">стрелка влево, стрелка вправо - чтобы дать ответ,</p>
+                    <p class="game__help-item">enter - чтобы пропустить вопрос</p>
+                    <p class="game__help-item"></p>
                 </div>
-                <div class="sprint-game__start">
-                    <button class="sprint-game__start-btn">Начнём!</button>
+                <div class="game__start">
+                    <button class="game__start-btn button">Начнём!</button>
                 </div>
             </section>`;
 
-export const sectionSprintGameBody = '';
+export const sectionSprintGameBody = `
+<section class="game content__item">
+                    <div class="game__timer-wrap">
+                        <div class="timer">
+                            <div class="timer__line"></div>
+                            <div class="timer__body">
+                                <div class="timer__counter">
+                                    <span>1</span>
+                                    <span>2</span>
+                                    <span>3</span>
+                                    <span>4</span>
+                                    <span>5</span>
+                                    <span>6</span>
+                                    <span>7</span>
+                                    <span>8</span>
+                                    <span>9</span>
+                                    <span>10</span>
+                                    <span>11</span>
+                                    <span>12</span>
+                                    <span>13</span>
+                                    <span>14</span>
+                                    <span>15</span>
+                                    <span>16</span>
+                                    <span>17</span>
+                                    <span>18</span>
+                                    <span>19</span>
+                                    <span>20</span>
+                                    <span>21</span>
+                                    <span>22</span>
+                                    <span>23</span>
+                                    <span>24</span>
+                                    <span>25</span>
+                                    <span>26</span>
+                                    <span>27</span>
+                                    <span>28</span>
+                                    <span>29</span>
+                                    <span>30</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="game__questions">
+                        <div class="game__word-img">
+                            <img class="game__answer-img" src="./public/assets/icons/question.svg" alt="answer image">
+                            <img class="game__question-img" src="./public/assets/icons/question.svg" alt="question image">
+                        </div>
+                        <p class="game__word">Слово</p>
+                        <p class="game__word-translate">Перевод</p>
+                    </div>
+                    <div class="game__answer-btns">
+                        <a id="answer1" href="#" class="answer answer-btns__item">
+                            <img src="./public/assets/icons/success.svg" width="30" height="30" alt="ok" class="answer__ok">
+                            <img src="./public/assets/icons/cancel.svg" width="30" height="30" alt="fault" class="answer__fault">
+                            <p class="answer__text">Верно</p>
+                        </a>
+                        <a id="answer2" href="#" class="answer answer-btns__item">
+                            <img src="./public/assets/icons/success.svg" width="30" height="30" alt="ok" class="answer__ok">
+                            <img src="./public/assets/icons/cancel.svg" width="30" height="30" alt="fault" class="answer__fault">
+                            <p class="answer__text">Не верно</p>
+                        </a>
+                    </div>
+               </section>`;

@@ -1,15 +1,16 @@
 .team {
-    padding: 50px 10px;
+    padding: 70px 10px;
     grid-column: 2/3;
     grid-row: 3/4;
     display: grid;
     align-items: center;
-    grid-template: 5rem auto / 1fr repeat(4, $grid-container-width * 0.25) 1fr;
+    grid-template: 5rem auto auto/ 1fr repeat(2, calc(($grid-container-width - $grid-container-gap) * 0.5)) 1fr;
+
     background-color: $background-light;
-    gap: 30px;
+    gap: $grid-container-gap;
 
     &__title {
-        grid-column: 2 / 6;
+        grid-column: 2 / 4;
         grid-row: 1 / 2;
         justify-self: center;
     }
@@ -25,15 +26,12 @@
     }
 
     & :nth-child(4) {
-        grid-column: 4 / 5;
-        grid-row: 2 / 3;
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
     }
 
     & :nth-child(5) {
-        grid-column: 5 / 6;
-        grid-row: 2 / 3;
+        grid-column: 3 / 4;
+        grid-row: 3 / 4;
     }
-    // &__title {}
-
-    // &__item {}
 }
