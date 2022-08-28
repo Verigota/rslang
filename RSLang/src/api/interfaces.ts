@@ -44,4 +44,5 @@ export interface IApi {
   Promise<AxiosResponse<WordsDataT>>
   getWordWithAssetsById(wordId: string):
   Promise<AxiosResponse<WordDataT>>
+  playAudio:(filePath: string) => void,
 }
