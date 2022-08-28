@@ -1,4 +1,5 @@
 export const popupGameStatView = `
+                <a href="#header" class="popup__area"></a>
                 <div class="popup__content game-stat">
                     <a href="#header" class="popup__close">
                         <img src="./public/assets/icons/cross.svg" alt="close">
@@ -33,15 +34,9 @@ export const popupGameStatView = `
                 </div>`;
 
 export const gameStatWord = `
-                        <div class="game-stat__el">
                             <a href="#" class="game-stat__el-play">
                                 <img src="./public/assets/icons/play.svg" alt="play">
                                 <p class="game-stat__el-word"></p>
                                 <p class="game-stat__el-dash">-</p>
                                 <p class="game-stat__el-transl"></p>
-                            </a>
-                        </div>`;
-
-export const gameStatAnswersSeparator = '<div class="stat-separator"></span></div>';
-export const gameStatAnswersErrors = '<p class="stat-header">Ошибки: <span class="game-stat__errors"></span></p>';
-export const gameStatAnswersRights = '<p class="stat-header">Правильные: <span class="game-stat__rights"></span></p>';
+                            </a>`;
