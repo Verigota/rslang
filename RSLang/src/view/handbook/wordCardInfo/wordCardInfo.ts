@@ -1,6 +1,7 @@
 import axios from 'axios';
+import authStorage from '../../../controller/auth-storage';
 import IhandbookController from '../../../controller/handbookController/IhandbookController';
-import { WordDataT } from '../../../types/types';
+import { AggregatedWordDataT, PageNameT, WordDataT } from '../../../types/types';
 import { getNewElement, getNewImageElement, getMeaningOrExampleContainer } from '../templatesForElements/templateForCreatingNewElement';
 import IwordCardInfo from './IwordCardInfo';
 
@@ -14,7 +15,11 @@ export default class WordCardInfo implements IwordCardInfo {
     this.wordCardInfoSelector = '#handbook__word-card-info';
   }
 
-  renderWordCardInfo(wordData: WordDataT, handbookController: IhandbookController): void {
+  renderWordCardInfo(
+    wordData: WordDataT | AggregatedWordDataT,
+    handbookController: IhandbookController,
+    pageName: PageNameT,
+  ): void {
     const [wordCardInfo, img, playAudioButton, audio, playCounter] = [
       <HTMLDivElement>document.querySelector(this.wordCardInfoSelector), getNewImageElement('word-card-info__img', `${this.baseURL}/${wordData.image}`, 'word-image'),
       getNewElement('button', 'word-card-info__play-audio-button', 'play'),
@@ -55,5 +60,21 @@ export default class WordCardInfo implements IwordCardInfo {
         wordData.textExampleTranslate,
       ),
     );
+
+    if (authStorage.get() && pageName === 'handbook') {
+      this.renderCardButtonsAfterAuth(handbookController, <WordDataT>wordData);
+    }
+  }
+
+  renderCardButtonsAfterAuth(handbookController: IhandbookController, wordData: WordDataT): void {
+    const wordCardInfo = <HTMLDivElement>document.querySelector(this.wordCardInfoSelector);
+
+    const complicatedWordsButton = getNewElement('button', 'word__card-info-complicated-words-button', 'В сложные слова');
+    complicatedWordsButton.addEventListener('click', () => handbookController.complicatedWordsButtonHandler(wordData.id, 'hard', {}));
+
+    const learnedWordsButton = getNewElement('button', 'word__card-info-complicated-words-button', 'В изученные слова');
+    learnedWordsButton.addEventListener('click', () => console.log('изучено'));
+
+    wordCardInfo.append(complicatedWordsButton, learnedWordsButton);
   }
 }

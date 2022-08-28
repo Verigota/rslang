@@ -1,8 +1,8 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import authStorage from '../controller/auth-storage';
-import { WordDataT, WordsDataT } from '../types/types';
+import { AggregatedWordsResponseT, WordDataT, WordsDataT } from '../types/types';
 import {
-  IApi, IRefreshTokenResponse, ISingInResponse, IUserInfo, IUserSingIn,
+  IApi, IAuthInfo, IRefreshTokenResponse, ISingInResponse, IUserInfo, IUserSingIn,
 } from './interfaces';
 
 export class Api implements IApi {
@@ -59,12 +59,42 @@ export class Api implements IApi {
 
   public async getChunkOfWords(group: number, page: number):
   Promise<AxiosResponse<WordsDataT>> {
-    return this.apiClient.get(`/words?group=${group}&page=${page}`);
+    const res = await this.apiClient.get(`/words?group=${group}&page=${page}`);
+    return res;
   }
 
   public async getWordWithAssetsById(wordId: string):
   Promise<AxiosResponse<WordDataT>> {
-    return this.apiClient.get(`/words/${wordId}`);
+    const res = await this.apiClient.get(`/words/${wordId}`);
+    return res;
+  }
+
+  public async getUserWords(): Promise<AxiosResponse<WordsDataT>> {
+    const res = await this.apiClient.get(`/users/${(<IAuthInfo>authStorage.get()).userId}/words`);
+    return res;
+  }
+
+  public async createUserWord(
+    wordId: string,
+    difficulty: string,
+    optional: Record<string, never>,
+  ) {
+    try {
+      await this.getUserWord(wordId);
+    } catch (e: unknown) {
+      await this.apiClient.post(`users/${(<IAuthInfo>authStorage.get()).userId}/words/${wordId}`, { difficulty, optional });
+    }
+  }
+
+  public async getUserWord(wordId: string) {
+    await this.apiClient.get(`/users/${(<IAuthInfo>authStorage.get()).userId}/words/${wordId}`);
+  }
+
+  public async getAllUserAggregatedHardWords(
+    page: number,
+  ): Promise<AxiosResponse<AggregatedWordsResponseT>> {
+    const res = await this.apiClient.get(`/users/${(<IAuthInfo>authStorage.get()).userId}/aggregatedWords?page=${page}&wordsPerPage=20&filter={"$or":[{"userWord.difficulty":"hard"}]}`);
+    return res;
   }
 }
 export const herokuApi = new Api('https://rsschool-lang-app.herokuapp.com');

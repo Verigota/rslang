@@ -31,7 +31,8 @@ export default class LevelCards implements IlevelCards {
     wordCardInfo: WordCardInfo,
   ): void {
     const levels = <HTMLDivElement>document.querySelector(this.levelsSelector);
-    const RsLangHandbookData: RsLangHandbookDataT = getHandbookDataFromLocalStorage('rsLangHandbookData');
+    levels.innerHTML = '';
+    const RsLangHandbookData: RsLangHandbookDataT = getHandbookDataFromLocalStorage();
 
     this.levelCardsContent.forEach((content, contentIndex) => {
       const levelCard = getNewElement('div', 'handbook__level-card', content);
@@ -64,6 +65,7 @@ export default class LevelCards implements IlevelCards {
     wordCards: WordCards,
     wordCardInfo: WordCardInfo,
   ): Promise<void> {
+    const pageName = 'handbook';
     const [
       wordsPaginationPrevButton,
       wordsPaginationCurrPage,
@@ -85,7 +87,11 @@ export default class LevelCards implements IlevelCards {
       wordsPaginationNextButton,
     );
 
-    wordCards.renderWordCards(wordsData, handbookController);
-    wordCardInfo.renderWordCardInfo(wordsData[this.defaultActiveWordCardIndex], handbookController);
+    wordCards.renderWordCards(wordsData, handbookController, pageName);
+    wordCardInfo.renderWordCardInfo(
+      wordsData[this.defaultActiveWordCardIndex],
+      handbookController,
+      pageName,
+    );
   }
 }

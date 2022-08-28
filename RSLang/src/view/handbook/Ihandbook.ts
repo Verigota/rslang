@@ -1,19 +1,30 @@
-import HandbookController from '../../controller/handbookController/handbookController';
-import { WordDataT, WordsDataT } from '../../types/types';
+import IhandbookController from '../../controller/handbookController/IhandbookController';
+import {
+  AggregatedWordsDataT, PageNameT, WordDataT, WordsDataT,
+} from '../../types/types';
 
 export default interface IHandbook {
   renderHandbook(
     wordsData: WordsDataT,
     wordData: WordDataT,
-    handbookController: HandbookController,
+    handbookController: IhandbookController,
   ): void;
-  handlePaginationButtons(handbookController: HandbookController): void
+  handlePaginationButtons(handbookController: IhandbookController,
+    firstPage: number,
+    lastPage: number, pageName: PageNameT): void
   paginationButtonHandler(
-    handbookController: HandbookController,
+    handbookController: IhandbookController,
     activeButton: HTMLButtonElement,
     inactiveButton: HTMLButtonElement,
     step: number,
     currPage: HTMLDivElement,
     firstOrLastPage: number,
+    pageName: PageNameT,
   ): Promise<void>
+  renderComplicatedWordsContent(
+    count: { count: number } | undefined,
+    paginatedResults: WordsDataT | AggregatedWordsDataT,
+    handbookController: IhandbookController,
+    activeWordCardIndex: number,
+  ): void
 }

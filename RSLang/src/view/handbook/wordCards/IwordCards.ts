@@ -1,6 +1,8 @@
-import HandbookController from '../../../controller/handbookController/handbookController';
-import { WordsDataT } from '../../../types/types';
+import IhandbookController from '../../../controller/handbookController/IhandbookController';
+import { AggregatedWordsDataT, PageNameT, WordsDataT } from '../../../types/types';
 
 export default interface IwordCards {
-  renderWordCards(wordsData: WordsDataT, handbookController: HandbookController): void
+  renderWordCards(aggregatedWordsData: WordsDataT | AggregatedWordsDataT,
+    handbookController: IhandbookController,
+    pageName: PageNameT,): void
 }
