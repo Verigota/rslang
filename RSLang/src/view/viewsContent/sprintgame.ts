@@ -63,19 +63,19 @@ export const sectionSprintGameBody = `
                             <img class="game__answer-img" src="./public/assets/icons/question.svg" alt="answer image">
                             <img class="game__question-img" src="./public/assets/icons/question.svg" alt="question image">
                         </div>
-                        <p class="game__word">Слово</p>
-                        <p class="game__word-translate">Перевод</p>
+                        <p class="game__word" id="engWord">Слово</p>
+                        <p class="game__word-translate" id="translation">Перевод</p>
                     </div>
                     <div class="game__answer-btns">
-                        <a id="answer1" href="#" class="answer answer-btns__item">
+                        <button id="answer1" href="#" class="answer answer-btns__item" name="right">
                             <img src="./public/assets/icons/success.svg" width="30" height="30" alt="ok" class="answer__ok">
                             <img src="./public/assets/icons/cancel.svg" width="30" height="30" alt="fault" class="answer__fault">
                             <p class="answer__text">Верно</p>
-                        </a>
-                        <a id="answer2" href="#" class="answer answer-btns__item">
+                        </button>
+                        <button id="answer2" href="#" class="answer answer-btns__item" name="wrong">
                             <img src="./public/assets/icons/success.svg" width="30" height="30" alt="ok" class="answer__ok">
                             <img src="./public/assets/icons/cancel.svg" width="30" height="30" alt="fault" class="answer__fault">
                             <p class="answer__text">Не верно</p>
-                        </a>
+                        </button>
                     </div>
                </section>`;

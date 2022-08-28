@@ -13,7 +13,7 @@ import GameSelectorView from '../view/gameSelector/gameSelectorView';
 
 function setActiveMenuItem(id: string) {
   const navigation = document.querySelector('.header__list');
-  const links = navigation?.querySelectorAll('.menu__item-link') || [];
+  const links = navigation?.querySelectorAll('.menu__item-link') as NodeListOf<Element>;
   links.forEach((el) => {
     el.classList.remove('selected');
     if (el.id === id) {
