@@ -37,7 +37,7 @@ class App implements IApp {
   }
 
   public start() {
-    const signInBtn = document.querySelector<HTMLElement>('.registration__regbtn');
+    const signInBtn = document.querySelector<HTMLElement>('#singin-btn');
     const logOutBtn = document.querySelector<HTMLElement>('#log-out-btn');
     const blackout = document.querySelector<HTMLElement>('.blackout');
 

@@ -6,7 +6,7 @@ const registrationForm = `
                     <input type="email" placeholder="E-mail" name='email' class="form-input" required>
                     <input type="password" placeholder="Пароль" name='password' class="form-input" required>
                     <input type="password" placeholder="Подтвердите пароль" name='confirmPassword' class="form-input" required>
-                    <button type="submit" id="register-user-btn" class="registration__regbtn">Зарегистрироваться</button>
+                    <button type="submit" id="register-user-btn" class="registration__regbtn button">Зарегистрироваться</button>
                 </form>
                 <p>У вас уже есть аккаунта? Тогда срочно надо <a href='' id="sign-in-link">войти!</a></p>
             </div>
@@ -18,7 +18,7 @@ const signInForm = `
                     <form class="modal__form sign-in-form" id="sign-in-form">
                         <input type="email" placeholder="E-mail" name='email' class="form-input" required>
                         <input type="password" placeholder="Пароль" name='password' class="form-input" required>
-                        <button type="submit" id="sign-in-btn" class="registration__regbtn">Войти</button>
+                        <button type="submit" id="sign-in-btn" class="registration__regbtn button">Войти</button>
                     </form>
                     <p>У вас нет аккаунта? Давайте <a href='' id="register-link">зарегистрируемся!</a></p>
                 </div>

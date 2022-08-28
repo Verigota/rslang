@@ -40,7 +40,7 @@ export class AuthEventHandlers {
     try {
       await this.authorizationController.authorizeUser(user);
     } catch { return; }
-    const signInBtn = document.querySelector<HTMLElement>('.registration__regbtn');
+    const signInBtn = document.querySelector<HTMLElement>('#singin-btn');
     const logOutBtn = document.querySelector<HTMLElement>('#log-out-btn');
     if (signInBtn && logOutBtn) {
       signInBtn?.classList.add('btn_hidden');
