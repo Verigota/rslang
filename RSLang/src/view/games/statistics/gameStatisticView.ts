@@ -6,8 +6,6 @@ import { WordsDataT } from '../../../types/types';
 import { gameStatWord } from '../../viewsContent/gamesstat';
 import GameSelectorView from '../../gameSelector/gameSelectorView';
 
-import { wrongWords, rightWords } from './test';
-
 type ReturnTo = 'AudioCall' | 'Sprint';
 type AnswerType = 'right' | 'wrong';
 
@@ -67,21 +65,13 @@ export default class GameStatisticsView implements IMainSectionViewRender {
 
   constructor(
     viewToReturn: ReturnTo,
-    wrongWordsList: WordsDataT | [],
-    rightWordsList: WordsDataT | [],
+    wrongWords: WordsDataT | [],
+    rightWords: WordsDataT | [],
   ) {
     this.content = document.querySelector('body') as HTMLElement;
+    this.wrongWords = [...wrongWords];
+    this.rightWords = [...rightWords];
     this.viewToReturn = viewToReturn;
-    if (wrongWordsList.length !== 0) {
-      this.wrongWords = [...wrongWordsList];
-    } else {
-      this.wrongWords = [...wrongWords];
-    }
-    if (rightWordsList.length !== 0) {
-      this.rightWords = [...rightWordsList];
-    } else {
-      this.rightWords = [...rightWords];
-    }
   }
 
   render() {
