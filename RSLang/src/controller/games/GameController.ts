@@ -1,21 +1,17 @@
+import { AxiosResponse } from 'axios';
 import { herokuApi } from '../../api';
-import { IApi } from '../../api/interfaces';
+import { WordsDataT } from '../../types/types';
 
 interface IGameStart {
-  level: string;
-  page: string;
+  level: number;
+  page?: number;
 }
 
-export default class GameController {
-  api: IApi;
-  // words:
-
-  constructor(startOpt: IGameStart) {
-    this.api = herokuApi;
-    if (startOpt.page) {
-      // this.words = данные со страницы
-    } else {
-      // this.words = выбираем случайную страницу
-    }
+export default function getGameWords(startOpt: IGameStart): Promise<AxiosResponse<WordsDataT>> {
+  if (startOpt.page) {
+    return herokuApi.getChunkOfWords(startOpt.level, startOpt.page);
   }
+  const pageCounts = 30;
+  const page = Math.floor(Math.random() * (pageCounts + 1));
+  return herokuApi.getChunkOfWords(startOpt.level, page);
 }

@@ -1,10 +1,10 @@
 import { ViewType } from './viewType';
 import { sectionAbout, sectionScope, sectionTeam } from './main';
-import { sectionGamesChoice } from './gameschoice';
 import { sectionAudioGameStart, sectionAudioGameBody } from './audiogame';
 import { sectionSprintGameStart, sectionSprintGameBody } from './sprintgame';
 import { popupGameStatView } from './gamesstat';
-import { popupMessage } from './popup';
+import sectionGamesChoice from './gameschoice';
+import popupMessage from './popup';
 
 export const mainView: ViewType = {
   sections: [sectionAbout, sectionScope, sectionTeam],
