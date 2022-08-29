@@ -1,6 +1,7 @@
 import { getHandbookComplicatedWordsDataFromLocalStorage, getHandbookDataFromLocalStorage } from '../../../controller/handbookController/handbookLocalStorageAPI';
 import IhandbookController from '../../../controller/handbookController/IhandbookController';
 import {
+  AggregatedWordDataT,
   AggregatedWordsDataT,
   ComplicatedWordsStorageDataT,
   PageNameT,
@@ -11,6 +12,15 @@ import {
 import { getNewElement } from '../templatesForElements/templateForCreatingNewElement';
 import WordCardInfo from '../wordCardInfo/wordCardInfo';
 import IwordCards from './IwordCards';
+
+function sortWordsData(wordsData: WordsDataT | AggregatedWordsDataT) {
+  return wordsData.sort((curr, next) => {
+    if (curr.group === next.group) {
+      return curr.page - next.page;
+    }
+    return curr.group - next.page;
+  });
+}
 
 export default class WordCards implements IwordCards {
   private wordsSelector: '#handbook__word-cards';
@@ -23,35 +33,36 @@ export default class WordCards implements IwordCards {
   }
 
   renderWordCards(
-    aggregatedWordsData: WordsDataT | AggregatedWordsDataT,
+    wordsData: WordsDataT | AggregatedWordsDataT,
     handbookController: IhandbookController,
     pageName: PageNameT,
   ) {
     const words = <HTMLDivElement>document.querySelector(this.wordsSelector);
     words.innerHTML = '';
-    aggregatedWordsData.forEach((data, wordCardIndex) => {
-      const wordCard = <HTMLDivElement>getNewElement('div', 'handbook__word-card');
-      wordCard.append(getNewElement('h5', 'handbook__card-title', data.word), getNewElement('h6', 'handbook__card-subtitle', data.wordTranslate));
+    sortWordsData(wordsData)
+      .forEach((data: WordDataT | AggregatedWordDataT, wordCardIndex: number) => {
+        const wordCard = <HTMLDivElement>getNewElement('div', 'handbook__word-card');
+        wordCard.append(getNewElement('h5', 'handbook__card-title', data.word), getNewElement('h6', 'handbook__card-subtitle', data.wordTranslate));
 
-      wordCard.addEventListener('click', async () => {
-        const activeWordCard = <HTMLDivElement>document.querySelector('.active-word-card');
-        handbookController.wordCardHandler(wordCard, activeWordCard, wordCardIndex, pageName);
-        const aggregatedWordsDataId = '_id';
-        const id = ('id' in data) ? data.id : data[aggregatedWordsDataId];
-        this.wordCardInfo.renderWordCardInfo(
+        wordCard.addEventListener('click', async () => {
+          const activeWordCard = <HTMLDivElement>document.querySelector('.active-word-card');
+          handbookController.wordCardHandler(wordCard, activeWordCard, wordCardIndex, pageName);
+          const aggregatedWordsDataId = '_id';
+          const id = ('id' in data) ? data.id : data[aggregatedWordsDataId];
+          this.wordCardInfo.renderWordCardInfo(
           <WordDataT>(await handbookController.getWordWithAssetsById(id)).data,
           handbookController,
           pageName,
-        );
-      });
+          );
+        });
 
-      words.append(wordCard);
-    });
+        words.append(wordCard);
+      });
 
     const wordCards = <NodeListOf<HTMLDivElement>>document.querySelectorAll('.handbook__word-card');
 
-    const wordsData: RsLangHandbookDataT | ComplicatedWordsStorageDataT = (pageName === 'handbook') ? getHandbookDataFromLocalStorage() : getHandbookComplicatedWordsDataFromLocalStorage();
+    const wordsStorageData: RsLangHandbookDataT | ComplicatedWordsStorageDataT = (pageName === 'handbook') ? getHandbookDataFromLocalStorage() : getHandbookComplicatedWordsDataFromLocalStorage();
 
-    wordCards[wordsData.activeWordCardIndex].classList.add('active-word-card');
+    wordCards[wordsStorageData.activeWordCardIndex].classList.add('active-word-card');
   }
 }
