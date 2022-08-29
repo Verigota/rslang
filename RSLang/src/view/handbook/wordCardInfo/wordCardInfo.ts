@@ -79,7 +79,9 @@ export default class WordCardInfo implements IwordCardInfo {
     complicatedWordsButton.addEventListener('click', () => handbookController.complicatedWordsButtonHandler(wordData.id, 'hard', {}));
 
     const learnedWordsButton = getNewElement('button', 'word__card-info-complicated-words-button', 'В изученные слова');
-    learnedWordsButton.addEventListener('click', () => console.log('изучено'));
+    learnedWordsButton.addEventListener('click', () => {
+      handbookController.learnedWordsButtonHandler(wordData.id, 'learned', {});
+    });
 
     wordCardInfo.append(complicatedWordsButton, learnedWordsButton);
   }

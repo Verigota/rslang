@@ -74,13 +74,14 @@ export class Api implements IApi {
     return res;
   }
 
-  public async createUserWord(
+  public async updateOrCreateUserWord(
     wordId: string,
     difficulty: string,
     optional: Record<string, never>,
   ) {
     try {
       await this.getUserWord(wordId);
+      this.updateUserWord(wordId, difficulty, optional);
     } catch (e: unknown) {
       await this.apiClient.post(`users/${(<IAuthInfo>authStorage.get()).userId}/words/${wordId}`, { difficulty, optional });
     }
@@ -99,6 +100,14 @@ export class Api implements IApi {
 
   public async deleteUserWord(userId: string, wordId: string): Promise<void> {
     await this.apiClient.delete(`/users/${userId}/words/${wordId}`);
+  }
+
+  public async updateUserWord(
+    wordId: string,
+    difficulty: string,
+    optional: Record<string, never>,
+  ): Promise<void> {
+    await this.apiClient.put(`/users/${(<IAuthInfo>authStorage.get()).userId}/words/${wordId}`, { difficulty, optional });
   }
 }
 export const herokuApi = new Api('https://rsschool-lang-app.herokuapp.com');

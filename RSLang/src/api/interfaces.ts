@@ -45,11 +45,16 @@ export interface IApi {
   getWordWithAssetsById(wordId: string):
   Promise<AxiosResponse<WordDataT>>
   getUserWords(): Promise<AxiosResponse<WordsDataT>>
-  createUserWord(
+  updateOrCreateUserWord(
     wordId: string,
     difficulty: string,
     options: Record<string, never>,
   ): Promise<void>
   getAllUserAggregatedHardWords(page: number): Promise<AxiosResponse<AggregatedWordsResponseT>>
   deleteUserWord(userId: string, wordId: string): Promise<void>
+  updateUserWord(
+    wordId: string,
+    difficulty: string,
+    optional: Record<string, never>,
+  ): Promise<void>
 }

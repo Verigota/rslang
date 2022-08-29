@@ -55,7 +55,11 @@ export default interface IhandbookController {
     optional: Record<string, never>
   ): void
 
-  learnedWordsButtonHandler(): void;
+  learnedWordsButtonHandler(
+    wordId: string,
+    difficulty: string,
+    optional: Record<string, never>,
+  ): void
 
   complicatedWordsCardHandler():Promise<AxiosResponse<WordsDataT>>
 

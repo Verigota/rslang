@@ -141,13 +141,17 @@ export default class HandbookController implements IhandbookController {
     wordId: string,
     difficulty: string,
     optional: Record<string, never>,
-  ) {
-    this.herokuApi.createUserWord(wordId, difficulty, optional);
+  ): void {
+    this.herokuApi.updateOrCreateUserWord(wordId, difficulty, optional);
     setHandbookComplicatedWordsToLocalStorage(0, 1, 0);
   }
 
-  learnedWordsButtonHandler() {
-    console.log('click');
+  learnedWordsButtonHandler(
+    wordId: string,
+    difficulty: string,
+    optional: Record<string, never>,
+  ): void {
+    this.herokuApi.updateOrCreateUserWord(wordId, difficulty, optional);
   }
 
   async wordCardHandler(
