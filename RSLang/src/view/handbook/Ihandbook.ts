@@ -26,5 +26,7 @@ export default interface IHandbook {
     paginatedResults: WordsDataT | AggregatedWordsDataT,
     handbookController: IhandbookController,
     activeWordCardIndex: number,
+    complicatedWordsCardHandler:
+    (levels: HTMLDivElement, handbookController: IhandbookController) => Promise<void>,
   ): void
 }

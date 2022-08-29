@@ -217,11 +217,12 @@ export default class Handbook implements IHandbook {
       pageName,
     ), 0];
 
-    this.wordCards.renderWordCards(wordsData, handbookController, pageName);
+    this.wordCards.renderWordCards(wordsData, handbookController, pageName, (pageName === 'complicatedWords') ? this.complicatedWordsCardHandler.bind(this) : undefined);
     this.wordCardInfo.renderWordCardInfo(
       wordsData[firstCardIndex],
       handbookController,
       pageName,
+      (pageName === 'complicatedWords') ? this.complicatedWordsCardHandler.bind(this) : undefined,
     );
   }
 
@@ -266,6 +267,7 @@ export default class Handbook implements IHandbook {
       paginatedResults,
       handbookController,
       wordsData.activeWordCardIndex,
+      this.complicatedWordsCardHandler.bind(this),
     );
 
     const numOfCardsPerPage = 20;
@@ -279,23 +281,24 @@ export default class Handbook implements IHandbook {
     paginatedResults: WordsDataT | AggregatedWordsDataT,
     handbookController: IhandbookController,
     activeWordCardIndex: number,
+    complicatedWordsCardHandler:
+    (levels: HTMLDivElement, handbookController: IhandbookController) => Promise<void>,
   ): void {
     if (count) {
-      this.wordCards.renderWordCards(paginatedResults, handbookController, 'complicatedWords');
+      this.wordCards.renderWordCards(paginatedResults, handbookController, 'complicatedWords', complicatedWordsCardHandler);
       this.wordCardInfo.renderWordCardInfo(
         paginatedResults[activeWordCardIndex],
         handbookController,
         'complicatedWords',
+        complicatedWordsCardHandler,
       );
     } else {
-      const [wordsTitle, wordCards, cardInfo] = [
-        <HTMLDivElement>document.querySelector('.handbook__words-title'),
+      const [wordCards, cardInfo] = [
         <HTMLDivElement>document.querySelector('#handbook__word-cards'),
         <HTMLDivElement>document.querySelector('#handbook__word-card-info'),
       ];
-      wordCards.remove();
-      cardInfo.remove();
-      wordsTitle.after('Для вас нет сложных слов');
+      wordCards.innerHTML = 'Для вас нет сложных слов';
+      cardInfo.innerHTML = '';
     }
   }
 }

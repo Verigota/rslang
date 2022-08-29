@@ -51,4 +51,5 @@ export interface IApi {
     options: Record<string, never>,
   ): Promise<void>
   getAllUserAggregatedHardWords(page: number): Promise<AxiosResponse<AggregatedWordsResponseT>>
+  deleteUserWord(userId: string, wordId: string): Promise<void>
 }

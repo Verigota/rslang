@@ -96,5 +96,9 @@ export class Api implements IApi {
     const res = await this.apiClient.get(`/users/${(<IAuthInfo>authStorage.get()).userId}/aggregatedWords?page=${page}&wordsPerPage=20&filter={"$or":[{"userWord.difficulty":"hard"}]}`);
     return res;
   }
+
+  public async deleteUserWord(userId: string, wordId: string): Promise<void> {
+    await this.apiClient.delete(`/users/${userId}/words/${wordId}`);
+  }
 }
 export const herokuApi = new Api('https://rsschool-lang-app.herokuapp.com');

@@ -19,6 +19,8 @@ export default class WordCardInfo implements IwordCardInfo {
     wordData: WordDataT | AggregatedWordDataT,
     handbookController: IhandbookController,
     pageName: PageNameT,
+    complicatedWordsCardHandler?:
+    (levels: HTMLDivElement, handbookController: IhandbookController) => Promise<void>,
   ): void {
     const [wordCardInfo, img, playAudioButton, audio, playCounter] = [
       <HTMLDivElement>document.querySelector(this.wordCardInfoSelector), getNewImageElement('word-card-info__img', `${this.baseURL}/${wordData.image}`, 'word-image'),
@@ -64,6 +66,10 @@ export default class WordCardInfo implements IwordCardInfo {
     if (authStorage.get() && pageName === 'handbook') {
       this.renderCardButtonsAfterAuth(handbookController, <WordDataT>wordData);
     }
+
+    if (authStorage.get() && pageName === 'complicatedWords' && complicatedWordsCardHandler) {
+      this.renderRemoveButton(handbookController, wordData, complicatedWordsCardHandler);
+    }
   }
 
   renderCardButtonsAfterAuth(handbookController: IhandbookController, wordData: WordDataT): void {
@@ -76,5 +82,28 @@ export default class WordCardInfo implements IwordCardInfo {
     learnedWordsButton.addEventListener('click', () => console.log('изучено'));
 
     wordCardInfo.append(complicatedWordsButton, learnedWordsButton);
+  }
+
+  renderRemoveButton(
+    handbookController: IhandbookController,
+    wordData: WordDataT | AggregatedWordDataT,
+    complicatedWordsCardHandler:
+    (levels: HTMLDivElement, handbookController: IhandbookController) => Promise<void>,
+  ):void {
+    const wordCardInfo = <HTMLDivElement>document.querySelector(this.wordCardInfoSelector);
+    const removeButton = getNewElement('button', 'word__card-info-remove-button', 'Удалить из сложных слов');
+
+    removeButton.addEventListener('click', async () => {
+      const numOfCards = (<HTMLDivElement>document.querySelector('.handbook__word-cards')).children.length;
+      const levels = <HTMLDivElement>document.querySelector('#handbook__levels');
+
+      handbookController.removeCardButtonHandler(
+        wordData,
+        complicatedWordsCardHandler,
+        numOfCards,
+        levels,
+      );
+    });
+    wordCardInfo.append(removeButton);
   }
 }

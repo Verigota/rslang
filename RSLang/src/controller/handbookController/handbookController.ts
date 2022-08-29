@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { herokuApi } from '../../api';
-import { IApi } from '../../api/interfaces';
+import { IApi, IAuthInfo } from '../../api/interfaces';
 import {
   WordDataT,
   WordsDataT,
@@ -11,6 +11,7 @@ import {
   PageNameT,
   ComplicatedWordsStorageDataT,
 } from '../../types/types';
+import authStorage from '../auth-storage';
 import { DIFF_BETWEEN_ARR_INDEX_AND_PAGE_NUM, FIRST_CARD_INDEX } from './handbookControllerConstants';
 import {
   getHandbookComplicatedWordsDataFromLocalStorage,
@@ -222,5 +223,32 @@ export default class HandbookController implements IhandbookController {
     }
 
     return wordsData;
+  }
+
+  async deleteUserWord(userId: string, wordId: string): Promise<void> {
+    await this.herokuApi.deleteUserWord(userId, wordId);
+  }
+
+  async removeCardButtonHandler(
+    wordData: WordDataT | AggregatedWordDataT,
+    complicatedWordsCardHandler:
+    (levels: HTMLDivElement, handbookController: IhandbookController) => Promise<void>,
+    numOfCards: number,
+    levels: HTMLDivElement,
+  ): Promise<void> {
+    const aggregatedWordsId = '_id';
+    const id = ('id' in wordData) ? wordData.id : wordData[aggregatedWordsId];
+    await this.deleteUserWord((<IAuthInfo>authStorage.get()).userId, id);
+
+    const storageWordsData = getHandbookComplicatedWordsDataFromLocalStorage();
+
+    setHandbookComplicatedWordsToLocalStorage(
+      (numOfCards === 1 && storageWordsData.page > 0)
+        ? storageWordsData.page - 1 : storageWordsData.page,
+      (numOfCards === 1 && storageWordsData.currPage > 1)
+        ? storageWordsData.currPage - 1 : storageWordsData.currPage,
+      0,
+    );
+    complicatedWordsCardHandler(levels, this);
   }
 }

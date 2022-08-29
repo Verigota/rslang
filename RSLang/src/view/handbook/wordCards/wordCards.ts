@@ -36,6 +36,8 @@ export default class WordCards implements IwordCards {
     wordsData: WordsDataT | AggregatedWordsDataT,
     handbookController: IhandbookController,
     pageName: PageNameT,
+    complicatedWordsCardHandler?:
+    (levels: HTMLDivElement, handbookController: IhandbookController) => Promise<void>,
   ) {
     const words = <HTMLDivElement>document.querySelector(this.wordsSelector);
     words.innerHTML = '';
@@ -53,6 +55,7 @@ export default class WordCards implements IwordCards {
           <WordDataT>(await handbookController.getWordWithAssetsById(id)).data,
           handbookController,
           pageName,
+          complicatedWordsCardHandler,
           );
         });
 
