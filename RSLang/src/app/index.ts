@@ -10,6 +10,7 @@ import AuthManager from '../controller/authorization/authorization';
 import authStorage from '../controller/authorization/auth-storage';
 import { HandbookView, HandbookViewData, IMainSectionViewRender } from '../view/common/IMainViewRender';
 import GameSelectorView from '../view/gameSelector/gameSelectorView';
+import StatisticsView from '../view/statistics/statisticsView';
 
 function setActiveMenuItem(id: string) {
   const navigation = document.querySelector('.header__list');
@@ -92,6 +93,13 @@ class App implements IApp {
       setActiveMenuItem(elem.id);
       this.gameSelectorLinkHandler();
     });
+
+    const statisticsSelector = <HTMLAnchorElement>document.querySelector('#stat-page');
+    statisticsSelector?.addEventListener('click', (e) => {
+      const elem = e.target as HTMLAnchorElement;
+      setActiveMenuItem(elem.id);
+      this.statisticsLinkHandler();
+    });
   }
 
   async handbookLinkHandler() {
@@ -114,6 +122,11 @@ class App implements IApp {
 
   mainLinkHandler() {
     this.appView = new MainView();
+    this.appView.render();
+  }
+
+  statisticsLinkHandler() {
+    this.appView = new StatisticsView();
     this.appView.render();
   }
 }
