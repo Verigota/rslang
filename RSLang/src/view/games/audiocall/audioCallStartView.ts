@@ -3,14 +3,6 @@ import wordsData from '../../../controller/games/audiocall/data/data';
 import { IMainSectionViewRender } from '../../common/IMainViewRender';
 import { gameAudioCallStart } from '../../viewsContent/views';
 
-function setGamesButtonsActions() {
-  const gamePlayBtn = document.querySelector('.game__start-btn') as HTMLAnchorElement;
-  gamePlayBtn.addEventListener('click', () => {
-    const audioCall = new AudioCall(wordsData);
-    audioCall.start();
-  });
-}
-
 export default class GameAudioCallStartView implements IMainSectionViewRender {
   private content: HTMLElement;
 
@@ -20,7 +12,15 @@ export default class GameAudioCallStartView implements IMainSectionViewRender {
 
   render() {
     this.content.innerHTML = gameAudioCallStart.sections.join('');
-    setGamesButtonsActions();
+    this.setGamesButtonsActions();
     return Promise.resolve();
+  }
+
+  private setGamesButtonsActions() {
+    const gamePlayBtn = document.querySelector('.game__start-btn') as HTMLAnchorElement;
+    gamePlayBtn.addEventListener('click', () => {
+      const audioCall = new AudioCall(wordsData, this);
+      audioCall.start();
+    });
   }
 }
