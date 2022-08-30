@@ -18,3 +18,8 @@ export interface IAggregatedWord {
     }
   }
 }
+
+export interface ICommonGame {
+  start: () => void;
+  restart: () => void;
+}
