@@ -1,0 +1,51 @@
+.statistics {
+    padding: 50px 0px;
+    position: relative;
+    overflow: hidden;
+    /*&::before {
+        content: '';
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        background-color: $background-dark-transparent;
+        right: -100%;
+        bottom: -100%;
+        border-radius: 50%;
+    }*/
+ 
+    &__title {
+        text-align: center;
+    }
+
+    &__today-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        width: 200px;
+    }
+
+    &__value {
+        @include addFont('Philosopher', normal, 600, 7rem, 0.01em, $text-dark, 7.5rem);
+    }
+
+    &__hint {
+        @include addFont('Philosopher', normal, 400, 2rem, 0.01em, $text-dark, 2.2rem);
+        text-align: center
+    }
+
+    &__total-title {
+        text-align: center
+    }
+
+    &__total-desc {
+        @include addFont('Philosopher', normal, 600, 3rem, 0.01em, $text-dark, 4rem);
+        text-align: center;
+    }
+
+    &__total-graph-wrap {
+        width: 80%;
+        height: 500px;
+        background-color: $background-dark;
+    }
+}
