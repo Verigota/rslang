@@ -7,6 +7,7 @@ import {
   AggregatedWordsDataT,
   AggregatedWordsResponseT,
   PageNameT,
+  UserWordsT,
 } from '../../types/types';
 
 export default interface IhandbookController {
@@ -61,7 +62,7 @@ export default interface IhandbookController {
     optional: Record<string, never>,
   ): void
 
-  complicatedWordsCardHandler():Promise<AxiosResponse<WordsDataT>>
+  complicatedWordsCardHandler():Promise<AxiosResponse<UserWordsT>>
 
   wordCardHandler(
     wordCard: HTMLDivElement,
@@ -79,4 +80,6 @@ export default interface IhandbookController {
     numOfCards: number,
     levels: HTMLDivElement,
   ): Promise<void>
+
+  getUserWords(): Promise<AxiosResponse<UserWordsT>>
 }

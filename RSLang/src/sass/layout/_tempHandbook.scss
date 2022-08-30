@@ -2,6 +2,14 @@
   border: 1px solid red;
 }
 
+.learned {
+  border: 2px solid green;
+}
+
+.hard {
+  border: 2px solid purple;
+}
+
 .handbook {
   &__words {
     display: grid;

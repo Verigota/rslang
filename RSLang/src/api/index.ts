@@ -1,6 +1,8 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import authStorage from '../controller/auth-storage';
-import { AggregatedWordsResponseT, WordDataT, WordsDataT } from '../types/types';
+import {
+  AggregatedWordsResponseT, UserWordsT, WordDataT, WordsDataT,
+} from '../types/types';
 import {
   IApi, IAuthInfo, IRefreshTokenResponse, ISingInResponse, IUserInfo, IUserSingIn,
 } from './interfaces';
@@ -69,7 +71,7 @@ export class Api implements IApi {
     return res;
   }
 
-  public async getUserWords(): Promise<AxiosResponse<WordsDataT>> {
+  public async getUserWords(): Promise<AxiosResponse<UserWordsT>> {
     const res = await this.apiClient.get(`/users/${(<IAuthInfo>authStorage.get()).userId}/words`);
     return res;
   }

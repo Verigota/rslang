@@ -1,5 +1,7 @@
 import { AxiosResponse } from 'axios';
-import { AggregatedWordsResponseT, WordDataT, WordsDataT } from '../types/types';
+import {
+  AggregatedWordsResponseT, UserWordsT, WordDataT, WordsDataT,
+} from '../types/types';
 
 export type Indexed = { [index: string]: string };
 
@@ -44,7 +46,7 @@ export interface IApi {
   Promise<AxiosResponse<WordsDataT>>
   getWordWithAssetsById(wordId: string):
   Promise<AxiosResponse<WordDataT>>
-  getUserWords(): Promise<AxiosResponse<WordsDataT>>
+  getUserWords(): Promise<AxiosResponse<UserWordsT>>
   updateOrCreateUserWord(
     wordId: string,
     difficulty: string,

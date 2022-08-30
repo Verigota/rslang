@@ -58,3 +58,12 @@ export type ComplicatedWordsStorageDataT = {
 };
 
 export type PageNameT = 'handbook' | 'complicatedWords';
+
+export type UserWord = {
+  id: string,
+  wordId: string,
+  difficulty: string,
+  optional: Record<string, never>,
+};
+
+export type UserWordsT = UserWord[];

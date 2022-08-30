@@ -10,6 +10,7 @@ import {
   AggregatedWordsResponseT,
   PageNameT,
   ComplicatedWordsStorageDataT,
+  UserWordsT,
 } from '../../types/types';
 import authStorage from '../auth-storage';
 import { DIFF_BETWEEN_ARR_INDEX_AND_PAGE_NUM, FIRST_CARD_INDEX } from './handbookControllerConstants';
@@ -254,5 +255,10 @@ export default class HandbookController implements IhandbookController {
       0,
     );
     complicatedWordsCardHandler(levels, this);
+  }
+
+  async getUserWords(): Promise<AxiosResponse<UserWordsT>> {
+    const res = await this.herokuApi.getUserWords();
+    return res;
   }
 }

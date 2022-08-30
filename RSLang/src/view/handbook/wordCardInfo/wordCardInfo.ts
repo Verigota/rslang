@@ -76,11 +76,19 @@ export default class WordCardInfo implements IwordCardInfo {
     const wordCardInfo = <HTMLDivElement>document.querySelector(this.wordCardInfoSelector);
 
     const complicatedWordsButton = getNewElement('button', 'word__card-info-complicated-words-button', 'В сложные слова');
-    complicatedWordsButton.addEventListener('click', () => handbookController.complicatedWordsButtonHandler(wordData.id, 'hard', {}));
+    complicatedWordsButton.addEventListener('click', () => {
+      handbookController.complicatedWordsButtonHandler(wordData.id, 'hard', {});
+      const activeWordCard = <HTMLDivElement>document.querySelector('.active-word-card');
+      activeWordCard.classList.add('hard');
+      activeWordCard.classList.remove('learned');
+    });
 
     const learnedWordsButton = getNewElement('button', 'word__card-info-complicated-words-button', 'В изученные слова');
     learnedWordsButton.addEventListener('click', () => {
       handbookController.learnedWordsButtonHandler(wordData.id, 'learned', {});
+      const activeWordCard = <HTMLDivElement>document.querySelector('.active-word-card');
+      activeWordCard.classList.add('learned');
+      activeWordCard.classList.remove('hard');
     });
 
     wordCardInfo.append(complicatedWordsButton, learnedWordsButton);
