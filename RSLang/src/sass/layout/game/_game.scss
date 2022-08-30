@@ -38,12 +38,34 @@
         padding: 20px;
     }
 
-    &__audio-img {
+    &__audio-btn {
         width: 100px;
         height: 100px;
         box-shadow:  2px 2px 5px $background-dark;
         border-radius: 50%;
         align-self: center;
+        overflow: hidden;
+
+        //game__audio-question game__audio-answer
+        .game__audio-question, 
+        .game__audio-answer {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .game__audio-answer {
+            display: none;
+        }
+
+        &.answer {
+            .game__audio-answer {
+                display: block;
+            }
+            .game__audio-question {
+                display: none;
+            }
+        }
 
         &:hover {
             box-shadow: 3px 3px 7px $background-dark;
