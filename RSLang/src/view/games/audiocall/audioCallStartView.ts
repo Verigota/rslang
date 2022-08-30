@@ -1,12 +1,13 @@
+import AudioCall from '../../../controller/games/audiocall/audiocall';
+import wordsData from '../../../controller/games/audiocall/data/data';
 import { IMainSectionViewRender } from '../../common/IMainViewRender';
 import { gameAudioCallStart } from '../../viewsContent/views';
-import GameAudioCallPlayView from './audioCallPlayView';
 
 function setGamesButtonsActions() {
   const gamePlayBtn = document.querySelector('.game__start-btn') as HTMLAnchorElement;
   gamePlayBtn.addEventListener('click', () => {
-    const gamePlay = new GameAudioCallPlayView();
-    gamePlay.render();
+    const audioCall = new AudioCall(wordsData);
+    audioCall.start();
   });
 }
 
