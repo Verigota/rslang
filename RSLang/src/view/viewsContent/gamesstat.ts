@@ -15,16 +15,16 @@ export const popupGameStatView = `
                                 <div class="game-stat__percent"><span>50</span>%</div>
                             </div>
                             <div id="game-stat-answers" class="game-stat__item">
-                                <p class="stat-header">Ошибки: <span class="game-stat__errors">10</span></p>
+                                <p class="stat-header header-errors">Ошибки: <span class="game-stat__errors">10</span></p>
                                 <div class="game-stat__errors-words"></div>
                                 <div class="stat-separator"></span></div>
-                                <p class="stat-header">Правильные: <span class="game-stat__rights">5</span></p>
+                                <p class="stat-header header-rights">Правильные: <span class="game-stat__rights">5</span></p>
                                 <div class="game-stat__rights-words"></div>
                             </div>
                         </div>
                     </div>
                     <div class="game-stat__pagination">
-                        <a id="game-stat-left" href="#" class="game-stat__pag-btn active"></a>
+                        <a id="game-stat-left" href="#" class="game-stat__pag-btn active-page"></a>
                         <a id="game-stat-right" href="#" class="game-stat__pag-btn"></a>
                     </div>
                     <div class="game-stat__action">
