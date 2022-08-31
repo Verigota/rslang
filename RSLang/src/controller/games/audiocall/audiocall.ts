@@ -75,7 +75,7 @@ export default class AudioCall implements ICommonGame {
     this.rightAnswers = [];
 
     this.returnToView = returnToView;
-    
+
     this.currentAudio = new Audio();
 
     this.answerClick = (event: Event) => {
@@ -89,11 +89,12 @@ export default class AudioCall implements ICommonGame {
       }
       const userChoice = element.getAttribute('data-word');
       this.checkAnswer(userChoice, element);
-      this.resetKeyboardEvents();
+      // this.resetKeyboardEvents();
     };
 
     this.keyDownHandler = (event: KeyboardEvent) => {
       event.stopPropagation();
+      console.log('keyDownHandler');
       let answer: HTMLElement | null = null;
       switch (event.code) {
         case 'Digit1': answer = (this.gameCtrls as IGameControllers).answers[0] as HTMLAnchorElement;
@@ -124,6 +125,7 @@ export default class AudioCall implements ICommonGame {
           break;
         case 'ArrowRight': answer = document.querySelector('.game__skip-btn') as HTMLButtonElement;
           break;
+        default: answer = null;
       }
       // Number(str.replace('Digit', '').replace('Numpad',''))
       if (answer != null) {
@@ -136,9 +138,9 @@ export default class AudioCall implements ICommonGame {
         }, 200);
         const userChoice = answer.getAttribute('data-word');
         this.checkAnswer(userChoice, answer);
-        this.resetKeyboardEvents();
+        // this.resetKeyboardEvents();
       }
-    }
+    };
   }
 
   public start() {
@@ -188,7 +190,9 @@ export default class AudioCall implements ICommonGame {
   }
 
   public setKeyboardEvents() {
-    document.addEventListener('keydown', this.keyDownHandler);
+    const game = document.querySelector('.game') as HTMLDivElement;
+    console.log('setKeyboardEvents');
+    game.addEventListener('keydown', this.keyDownHandler);
   }
 
   public resetKeyboardEvents() {
@@ -218,7 +222,7 @@ export default class AudioCall implements ICommonGame {
   }
 
   private updateCurrentStage() {
-    //this.currentAudio.src = '';
+    // this.currentAudio.src = '';
     const testEl = document.querySelector('.game__test-field') as HTMLDivElement;
     (testEl as HTMLDivElement).innerText = this.stages[this.currentStage].word.word;
     const answers: string[] = [...this.stages[this.currentStage].answers];
