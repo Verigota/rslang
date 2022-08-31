@@ -5,6 +5,46 @@ import { AggregatedWordDataT, PageNameT, WordDataT } from '../../../types/types'
 import { getNewElement, getNewImageElement, getMeaningOrExampleContainer } from '../templatesForElements/templateForCreatingNewElement';
 import IwordCardInfo from './IwordCardInfo';
 
+function toggleLearnedPageClasses(activeWordNewClass: string, activeWordOldClass: string) {
+  const [
+    activeWordCard,
+    wordCards,
+    currPage,
+    handbookWords,
+    handbookSprint,
+    handbookAudioCall,
+  ] = [
+    <HTMLDivElement>document.querySelector('.active-word-card'),
+    document.querySelectorAll('.handbook__word-card'),
+    <HTMLDivElement>document.querySelector('.words-pagination__curr-page'),
+    <HTMLDivElement>document.querySelector('.words-pagination__curr-page'),
+    <HTMLDivElement>document.querySelector('.handbook__words'),
+    <HTMLDivElement>document.querySelector('.handbook__sprint'),
+    <HTMLDivElement>document.querySelector('.handbook__audio-call'),
+  ];
+
+  activeWordCard.classList.add(activeWordNewClass);
+  activeWordCard.classList.remove(activeWordOldClass);
+
+  const areWordsHard = Array.from(wordCards).every((card) => card.classList.contains('hard'));
+  const areWordsLearned = Array.from(wordCards).every((card) => card.classList.contains('hard') || card.classList.contains('learned'));
+
+  if (areWordsHard) {
+    currPage.classList.remove('all-wrods-learned');
+    handbookWords.classList.remove('page-learned');
+    handbookSprint.classList.remove('disabled');
+    handbookAudioCall.classList.remove('disabled');
+    return;
+  }
+
+  if (areWordsLearned) {
+    currPage.classList.add('all-words-learned');
+    handbookWords.classList.add('page-learned');
+    handbookSprint.classList.add('disabled');
+    handbookAudioCall.classList.add('disabled');
+  }
+}
+
 export default class WordCardInfo implements IwordCardInfo {
   private wordCardInfoSelector: '#handbook__word-card-info';
 
@@ -78,17 +118,13 @@ export default class WordCardInfo implements IwordCardInfo {
     const complicatedWordsButton = getNewElement('button', 'word__card-info-complicated-words-button', 'В сложные слова');
     complicatedWordsButton.addEventListener('click', () => {
       handbookController.complicatedWordsButtonHandler(wordData.id, 'hard', {});
-      const activeWordCard = <HTMLDivElement>document.querySelector('.active-word-card');
-      activeWordCard.classList.add('hard');
-      activeWordCard.classList.remove('learned');
+      toggleLearnedPageClasses('hard', 'learned');
     });
 
     const learnedWordsButton = getNewElement('button', 'word__card-info-complicated-words-button', 'В изученные слова');
     learnedWordsButton.addEventListener('click', () => {
       handbookController.learnedWordsButtonHandler(wordData.id, 'learned', {});
-      const activeWordCard = <HTMLDivElement>document.querySelector('.active-word-card');
-      activeWordCard.classList.add('learned');
-      activeWordCard.classList.remove('hard');
+      toggleLearnedPageClasses('learned', 'hard');
     });
 
     wordCardInfo.append(complicatedWordsButton, learnedWordsButton);

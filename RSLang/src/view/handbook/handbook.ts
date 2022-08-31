@@ -111,15 +111,14 @@ export default class Handbook implements IHandbook {
       this.wordCards.renderWordCards(wordsData, handbookController, pageName);
       this.wordCardInfo.renderWordCardInfo(wordData, handbookController, pageName);
       this.handlePaginationButtons(handbookController, 1, 30, pageName);
-      const title = <HTMLElement>
-      document.querySelector('#handbook__title');
-      title.classList.add('active-handbook-page');
+
+      (<HTMLElement>document.querySelector('#handbook__title')).classList.add('active-handbook-page');
     }
 
-    this.handbookTitleHandler(handbookController);
+    if (authStorage.get()) this.handbookTitleHandler(handbookController);
 
     const games = [document.querySelector('#handbook__audio-call'), document.querySelector('#handbook__sprint')];
-    games.forEach((game) => game?.addEventListener('click', () => '')); // links for future games
+    games.forEach((game) => game?.addEventListener('click', () => console.log('click'))); // links for future games
   }
 
   handbookTitleHandler(

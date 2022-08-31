@@ -10,6 +10,19 @@
   border: 2px solid purple;
 }
 
+.all-words-learned {
+  background-color: rebeccapurple;
+}
+
+.page-learned {
+  border: 2px dashed greenyellow;
+}
+
+.disabled {
+  pointer-events: none;
+  border: 2px dashed red;
+}
+
 .handbook {
   &__words {
     display: grid;
