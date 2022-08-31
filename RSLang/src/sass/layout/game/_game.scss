@@ -71,11 +71,6 @@
             box-shadow: 3px 3px 7px $background-dark;
             transition: .2s all;
         }
-    
-        &:active {
-            transition: .2s all;
-            transform: translateY(3px);
-        }
     }
 
     &__word-img {
@@ -107,4 +102,19 @@
     &__word-translate {
         @include addFont('Philosopher', normal, 600, 2rem, 0.06em, $text-dark, 1rem);
     }
+
+    &__test-field {
+        position: absolute;
+        width: 150px;
+        height: 50px;
+        border: 1px solid black;
+        font-size: 20px;
+        left: 50%;
+        top: 30%;
+    }
+}
+
+.active {
+    transition: .2s all;
+    transform: translateY(3px);
 }
