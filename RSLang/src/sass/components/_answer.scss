@@ -39,6 +39,11 @@
         transform: translateY(3px);
     }
 
+    &.active {
+        transition: .2s all;
+        transform: translateY(3px);
+    }
+
     &.ok {
         background-color: $color-ok;
         .answer__ok {
