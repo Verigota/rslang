@@ -53,6 +53,7 @@ export const sectionAudioGameBody = `
                     </a>
                 </div>
                 <div class="game__skip">
-                    <button class="game__skip-btn button">Не знаю</button>
+                    <button class="game__skip-btn button" data-word="не знаю">Не знаю</button>
                 </div>
+                <div class="game__test-field"></div>
             </section>`;
