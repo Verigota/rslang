@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import authStorage from '../controller/authorization/auth-storage';
+import { IGameStart } from '../controller/games/audiocall/interfaces';
 import { WordDataT, WordsDataT } from '../types/types';
 import {
   IApi, IRefreshTokenResponse, ISingInResponse, IUserInfo, IUserSingIn,
@@ -67,8 +68,12 @@ export class Api implements IApi {
     return this.apiClient.get(`/words/${wordId}`);
   }
 
-  playAudio(filePath: string) {
-    this.apiClient.get(filePath);
+  public async getNotLearntUserWords(userId: string, startOpts: IGameStart) {
+    return this.apiClient.get(`/users/${userId}/aggregatedWords?group=${startOpts.level}&page=${startOpts.page}&wordsPerPage=30&filter=%7B%22userWord.difficulty%22%3A%7B%22%24ne%22%3A%22learnt%22%7D%7D`);
+  }
+
+  getAudio(filePath: string) {
+    return this.apiClient.get(filePath);
   }
 }
 export const herokuApi = new Api('https://rsschool-lang-app.herokuapp.com');

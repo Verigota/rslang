@@ -2,12 +2,12 @@ import { WordsDataT } from '../../../types/types';
 import { herokuApi } from '../../../api';
 import { IApi } from '../../../api/interfaces';
 import { IGameControllers, IStageInfo, initGameControllersObj } from './interfaces';
-import wordsData from './data/data';
 import GameAudioCallPlayView from '../../../view/games/audiocall/audioCallPlayView';
 import GameStatisticsView from '../../../view/games/statistics/gameStatisticView';
 import { IMainSectionViewRender } from '../../../view/common/IMainViewRender';
 import GameAudioCallStartView from '../../../view/games/audiocall/audioCallStartView';
 import { ICommonGame } from '../interfaces';
+import { AxiosResponse } from 'axios';
 
 function getRandomAnswers(wordTranslate: string, words: WordsDataT): string[] {
   return words
@@ -60,12 +60,15 @@ export default class AudioCall implements ICommonGame {
 
   private currentAudio: HTMLAudioElement;
 
-  constructor(words: WordsDataT | [], returnToView: IMainSectionViewRender) {
+  constructor(
+    words: WordsDataT | [],
+    returnToView: IMainSectionViewRender,
+  ) {
     this.api = herokuApi;
     if (words.length > 0) {
       this.words = [...words.sort(() => 0.5 - Math.random())];
     } else {
-      this.words = [...wordsData]; // подключение к серверу и получение списка слов
+      // this.words = [...wordsData]; // подключение к серверу и получение списка слов
     }
     this.createStages();
 
@@ -75,7 +78,7 @@ export default class AudioCall implements ICommonGame {
     this.rightAnswers = [];
 
     this.returnToView = returnToView;
-    
+
     this.currentAudio = new Audio();
 
     this.answerClick = (event: Event) => {
@@ -124,6 +127,7 @@ export default class AudioCall implements ICommonGame {
           break;
         case 'ArrowRight': answer = document.querySelector('.game__skip-btn') as HTMLButtonElement;
           break;
+        default: break;
       }
       // Number(str.replace('Digit', '').replace('Numpad',''))
       if (answer != null) {
