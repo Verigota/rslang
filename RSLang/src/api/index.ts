@@ -83,10 +83,10 @@ export class Api implements IApi {
     difficulty: string,
     optional: Record<string, never>,
   ) {
-    try {
-      await this.getUserWord(wordId);
-      this.updateUserWord(wordId, difficulty, optional);
-    } catch (e: unknown) {
+    const wordsIds = ((await this.getUserWords()).data.map((userData) => userData.wordId));
+    if (wordsIds.includes(wordId)) {
+      await this.updateUserWord(wordId, difficulty, optional);
+    } else {
       await this.apiClient.post(`users/${(<IAuthInfo>authStorage.get()).userId}/words/${wordId}`, { difficulty, optional });
     }
   }
