@@ -7,7 +7,6 @@ import GameStatisticsView from '../../../view/games/statistics/gameStatisticView
 import { IMainSectionViewRender } from '../../../view/common/IMainViewRender';
 import GameAudioCallStartView from '../../../view/games/audiocall/audioCallStartView';
 import { ICommonGame } from '../interfaces';
-import { AxiosResponse } from 'axios';
 
 function getRandomAnswers(wordTranslate: string, words: WordsDataT): string[] {
   return words
@@ -65,11 +64,7 @@ export default class AudioCall implements ICommonGame {
     returnToView: IMainSectionViewRender,
   ) {
     this.api = herokuApi;
-    if (words.length > 0) {
-      this.words = [...words.sort(() => 0.5 - Math.random())];
-    } else {
-      // this.words = [...wordsData]; // подключение к серверу и получение списка слов
-    }
+    this.words = [...words.sort(() => 0.5 - Math.random())];
     this.createStages();
 
     this.currentStage = 0;
@@ -142,7 +137,7 @@ export default class AudioCall implements ICommonGame {
         this.checkAnswer(userChoice, answer);
         this.resetKeyboardEvents();
       }
-    }
+    };
   }
 
   public start() {

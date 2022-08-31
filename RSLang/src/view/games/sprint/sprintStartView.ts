@@ -1,3 +1,4 @@
+import { IGameStart } from '../../../controller/games/audiocall/interfaces';
 import getGameWords from '../../../controller/games/GameController';
 import { WordsDataT } from '../../../types/types';
 import { IMainSectionViewRender } from '../../common/IMainViewRender';
@@ -18,15 +19,20 @@ export default class GameSprintStartView implements IMainSectionViewRender {
 
   selectedLevel: number | null;
 
-  constructor(selectedLevel: number) {
+  page?: number | null;
+
+  constructor(startOpts: IGameStart) {
     this.content = document.querySelector('#main') as HTMLElement;
-    this.selectedLevel = selectedLevel;
+    this.selectedLevel = startOpts?.level;
+    this.page = startOpts.page || null;
   }
 
   async render() {
     this.content.innerHTML = gameSprintStart.sections.join('');
     if (this.selectedLevel !== null) {
-      const words = (await getGameWords({ level: this.selectedLevel })).data;
+      const words = this.page !== null
+        ? (await getGameWords({ level: this.selectedLevel, page: this.page })).data
+        : (await getGameWords({ level: this.selectedLevel })).data;
       setGamesButtonsActions(words);
     }
   }
