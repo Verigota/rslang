@@ -1,5 +1,5 @@
 import AudioCall from '../../../controller/games/audiocall/audiocall';
-import wordsData from '../../../controller/games/audiocall/data/data';
+import { IGameStart } from '../../../controller/games/audiocall/interfaces';
 import getGameWords from '../../../controller/games/GameController';
 import { IMainSectionViewRender } from '../../common/IMainViewRender';
 import { gameAudioCallStart } from '../../viewsContent/views';
@@ -7,8 +7,14 @@ import { gameAudioCallStart } from '../../viewsContent/views';
 export default class GameAudioCallStartView implements IMainSectionViewRender {
   private content: HTMLElement;
 
-  constructor() {
+  selectedLevel: number | null;
+
+  page?: number | null;
+
+  constructor(startOpts: IGameStart) {
     this.content = document.querySelector('#main') as HTMLElement;
+    this.selectedLevel = startOpts?.level;
+    this.page = startOpts.page || null;
   }
 
   render() {
@@ -20,9 +26,13 @@ export default class GameAudioCallStartView implements IMainSectionViewRender {
   private setGamesButtonsActions() {
     const gamePlayBtn = document.querySelector('.game__start-btn') as HTMLAnchorElement;
     gamePlayBtn.addEventListener('click', async () => {
-      const words = (await getGameWords({ level: 1 })).data;
-      const audioCall = new AudioCall(words, this);
-      audioCall.start();
+      if (this.selectedLevel !== null) {
+        const words = this.page !== null
+          ? (await getGameWords({ level: this.selectedLevel, page: this.page })).data
+          : (await getGameWords({ level: this.selectedLevel })).data;
+        const audioCall = new AudioCall(words, this);
+        audioCall.start();
+      }
     });
   }
 }

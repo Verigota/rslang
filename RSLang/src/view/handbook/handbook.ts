@@ -1,6 +1,9 @@
+import { LOCAL_STORAGE_KEY } from '../../controller/handbookController/handbookControllerConstants';
 import { getHandbookDataFromLocalStorage } from '../../controller/handbookController/handbookLocalStorageAPI';
 import IhandbookController from '../../controller/handbookController/IhandbookController';
 import { RsLangHandbookDataT, WordDataT, WordsDataT } from '../../types/types';
+import GameAudioCallStartView from '../games/audiocall/audioCallStartView';
+import GameSprintStartView from '../games/sprint/sprintStartView';
 import IHandbook from './Ihandbook';
 import LevelCards from './levelCards/levelCards';
 import WordCardInfo from './wordCardInfo/wordCardInfo';
@@ -82,8 +85,23 @@ export default class Handbook implements IHandbook {
     this.wordCardInfo.renderWordCardInfo(wordData, handbookController);
     this.handlePaginationButtons(handbookController);
 
-    const games = [document.querySelector('#handbook__audio-call'), document.querySelector('#handbook__sprint')];
-    games.forEach((game) => game?.addEventListener('click', () => ''));
+    const audioBtn = document.querySelector('#handbook__audio-call');
+    const sprintBtn = document.querySelector('#handbook__sprint');
+    sprintBtn?.addEventListener('click', () => {
+      const startOpts = getHandbookDataFromLocalStorage(LOCAL_STORAGE_KEY);
+      const gameSprint = new GameSprintStartView({ level: startOpts.group, page: startOpts.page });
+      gameSprint.render();
+    });
+    audioBtn?.addEventListener('click', () => {
+      const startOpts = getHandbookDataFromLocalStorage(LOCAL_STORAGE_KEY);
+      const gameAudio = new GameAudioCallStartView(
+        {
+          level: startOpts.group,
+          page: startOpts.page,
+        },
+      );
+      gameAudio.render();
+    });
   }
 
   handlePaginationButtons(handbookController: IhandbookController) {

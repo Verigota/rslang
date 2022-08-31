@@ -31,7 +31,7 @@ export default class GameSelectorView implements IMainSectionViewRender {
     const sprintGameBtn = document.querySelector('#sprint-game') as HTMLAnchorElement;
     sprintGameBtn.addEventListener('click', () => {
       if (this.selectedLevel != null) {
-        const gameSprint = new GameSprintStartView(this.selectedLevel);
+        const gameSprint = new GameSprintStartView({ level: this.selectedLevel });
         gameSprint.render();
       } else {
         const popup = new PopupMessageView('Не выбран уровень сложности!', 'Выберите уровень сложности, чтобы продолжить!');
@@ -40,8 +40,8 @@ export default class GameSelectorView implements IMainSectionViewRender {
     });
     const audioGameBtn = document.querySelector('#audio-game') as HTMLAnchorElement;
     audioGameBtn.addEventListener('click', () => {
-      if (checkLevelsBtns()) {
-        const gameAudioCall = new GameAudioCallStartView();
+      if (this.selectedLevel != null) {
+        const gameAudioCall = new GameAudioCallStartView(this.selectedLevel);
         gameAudioCall.render();
       } else {
         const popup = new PopupMessageView('Не выбран уровень сложности!', 'Выберите уровень сложности, чтобы продолжить!');
