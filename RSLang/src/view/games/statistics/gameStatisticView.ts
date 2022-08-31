@@ -66,11 +66,31 @@ export default class GameStatisticsView implements IMainSectionViewRender {
     setTimeout(() => {
       popup.classList.add('open');
     }, 100);
-    addWordItemsTo('right', this.rightWords);
-    (document.querySelector('.game-stat__rights') as HTMLSpanElement).innerText = this.rightWords.length.toString();
-    addWordItemsTo('wrong', this.wrongWords);
-    (document.querySelector('.game-stat__errors') as HTMLSpanElement).innerText = this.wrongWords.length.toString();
+    const rightAnswersEl = document.querySelector('.game-stat__rights') as HTMLSpanElement;
+    const rightsWordsEl = document.querySelector('.game-stat__rights-words') as HTMLDivElement;
+    const rightsHeaderEl = document.querySelector('.header-rights') as HTMLDivElement;
+    const errorAnswersEl = document.querySelector('.game-stat__errors') as HTMLSpanElement;
+    const errorsWordsEl = document.querySelector('.game-stat__errors-words') as HTMLDivElement;
+    const errorsHeaderEl = document.querySelector('.header-errors') as HTMLDivElement;
+    const separatorEl = document.querySelector('.stat-separator') as HTMLSpanElement;
 
+    if (this.rightWords.length > 0) {
+      rightAnswersEl.innerText = this.rightWords.length.toString();
+      addWordItemsTo('right', this.rightWords);
+    } else {
+      rightsHeaderEl.classList.add('hide');
+      rightsWordsEl.classList.add('hide');
+      separatorEl.classList.add('hide');
+    }
+    if (this.wrongWords.length > 0) {
+      errorAnswersEl.innerText = this.wrongWords.length.toString();
+      addWordItemsTo('wrong', this.wrongWords);
+    } else {
+      errorsHeaderEl.classList.add('hide');
+      errorsWordsEl.classList.add('hide');
+      separatorEl.classList.add('hide');
+    }
+   
     const gameSelectionBtn = popup.querySelector('.game-stat__game-select') as HTMLButtonElement;
     gameSelectionBtn.addEventListener('click', () => {
       const gameSelection = new GameSelectorView();
@@ -89,7 +109,7 @@ export default class GameStatisticsView implements IMainSectionViewRender {
     popupClose.addEventListener('click', (event: Event) => {
       event.preventDefault();
       popup.classList.remove('open');
-      this.returnToView.render();
+      this.game.restart();
       setTimeout(() => {
         popup.remove();
       }, 500);
@@ -101,14 +121,14 @@ export default class GameStatisticsView implements IMainSectionViewRender {
 
     (sliderLeft as HTMLAnchorElement).addEventListener('click', () => {
       slider.classList.remove('shift');
-      sliderLeft?.classList.toggle('active');
-      sliderRight?.classList.toggle('active');
+      sliderLeft?.classList.toggle('active-page');
+      sliderRight?.classList.toggle('active-page');
     });
 
     (sliderRight as HTMLAnchorElement).addEventListener('click', () => {
       slider.classList.add('shift');
-      sliderLeft?.classList.toggle('active');
-      sliderRight?.classList.toggle('active');
+      sliderLeft?.classList.toggle('active-page');
+      sliderRight?.classList.toggle('active-page');
     });
 
     const totalAnswers = this.wrongWords.length + this.rightWords.length;
