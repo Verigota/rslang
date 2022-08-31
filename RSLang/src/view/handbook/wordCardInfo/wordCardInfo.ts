@@ -17,7 +17,6 @@ function toggleLearnedPageClasses(activeWordNewClass: string, activeWordOldClass
     <HTMLDivElement>document.querySelector('.active-word-card'),
     document.querySelectorAll('.handbook__word-card'),
     <HTMLDivElement>document.querySelector('.words-pagination__curr-page'),
-    <HTMLDivElement>document.querySelector('.words-pagination__curr-page'),
     <HTMLDivElement>document.querySelector('.handbook__words'),
     <HTMLDivElement>document.querySelector('.handbook__sprint'),
     <HTMLDivElement>document.querySelector('.handbook__audio-call'),

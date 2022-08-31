@@ -93,10 +93,12 @@ export default class HandbookController implements IhandbookController {
     const rsLangHandbookData:
     RsLangHandbookDataT = getHandbookDataFromLocalStorage();
 
+    const { group, page } = rsLangHandbookData;
+
     const wordsData = <WordsDataT>
       (await this.getChunkOfWords(
-        rsLangHandbookData.group,
-        rsLangHandbookData.page,
+        group,
+        page,
       )).data;
 
     return { wordsData, rsLangHandbookData };

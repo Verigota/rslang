@@ -61,7 +61,9 @@ export class Api implements IApi {
 
   public async getChunkOfWords(group: number, page: number):
   Promise<AxiosResponse<WordsDataT>> {
-    const res = await this.apiClient.get(`/words?group=${group}&page=${page}`);
+    const res = await this.apiClient.get('/words', {
+      params: { group, page },
+    });
     return res;
   }
 
@@ -96,7 +98,13 @@ export class Api implements IApi {
   public async getAllUserAggregatedHardWords(
     page: number,
   ): Promise<AxiosResponse<AggregatedWordsResponseT>> {
-    const res = await this.apiClient.get(`/users/${(<IAuthInfo>authStorage.get()).userId}/aggregatedWords?page=${page}&wordsPerPage=20&filter={"$or":[{"userWord.difficulty":"hard"}]}`);
+    const res = await this.apiClient.get(`/users/${(<IAuthInfo>authStorage.get()).userId}/aggregatedWords`, {
+      params: {
+        page,
+        wordsPerPage: 20,
+        filter: '{"$or":[{"userWord.difficulty":"hard"}]}',
+      },
+    });
     return res;
   }
 

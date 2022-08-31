@@ -1,5 +1,6 @@
 import { getHandbookDataFromLocalStorage } from '../../../controller/handbookController/handbookLocalStorageAPI';
 import IhandbookController from '../../../controller/handbookController/IhandbookController';
+import PageName from '../../../enums/enums';
 import { RsLangHandbookDataT } from '../../../types/types';
 import { getNewElement } from '../templatesForElements/templateForCreatingNewElement';
 import WordCardInfo from '../wordCardInfo/wordCardInfo';
@@ -65,7 +66,6 @@ export default class LevelCards implements IlevelCards {
     wordCards: WordCards,
     wordCardInfo: WordCardInfo,
   ): Promise<void> {
-    const pageName = 'handbook';
     const [
       wordsPaginationPrevButton,
       wordsPaginationCurrPage,
@@ -87,11 +87,11 @@ export default class LevelCards implements IlevelCards {
       wordsPaginationNextButton,
     );
 
-    wordCards.renderWordCards(wordsData, handbookController, pageName);
+    wordCards.renderWordCards(wordsData, handbookController, PageName.handbook);
     wordCardInfo.renderWordCardInfo(
       wordsData[this.defaultActiveWordCardIndex],
       handbookController,
-      pageName,
+      PageName.handbook,
     );
   }
 }

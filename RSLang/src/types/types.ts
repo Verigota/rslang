@@ -1,3 +1,5 @@
+import PageName from '../enums/enums';
+
 export type WordsDataT = WordDataT[];
 
 export type WordDataT = {
@@ -57,7 +59,7 @@ export type ComplicatedWordsStorageDataT = {
   activeWordCardIndex: number
 };
 
-export type PageNameT = 'handbook' | 'complicatedWords';
+export type PageNameT = PageName.handbook | PageName.complicatedWords;
 
 export type UserWord = {
   id: string,

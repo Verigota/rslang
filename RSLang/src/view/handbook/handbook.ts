@@ -2,6 +2,7 @@ import authStorage from '../../controller/auth-storage';
 import { COMPLICATED_WORDS_PAGE_KEY } from '../../controller/handbookController/handbookControllerConstants';
 import { getHandbookComplicatedWordsDataFromLocalStorage, getHandbookDataFromLocalStorage, setHandbookComplicatedWordsToLocalStorage } from '../../controller/handbookController/handbookLocalStorageAPI';
 import IhandbookController from '../../controller/handbookController/IhandbookController';
+import PageName from '../../enums/enums';
 import {
   AggregatedWordsDataT,
   PageNameT,
@@ -90,7 +91,7 @@ export default class Handbook implements IHandbook {
       </div>
     </div>`;
     const main = <HTMLElement>document.querySelector('#main');
-    const pageName = 'handbook';
+
     main.innerHTML = '';
     main.insertAdjacentHTML('beforeend', handbook);
 
@@ -108,9 +109,9 @@ export default class Handbook implements IHandbook {
       complicatedCard.classList.add('active-handbook-page');
     } else {
       this.levelCards.renderLevelCards(handbookController, this.wordCards, this.wordCardInfo);
-      this.wordCards.renderWordCards(wordsData, handbookController, pageName);
-      this.wordCardInfo.renderWordCardInfo(wordData, handbookController, pageName);
-      this.handlePaginationButtons(handbookController, 1, 30, pageName);
+      this.wordCards.renderWordCards(wordsData, handbookController, PageName.handbook);
+      this.wordCardInfo.renderWordCardInfo(wordData, handbookController, PageName.handbook);
+      this.handlePaginationButtons(handbookController, 1, 30, PageName.handbook);
 
       (<HTMLElement>document.querySelector('#handbook__title')).classList.add('active-handbook-page');
     }
@@ -132,19 +133,18 @@ export default class Handbook implements IHandbook {
       title.classList.add('active-handbook-page');
 
       localStorage.removeItem(COMPLICATED_WORDS_PAGE_KEY);
-      const pageName = 'handbook';
       const rsLangHandbookData: RsLangHandbookDataT = getHandbookDataFromLocalStorage();
       const wordsData = <WordsDataT>(await
       handbookController.getChunkOfWords(rsLangHandbookData.group, rsLangHandbookData.page)).data;
 
       this.levelCards.renderLevelCards(handbookController, this.wordCards, this.wordCardInfo);
-      this.wordCards.renderWordCards(wordsData, handbookController, pageName);
+      this.wordCards.renderWordCards(wordsData, handbookController, PageName.handbook);
       this.wordCardInfo.renderWordCardInfo(
         wordsData[rsLangHandbookData.activeWordCardIndex],
         handbookController,
-        pageName,
+        PageName.handbook,
       );
-      this.handlePaginationButtons(handbookController, 1, 30, 'handbook');
+      this.handlePaginationButtons(handbookController, 1, 30, PageName.handbook);
     });
   }
 
@@ -272,7 +272,7 @@ export default class Handbook implements IHandbook {
     const numOfCardsPerPage = 20;
     const lastPage = (totalCount[0]) ? Math.ceil(totalCount[0].count / numOfCardsPerPage) : 1;
 
-    this.handlePaginationButtons(handbookController, 1, lastPage, 'complicatedWords');
+    this.handlePaginationButtons(handbookController, 1, lastPage, PageName.complicatedWords);
   }
 
   renderComplicatedWordsContent(
@@ -284,11 +284,16 @@ export default class Handbook implements IHandbook {
     (levels: HTMLDivElement, handbookController: IhandbookController) => Promise<void>,
   ): void {
     if (count) {
-      this.wordCards.renderWordCards(paginatedResults, handbookController, 'complicatedWords', complicatedWordsCardHandler);
+      this.wordCards.renderWordCards(
+        paginatedResults,
+        handbookController,
+        PageName.complicatedWords,
+        complicatedWordsCardHandler,
+      );
       this.wordCardInfo.renderWordCardInfo(
         paginatedResults[activeWordCardIndex],
         handbookController,
-        'complicatedWords',
+        PageName.complicatedWords,
         complicatedWordsCardHandler,
       );
     } else {

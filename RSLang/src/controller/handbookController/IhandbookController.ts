@@ -68,7 +68,7 @@ export default interface IhandbookController {
     wordCard: HTMLDivElement,
     activeWordCard: HTMLDivElement,
     wordCardIndex: number,
-    pageName: 'handbook' | 'complicatedWords',
+    pageName: PageNameT,
   ): Promise<void>
 
   deleteUserWord(userId: string, wordId: string): Promise<void>
