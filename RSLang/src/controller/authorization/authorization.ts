@@ -46,6 +46,8 @@ class AuthManager implements IAuthManager {
 
   logOutUser() {
     this.authStore.remove();
+    localStorage.removeItem('complicatedWordsPage');
+    localStorage.removeItem('handbookComplicatedWords');
   }
 }
 export default AuthManager;
