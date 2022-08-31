@@ -71,8 +71,6 @@ export default interface IhandbookController {
     pageName: PageNameT,
   ): Promise<void>
 
-  deleteUserWord(userId: string, wordId: string): Promise<void>
-
   removeCardButtonHandler(
     wordData: WordDataT | AggregatedWordDataT,
     complicatedWordsCardHandler:

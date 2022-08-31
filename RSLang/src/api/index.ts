@@ -108,10 +108,6 @@ export class Api implements IApi {
     return res;
   }
 
-  public async deleteUserWord(userId: string, wordId: string): Promise<void> {
-    await this.apiClient.delete(`/users/${userId}/words/${wordId}`);
-  }
-
   public async updateUserWord(
     wordId: string,
     difficulty: string,

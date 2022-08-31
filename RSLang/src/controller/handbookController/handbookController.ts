@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { herokuApi } from '../../api';
-import { IApi, IAuthInfo } from '../../api/interfaces';
+import { IApi } from '../../api/interfaces';
 import {
   WordDataT,
   WordsDataT,
@@ -12,7 +12,6 @@ import {
   ComplicatedWordsStorageDataT,
   UserWordsT,
 } from '../../types/types';
-import authStorage from '../auth-storage';
 import { DIFF_BETWEEN_ARR_INDEX_AND_PAGE_NUM, FIRST_CARD_INDEX } from './handbookControllerConstants';
 import {
   getHandbookComplicatedWordsDataFromLocalStorage,
@@ -232,10 +231,6 @@ export default class HandbookController implements IhandbookController {
     return wordsData;
   }
 
-  async deleteUserWord(userId: string, wordId: string): Promise<void> {
-    await this.herokuApi.deleteUserWord(userId, wordId);
-  }
-
   async removeCardButtonHandler(
     wordData: WordDataT | AggregatedWordDataT,
     complicatedWordsCardHandler:
@@ -245,7 +240,7 @@ export default class HandbookController implements IhandbookController {
   ): Promise<void> {
     const aggregatedWordsId = '_id';
     const id = ('id' in wordData) ? wordData.id : wordData[aggregatedWordsId];
-    await this.deleteUserWord((<IAuthInfo>authStorage.get()).userId, id);
+    await this.herokuApi.updateUserWord(id, 'process', {});
 
     const storageWordsData = getHandbookComplicatedWordsDataFromLocalStorage();
 
