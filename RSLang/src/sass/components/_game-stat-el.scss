@@ -1,0 +1,44 @@
+@import '../utils/variables';
+@import '../utils/mixines';
+
+.game-stat-el {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 2px 2px 5px $background-dark;
+    gap: 5px;
+    width: 400px;
+    position: relative;
+    overflow: hidden;
+    padding: 20px 5px;
+
+    &__title {
+        @include addFont('Philosopher', normal, 600, 3rem, 0.01em, $text-dark, 3rem);
+        padding: 0px 17px;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 5px;
+    }
+
+    &__item-text {
+        @include addFont('Philosopher', normal, 400, 1.5rem, 0.01em, $text-dark, 2rem);
+        & span {
+            @include addFont('Philosopher', normal, 600, 1.5rem, 0.01em, $text-dark, 2rem);
+        }
+    }
+    &__decor {
+        position: absolute;
+        right: -54%;
+        bottom: -67%;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background-color: $background-dark-transparent;
+    }
+}

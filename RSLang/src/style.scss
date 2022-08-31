@@ -17,12 +17,14 @@
 @import './sass/components/button';
 @import './sass/components/button-reg';
 @import './sass/components/timer';
+@import './sass/components/game-stat-el';
 
 /* pages */
 @import './sass/pages/main/main';
 @import './sass/pages/handbook/handbook';
 @import './sass/pages/choice/choice';
 @import './sass/pages/game/game';
+@import './sass/pages/statistics/statistics';
 
 /* layouts*/
 @import './sass/layout/header';
@@ -37,3 +39,4 @@
 @import './sass/layout/blackout';
 @import './sass/layout/tempHandbook';
 @import './sass/layout/body';
+@import './sass/layout/statistics/statistics';

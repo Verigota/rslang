@@ -5,6 +5,7 @@ import { sectionSprintGameStart, sectionSprintGameBody } from './sprintgame';
 import { popupGameStatView } from './gamesstat';
 import sectionGamesChoice from './gameschoice';
 import popupMessage from './popup';
+import sectionStatistics from './statistics';
 
 export const mainView: ViewType = {
   sections: [sectionAbout, sectionScope, sectionTeam],
@@ -44,4 +45,9 @@ export const popupMsg: ViewType = {
 export const popupGameStat: ViewType = {
   sections: [popupGameStatView],
   name: 'game-statistics',
+};
+
+export const statisticsView: ViewType = {
+  sections: [sectionStatistics],
+  name: 'statistics',
 };
