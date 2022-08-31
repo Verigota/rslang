@@ -1,44 +1,19 @@
 import { IMainSectionViewRender } from '../../common/IMainViewRender';
 import { popupGameStat } from '../../viewsContent/views';
-import GameSprintPlayView from '../sprint/sprintPlayView';
-import GameAudioCallPlayView from '../audiocall/audioCallPlayView';
 import { WordsDataT } from '../../../types/types';
 import { gameStatWord } from '../../viewsContent/gamesstat';
 import GameSelectorView from '../../gameSelector/gameSelectorView';
+import { ICommonGame } from '../../../controller/games/interfaces';
 
-type ReturnTo = 'AudioCall' | 'Sprint';
 type AnswerType = 'right' | 'wrong';
 
-const closePopup = (event: Event) => {
-  event.preventDefault();
+const closePopup = () => {
   const popup = document.querySelector('.popup') as HTMLDivElement;
   popup.classList.remove('open');
   setTimeout(() => {
     popup.remove();
   }, 500);
 };
-
-function setGamesButtonsActions(popup: HTMLDivElement, viewToReturn: ReturnTo) {
-  const gameSelectionBtn = document.querySelector('.game-stat__game-select') as HTMLButtonElement;
-  gameSelectionBtn.addEventListener('click', () => {
-    const gameSelection = new GameSelectorView();
-    gameSelection.render();
-  });
-  gameSelectionBtn.addEventListener('click', closePopup);
-  const gameRestartBtn = document.querySelector('.game-stat__restart') as HTMLButtonElement;
-  gameRestartBtn.addEventListener('click', closePopup);
-  if (viewToReturn === 'AudioCall') {
-    gameRestartBtn.addEventListener('click', () => {
-      const gameRestart = new GameAudioCallPlayView();
-      gameRestart.render();
-    });
-  } else {
-    gameRestartBtn.addEventListener('click', () => {
-      const gameRestart = new GameSprintPlayView();
-      gameRestart.render();
-    });
-  }
-}
 
 function addWordItemsTo(wordsType: AnswerType, words: WordsDataT) {
   const container = (wordsType === 'right') ? document.querySelector('.game-stat__rights-words') as HTMLDivElement
@@ -61,17 +36,25 @@ export default class GameStatisticsView implements IMainSectionViewRender {
 
   private rightWords: WordsDataT;
 
-  private viewToReturn: ReturnTo;
+  private game: ICommonGame;
+
+  private returnToView: IMainSectionViewRender;
+
+  private bestSerie: number;
 
   constructor(
-    viewToReturn: ReturnTo,
+    bestSerie: number,
     wrongWords: WordsDataT | [],
     rightWords: WordsDataT | [],
+    game: ICommonGame,
+    returnToView: IMainSectionViewRender,
   ) {
     this.content = document.querySelector('body') as HTMLElement;
     this.wrongWords = [...wrongWords];
     this.rightWords = [...rightWords];
-    this.viewToReturn = viewToReturn;
+    this.game = game;
+    this.returnToView = returnToView;
+    this.bestSerie = bestSerie;
   }
 
   render() {
@@ -84,15 +67,60 @@ export default class GameStatisticsView implements IMainSectionViewRender {
       popup.classList.add('open');
     }, 100);
     addWordItemsTo('right', this.rightWords);
+    (document.querySelector('.game-stat__rights') as HTMLSpanElement).innerText = this.rightWords.length.toString();
     addWordItemsTo('wrong', this.wrongWords);
-    setGamesButtonsActions(popup, this.viewToReturn);
-    const popupArea = popup.querySelector('.popup__area') as HTMLAnchorElement;
-    const popupClose = popup.querySelector('.popup__close') as HTMLAnchorElement;
-    const buttons = [popupClose, popupArea];
+    (document.querySelector('.game-stat__errors') as HTMLSpanElement).innerText = this.wrongWords.length.toString();
 
-    buttons.forEach((el) => {
-      el.addEventListener('click', closePopup);
+    const gameSelectionBtn = popup.querySelector('.game-stat__game-select') as HTMLButtonElement;
+    gameSelectionBtn.addEventListener('click', () => {
+      const gameSelection = new GameSelectorView();
+      gameSelection.render();
     });
+    gameSelectionBtn.addEventListener('click', closePopup);
+
+    const gameRestartBtn = popup.querySelector('.game-stat__restart') as HTMLButtonElement;
+    gameRestartBtn.addEventListener('click', closePopup);
+
+    gameRestartBtn.addEventListener('click', () => {
+      this.game.restart();
+    });
+
+    const popupClose = popup.querySelector('.popup__close') as HTMLAnchorElement;
+    popupClose.addEventListener('click', (event: Event) => {
+      event.preventDefault();
+      popup.classList.remove('open');
+      this.returnToView.render();
+      setTimeout(() => {
+        popup.remove();
+      }, 500);
+    });
+
+    const slider = popup.querySelector('.game-stat__slider') as HTMLDivElement;
+    const sliderLeft = popup.querySelector('#game-stat-left');
+    const sliderRight = popup.querySelector('#game-stat-right');
+
+    (sliderLeft as HTMLAnchorElement).addEventListener('click', () => {
+      slider.classList.remove('shift');
+      sliderLeft?.classList.toggle('active');
+      sliderRight?.classList.toggle('active');
+    });
+
+    (sliderRight as HTMLAnchorElement).addEventListener('click', () => {
+      slider.classList.add('shift');
+      sliderLeft?.classList.toggle('active');
+      sliderRight?.classList.toggle('active');
+    });
+
+    const totalAnswers = this.wrongWords.length + this.rightWords.length;
+    const percent = (this.rightWords.length / totalAnswers) * 100;
+    const percentEl = popup.querySelector('.game-stat__percent span') as HTMLSpanElement;
+    percentEl.innerText = percent.toString();
+
+    const rusultEl = popup.querySelector('.game-stat__result-val') as HTMLSpanElement;
+    rusultEl.innerText = (this.rightWords.length * 10).toString();
+
+    const bestSerieEl = popup.querySelector('.game-stat__serie-val') as HTMLSpanElement;
+    bestSerieEl.innerText = this.bestSerie.toString();
     return Promise.resolve();
   }
 }

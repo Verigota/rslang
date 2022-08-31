@@ -1,14 +1,7 @@
+import AudioCall from '../../../controller/games/audiocall/audiocall';
+import wordsData from '../../../controller/games/audiocall/data/data';
 import { IMainSectionViewRender } from '../../common/IMainViewRender';
 import { gameAudioCallStart } from '../../viewsContent/views';
-import GameAudioCallPlayView from './audioCallPlayView';
-
-function setGamesButtonsActions() {
-  const gamePlayBtn = document.querySelector('.game__start-btn') as HTMLAnchorElement;
-  gamePlayBtn.addEventListener('click', () => {
-    const gamePlay = new GameAudioCallPlayView();
-    gamePlay.render();
-  });
-}
 
 export default class GameAudioCallStartView implements IMainSectionViewRender {
   private content: HTMLElement;
@@ -19,7 +12,15 @@ export default class GameAudioCallStartView implements IMainSectionViewRender {
 
   render() {
     this.content.innerHTML = gameAudioCallStart.sections.join('');
-    setGamesButtonsActions();
+    this.setGamesButtonsActions();
     return Promise.resolve();
+  }
+
+  private setGamesButtonsActions() {
+    const gamePlayBtn = document.querySelector('.game__start-btn') as HTMLAnchorElement;
+    gamePlayBtn.addEventListener('click', () => {
+      const audioCall = new AudioCall(wordsData, this);
+      audioCall.start();
+    });
   }
 }

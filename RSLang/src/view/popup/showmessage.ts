@@ -36,9 +36,10 @@ export default class PopupMessageView implements IMainSectionViewRender {
     buttons.forEach((el) => {
       el.addEventListener('click', () => {
         popup.classList.remove('open');
-        popup.addEventListener('transitionend', () => {
+        popup.remove();
+        setTimeout(() => {
           popup.remove();
-        });
+        }, 500);
       });
     });
     return Promise.resolve();

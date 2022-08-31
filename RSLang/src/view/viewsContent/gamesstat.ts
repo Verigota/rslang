@@ -12,7 +12,7 @@ export const popupGameStatView = `
                     <div class="game-stat__container">
                         <div class="game-stat__slider">
                             <div id="game-stat-common" class="game-stat__item">
-                                <div class="game-stat__percent">50%</div>
+                                <div class="game-stat__percent"><span>50</span>%</div>
                             </div>
                             <div id="game-stat-answers" class="game-stat__item">
                                 <p class="stat-header">Ошибки: <span class="game-stat__errors">10</span></p>
@@ -24,7 +24,7 @@ export const popupGameStatView = `
                         </div>
                     </div>
                     <div class="game-stat__pagination">
-                        <a id="game-stat-left" href="#" class="game-stat__pag-btn"></a>
+                        <a id="game-stat-left" href="#" class="game-stat__pag-btn active"></a>
                         <a id="game-stat-right" href="#" class="game-stat__pag-btn"></a>
                     </div>
                     <div class="game-stat__action">

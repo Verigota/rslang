@@ -116,6 +116,14 @@
             background-color: $background-light;
             transition: .2s all ease;
         }
+
+        &#game-stat-left,
+        &#game-stat-right {
+            background-color: $background-light;
+            &.active {
+                background-color: $background-dark;
+            }
+        }
     }
 
     &__action {
