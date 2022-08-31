@@ -90,7 +90,6 @@ export default class GameStatisticsView implements IMainSectionViewRender {
       errorsWordsEl.classList.add('hide');
       separatorEl.classList.add('hide');
     }
-   
     const gameSelectionBtn = popup.querySelector('.game-stat__game-select') as HTMLButtonElement;
     gameSelectionBtn.addEventListener('click', () => {
       const gameSelection = new GameSelectorView();

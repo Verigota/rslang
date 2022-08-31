@@ -1,8 +1,10 @@
 // import { AudioCallController } from '../../controller/games/AudioCall/audiocall';
 import { IMainSectionViewRender } from '../common/IMainViewRender';
+import GameAudioCallStartView from '../games/audiocall/audioCallStartView';
 import GameSprintStartView from '../games/sprint/sprintStartView';
+import PopupMessageView from '../popup/showmessage';
 import { gamesChoiceView } from '../viewsContent/views';
-import { setGamesButtonsActions, showMessage } from './commonFunc';
+import { checkLevelsBtns, setGamesButtonsActions } from './commonFunc';
 
 const levels = {
   A1: 0,
@@ -32,7 +34,18 @@ export default class GameSelectorView implements IMainSectionViewRender {
         const gameSprint = new GameSprintStartView(this.selectedLevel);
         gameSprint.render();
       } else {
-        showMessage('Не выбран уровень сложности!', 'Выберите уровень сложности, чтобы продолжить!');
+        const popup = new PopupMessageView('Не выбран уровень сложности!', 'Выберите уровень сложности, чтобы продолжить!');
+        popup.render();
+      }
+    });
+    const audioGameBtn = document.querySelector('#audio-game') as HTMLAnchorElement;
+    audioGameBtn.addEventListener('click', () => {
+      if (checkLevelsBtns()) {
+        const gameAudioCall = new GameAudioCallStartView();
+        gameAudioCall.render();
+      } else {
+        const popup = new PopupMessageView('Не выбран уровень сложности!', 'Выберите уровень сложности, чтобы продолжить!');
+        popup.render();
       }
     });
     const levelsContainer = document.querySelector('.choice__levels') as HTMLElement;
