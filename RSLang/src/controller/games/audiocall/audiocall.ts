@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { WordsDataT } from '../../../types/types';
 import { herokuApi } from '../../../api';
-import { IApi } from '../../../api/interfaces';
+import { IApi, IAuthInfo } from '../../../api/interfaces';
 import { IGameControllers, IStageInfo, initGameControllersObj } from './interfaces';
 import GameAudioCallPlayView from '../../../view/games/audiocall/audioCallPlayView';
 import GameStatisticsView from '../../../view/games/statistics/gameStatisticView';
 import { IMainSectionViewRender } from '../../../view/common/IMainViewRender';
 import GameAudioCallStartView from '../../../view/games/audiocall/audioCallStartView';
 import { ICommonGame } from '../interfaces';
+import DayStatistics from '../../daystatistics/daystatistics';
 
 function getRandomAnswers(wordTranslate: string, words: WordsDataT): string[] {
   return words
@@ -58,7 +59,7 @@ export default class AudioCall implements ICommonGame {
 
   private keyDownHandler: (event: KeyboardEvent) => void;
 
-  private playEventHandler: () => void;
+  // private playEventHandler: () => void;
 
   private currentAudio: HTMLAudioElement;
 
@@ -67,6 +68,8 @@ export default class AudioCall implements ICommonGame {
   private rightAnswerAudio: HTMLAudioElement;
 
   private wrongAnswerAudio: HTMLAudioElement;
+
+  private dayStat: DayStatistics;
 
   constructor(
     words: WordsDataT | [],
@@ -83,6 +86,8 @@ export default class AudioCall implements ICommonGame {
     this.currentAudio = new Audio();
     this.rightAnswerAudio = new Audio('public/assets/audio/right.mp3');
     this.wrongAnswerAudio = new Audio('public/assets/audio/wrong.mp3');
+    this.dayStat = new DayStatistics();
+    console.log(this.dayStat);
     this.answerClick = (event: Event) => {
       event.stopPropagation();
       this.resetMouseEvents();
@@ -97,11 +102,11 @@ export default class AudioCall implements ICommonGame {
       this.resetKeyboardEvents();
     };
 
-    this.playEventHandler = () => {
-      this.setMouseEvents();
-      this.setKeyboardEvents();
-      this.currentAudio.removeEventListener('ended', this.playEventHandler);
-    };
+    // this.playEventHandler = () => {
+    //   this.setMouseEvents();
+    //   this.setKeyboardEvents();
+    //   this.currentAudio.removeEventListener('ended', this.playEventHandler);
+    // };
 
     this.keyDownHandler = (event: KeyboardEvent) => {
       event.stopPropagation();
@@ -179,6 +184,7 @@ export default class AudioCall implements ICommonGame {
         }
         this.rightAnswers.push({ ...this.stages[this.currentStage].word });
         answer.classList.add('ok');
+        this.dayStat.updateWord('audiocall', this.stages[this.currentStage].word, 'right');
       } else {
         const findStr = this.stages[this.currentStage].word.wordTranslate;
         const rightAnswerEl = this.gameCtrls?.answers.find((answ: HTMLElement) => answ.getAttribute('data-word') === findStr);
@@ -190,6 +196,7 @@ export default class AudioCall implements ICommonGame {
         this.currSerie = 0;
         this.wrongAnswers.push({ ...this.stages[this.currentStage].word });
         answer.classList.add('fault');
+        this.dayStat.updateWord('audiocall', this.stages[this.currentStage].word, 'wrong');
       }
       setTimeout(() => {
         this.currentStage += 1;
@@ -249,7 +256,7 @@ export default class AudioCall implements ICommonGame {
   private updateCurrentStage() {
     this.currentAudio = new Audio(`${this.baseURL}/${this.stages[this.currentStage].word.audio}`);
     this.currentAudio.play();
-    this.currentAudio.addEventListener('ended', this.playEventHandler);
+    // this.currentAudio.addEventListener('ended', this.playEventHandler);
     const answers: string[] = [...this.stages[this.currentStage].answers];
     answers.push(this.stages[this.currentStage].word.wordTranslate);
     answers.sort(() => 0.5 - Math.random());
@@ -261,10 +268,10 @@ export default class AudioCall implements ICommonGame {
       ((this.gameCtrls as IGameControllers).answers[i] as HTMLAnchorElement).classList.remove('hide-help');
     }
 
-    // setTimeout(() => {
-    //   this.setMouseEvents();
-    //   this.setKeyboardEvents();
-    // }, 100);
+    setTimeout(() => {
+      this.setMouseEvents();
+      this.setKeyboardEvents();
+    }, 100);
   }
 
   private createStages() {
