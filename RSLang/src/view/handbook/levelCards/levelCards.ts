@@ -1,5 +1,6 @@
 import { getHandbookDataFromLocalStorage } from '../../../controller/handbookController/handbookLocalStorageAPI';
 import IhandbookController from '../../../controller/handbookController/IhandbookController';
+import PageName from '../../../enums/enums';
 import { RsLangHandbookDataT } from '../../../types/types';
 import { getNewElement } from '../templatesForElements/templateForCreatingNewElement';
 import WordCardInfo from '../wordCardInfo/wordCardInfo';
@@ -31,7 +32,8 @@ export default class LevelCards implements IlevelCards {
     wordCardInfo: WordCardInfo,
   ): void {
     const levels = <HTMLDivElement>document.querySelector(this.levelsSelector);
-    const RsLangHandbookData: RsLangHandbookDataT = getHandbookDataFromLocalStorage('rsLangHandbookData');
+    levels.innerHTML = '';
+    const RsLangHandbookData: RsLangHandbookDataT = getHandbookDataFromLocalStorage();
 
     this.levelCardsContent.forEach((content, contentIndex) => {
       const levelCard = getNewElement('div', 'handbook__level-card', content);
@@ -85,7 +87,11 @@ export default class LevelCards implements IlevelCards {
       wordsPaginationNextButton,
     );
 
-    wordCards.renderWordCards(wordsData, handbookController);
-    wordCardInfo.renderWordCardInfo(wordsData[this.defaultActiveWordCardIndex], handbookController);
+    wordCards.renderWordCards(wordsData, handbookController, PageName.handbook);
+    wordCardInfo.renderWordCardInfo(
+      wordsData[this.defaultActiveWordCardIndex],
+      handbookController,
+      PageName.handbook,
+    );
   }
 }
