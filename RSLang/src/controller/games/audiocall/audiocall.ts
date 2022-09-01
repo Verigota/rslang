@@ -180,6 +180,12 @@ export default class AudioCall implements ICommonGame {
         this.rightAnswers.push({ ...this.stages[this.currentStage].word });
         answer.classList.add('ok');
       } else {
+        const findStr = this.stages[this.currentStage].word.wordTranslate;
+        const rightAnswerEl = this.gameCtrls?.answers.find((answ: HTMLElement) => answ.getAttribute('data-word') === findStr);
+        if (rightAnswerEl) {
+          rightAnswerEl.classList.add('ok');
+          rightAnswerEl.classList.add('hide-help');
+        }
         this.wrongAnswerAudio.play();
         this.currSerie = 0;
         this.wrongAnswers.push({ ...this.stages[this.currentStage].word });
