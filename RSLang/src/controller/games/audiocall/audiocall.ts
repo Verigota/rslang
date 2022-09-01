@@ -59,8 +59,6 @@ export default class AudioCall implements ICommonGame {
 
   private keyDownHandler: (event: KeyboardEvent) => void;
 
-  // private playEventHandler: () => void;
-
   private currentAudio: HTMLAudioElement;
 
   private baseURL: string;
@@ -87,7 +85,6 @@ export default class AudioCall implements ICommonGame {
     this.rightAnswerAudio = new Audio('public/assets/audio/right.mp3');
     this.wrongAnswerAudio = new Audio('public/assets/audio/wrong.mp3');
     this.dayStat = new DayStatistics();
-    console.log(this.dayStat);
     this.answerClick = (event: Event) => {
       event.stopPropagation();
       this.resetMouseEvents();
@@ -101,12 +98,6 @@ export default class AudioCall implements ICommonGame {
       this.checkAnswer(userChoice, element);
       this.resetKeyboardEvents();
     };
-
-    // this.playEventHandler = () => {
-    //   this.setMouseEvents();
-    //   this.setKeyboardEvents();
-    //   this.currentAudio.removeEventListener('ended', this.playEventHandler);
-    // };
 
     this.keyDownHandler = (event: KeyboardEvent) => {
       event.stopPropagation();
