@@ -189,7 +189,6 @@ export default class AudioCall implements ICommonGame {
         this.currentStage += 1;
         if (this.currentStage < this.stages.length) {
           this.updateCurrentStage();
-          // this.currentAudio.play();
         } else {
           const stat = new GameStatisticsView(
             this.bestSerie,
@@ -205,11 +204,13 @@ export default class AudioCall implements ICommonGame {
   }
 
   public setKeyboardEvents() {
-    document.addEventListener('keydown', this.keyDownHandler);
+    const game = document.querySelector('.game') as HTMLDivElement;
+    game.addEventListener('keydown', this.keyDownHandler);
   }
 
   public resetKeyboardEvents() {
-    document.removeEventListener('keydown', this.keyDownHandler);
+    const game = document.querySelector('.game') as HTMLDivElement;
+    game.removeEventListener('keydown', this.keyDownHandler);
   }
 
   public restart() {
