@@ -29,26 +29,31 @@ export const sectionAudioGameBody = `
                     <a id="answer1" href="#" class="answer answers__item">
                         <img src="./public/assets/icons/success.svg" width="30" height="30" alt="ok" class="answer__ok">
                         <img src="./public/assets/icons/cancel.svg" width="30" height="30" alt="fault" class="answer__fault">
+                        <p class="answer__help">1</p>
                         <p class="answer__text">Перевод</p>
                     </a>
                     <a id="answer2" href="#" class="answer answers__item">
                         <img src="./public/assets/icons/success.svg" width="30" height="30" alt="ok" class="answer__ok">
                         <img src="./public/assets/icons/cancel.svg" width="30" height="30" alt="fault" class="answer__fault">
+                        <p class="answer__help">2</p>
                         <p class="answer__text">Перевод</p>
                     </a>
                     <a id="answer3" href="#" class="answer answers__item">
                         <img src="./public/assets/icons/success.svg" width="30" height="30" alt="ok" class="answer__ok">
                         <img src="./public/assets/icons/cancel.svg" width="30" height="30" alt="fault" class="answer__fault">
+                        <p class="answer__help">3</p>
                         <p class="answer__text">Перевод</p>
                     </a>
                     <a id="answer4" href="#" class="answer answers__item">
                         <img src="./public/assets/icons/success.svg" width="30" height="30" alt="ok" class="answer__ok">
                         <img src="./public/assets/icons/cancel.svg" width="30" height="30" alt="fault" class="answer__fault">
+                        <p class="answer__help">4</p>
                         <p class="answer__text">Перевод</p>
                     </a>
                     <a id="answer5" href="#" class="answer answers__item">
                         <img src="./public/assets/icons/success.svg" width="30" height="30" alt="ok" class="answer__ok">
                         <img src="./public/assets/icons/cancel.svg" width="30" height="30" alt="fault" class="answer__fault">
+                        <p class="answer__help">5</p>
                         <p class="answer__text">Перевод</p>
                     </a>
                 </div>
