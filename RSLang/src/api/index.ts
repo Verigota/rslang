@@ -3,7 +3,7 @@ import authStorage from '../controller/authorization/auth-storage';
 import { IGameStart } from '../controller/games/audiocall/interfaces';
 import { WordDataT, WordsDataT } from '../types/types';
 import {
-  IApi, IRefreshTokenResponse, ISingInResponse, IUserInfo, IUserSingIn,
+  IApi, IRefreshTokenResponse, ISingInResponse, IUserInfo, IUserSingIn, LearntWordsPesp,
 } from './interfaces';
 
 export class Api implements IApi {
@@ -68,8 +68,9 @@ export class Api implements IApi {
     return this.apiClient.get(`/words/${wordId}`);
   }
 
-  public async getNotLearntUserWords(userId: string, startOpts: IGameStart) {
-    return this.apiClient.get(`/users/${userId}/aggregatedWords?group=${startOpts.level}&page=${startOpts.page}&wordsPerPage=30&filter=%7B%22userWord.difficulty%22%3A%7B%22%24ne%22%3A%22learnt%22%7D%7D`);
+  public async getLearntUserWords(userId: string):
+  Promise<AxiosResponse<LearntWordsPesp>> {
+    return this.apiClient.get(`/users/${userId}/aggregatedWords?filter=%7B%22userWord.difficulty%22%3A%22learnt%22%7D`);
   }
 
   getAudio(filePath: string) {
