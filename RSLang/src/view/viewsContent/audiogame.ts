@@ -18,7 +18,7 @@ export const sectionAudioGameStart = `
             </section>`;
 
 export const sectionAudioGameBody = `
-            <section class="game content__item">
+            <section class="game content__item" tabindex="-1">
                 <div class="game__audio">
                     <a href="#" class="game__audio-btn">
                         <img class="game__audio-question" src="./public/assets/icons/sound-beat.svg" alt="answer image">
@@ -55,5 +55,4 @@ export const sectionAudioGameBody = `
                 <div class="game__skip">
                     <button class="game__skip-btn button" data-word="не знаю">Не знаю</button>
                 </div>
-                <div class="game__test-field"></div>
             </section>`;
