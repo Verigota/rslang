@@ -8,6 +8,8 @@ import { deleteContent, drawContent } from '../draw-content';
 import { clearForm, collectNewUserInfo } from './forms';
 import showHideBlackout from './show-hide-elem';
 import findModalElements from './page-elements';
+import { IMainSectionViewRender } from '../common/IMainViewRender';
+import MainView from '../main/mainView';
 
 export interface IAuthEventHandlers {
   initSignIn: (event: Event, blackout: HTMLElement, modalsContainer: HTMLElement) => void;
@@ -20,9 +22,12 @@ export class AuthEventHandlers {
 
   authorizationController: IAuthManager;
 
-  constructor() {
+  refreshPage: () => void;
+
+  constructor(refreshCurrPage: () => void) {
     this.registrationController = new RegistrationController();
     this.authorizationController = new AuthManager(herokuApi, authStorage);
+    this.refreshPage = refreshCurrPage;
   }
 
   async initSignIn(event: Event, blackout: HTMLElement, modalsContainer: HTMLElement) {
@@ -46,6 +51,7 @@ export class AuthEventHandlers {
       signInBtn?.classList.add('btn_hidden');
       logOutBtn?.classList.remove('btn_hidden');
     }
+    this.refreshPage();
     setTimeout(() => this.authorizationController.getNewToken(), 4 * 60 * 60 * 1000);
   }
 

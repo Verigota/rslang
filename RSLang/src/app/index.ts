@@ -32,7 +32,7 @@ class App implements IApp {
   private handbookController: IhandbookController;
 
   constructor() {
-    this.authEventHandlers = new AuthEventHandlers();
+    this.authEventHandlers = new AuthEventHandlers(() => this.appView.render());
     this.authorizationController = new AuthManager(herokuApi, authStorage);
     this.handbookController = new HandbookController();
   }

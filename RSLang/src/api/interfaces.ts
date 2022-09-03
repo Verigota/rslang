@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-import { omit } from 'lodash';
 import { WordDataT, WordsDataT } from '../types/types';
 
 export type Indexed = { [index: string]: string };
