@@ -70,7 +70,11 @@ export class Api implements IApi {
 
   public async getLearntUserWords(userId: string):
   Promise<AxiosResponse<LearntWordsPesp>> {
-    return this.apiClient.get(`/users/${userId}/aggregatedWords?filter=%7B%22userWord.difficulty%22%3A%22learnt%22%7D`);
+    return this.apiClient.get(`/users/${userId}/aggregatedWords`, {
+      params: {
+        filter: '{"userWord.difficulty":"learned"}',
+      },
+    });
   }
 
   getAudio(filePath: string) {
