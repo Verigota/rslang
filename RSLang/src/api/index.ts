@@ -1,12 +1,10 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import authStorage from '../controller/authorization/auth-storage';
 import { IGameStart } from '../controller/games/audiocall/interfaces';
+import { WordsDataT, WordDataT } from '../types/types';
 import {
-  AggregatedWordsResponseT, UserWordsT, WordDataT, WordsDataT,
-} from '../types/types';
-import {
-  IApi, IAuthInfo, IRefreshTokenResponse, ISingInResponse, IUserInfo, IUserSingIn,
-  IApi, IAuthInfo, IRefreshTokenResponse, ISingInResponse, IUserInfo, IUserSingIn, LearntWordsPesp,} from './interfaces';
+  IApi, IAuthInfo, IRefreshTokenResponse, ISingInResponse, IUserInfo, IUserSingIn, LearntWordsPesp,
+} from './interfaces';
 
 export class Api implements IApi {
   apiClient: AxiosInstance;
@@ -116,6 +114,7 @@ export class Api implements IApi {
   ): Promise<void> {
     await this.apiClient.put(`/users/${(<IAuthInfo>authStorage.get()).userId}/words/${wordId}`, { difficulty, optional });
   }
+
   public async getLearntUserWords(userId: string):
   Promise<AxiosResponse<LearntWordsPesp>> {
     return this.apiClient.get(`/users/${userId}/aggregatedWords`, {
@@ -124,7 +123,6 @@ export class Api implements IApi {
       },
     });
   }
-
 
   getAudio(filePath: string) {
     return this.apiClient.get(filePath);
