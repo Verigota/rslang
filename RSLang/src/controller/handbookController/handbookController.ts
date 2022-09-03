@@ -200,6 +200,10 @@ export default class HandbookController implements IhandbookController {
     storageWordsData.currPage += step;
     storageWordsData.page += step;
 
+    if (storageWordsData.currPage === pageLimit) {
+      activeButtonCopy.disabled = true;
+    }
+
     if (isHandbook) {
       setHandbookDataToLocalStorage(
         (<RsLangHandbookDataT>storageWordsData).group,
@@ -223,10 +227,6 @@ export default class HandbookController implements IhandbookController {
         await this.getAllUserAggregatedHardWords(storageWordsData.page)).data[0].paginatedResults;
 
     currPageCopy.textContent = `${storageWordsData.currPage}`;
-
-    if (storageWordsData.currPage === pageLimit) {
-      activeButtonCopy.disabled = true;
-    }
 
     return wordsData;
   }

@@ -1,0 +1,11 @@
+.word-card-info__play-audio-button {
+  position: absolute;
+  top: 40%;
+  left: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: center/contain no-repeat url('./public/assets/icons/handbook-play.svg');
+  box-shadow: $handbook-shadow;
+  transition: 0.3s ease-in-out;
+}

@@ -40,10 +40,14 @@ export default class LevelCards implements IlevelCards {
 
       if (contentIndex === RsLangHandbookData.group) {
         levelCard.classList.add('active-level-card');
+        const words = <HTMLDivElement>document.querySelector('#handbook__words');
+        words.className = `handbook__words ${this.levelCardsContent[contentIndex]}`;
       }
 
       levelCard.addEventListener('click', () => {
         const activeLevelCard = <HTMLDivElement>document.querySelector('.active-level-card');
+        const words = <HTMLDivElement>document.querySelector('#handbook__words');
+        words.className = `handbook__words ${this.levelCardsContent[contentIndex]}`;
 
         this.levelCardHandler(
           activeLevelCard,

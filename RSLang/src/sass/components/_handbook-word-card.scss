@@ -1,0 +1,16 @@
+.handbook__word-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+  height: 100px;
+  @include addFont('Philosopher', normal, 600, 1.5rem, 0.01em, $text-dark, 1.5rem);
+  border-radius: 10px;
+  background-color: $handbook-card-bg;
+  text-align: center;
+  flex-wrap: wrap;
+  transition: $handbook-transititon;
+}

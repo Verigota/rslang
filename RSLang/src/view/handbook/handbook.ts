@@ -43,9 +43,9 @@ function renderPaginationControls() {
   const pagintaion = <HTMLDivElement>document.querySelector('#handbook__words-pagination');
   pagintaion.innerHTML = '';
   pagintaion.append(
-    getNewElement('button', 'words-pagination__prev-button', 'Prev'),
+    getNewElement('button', 'words-pagination__prev-button'),
     getNewElement('div', 'words-pagination__curr-page'),
-    getNewElement('button', 'words-pagination__next-button', 'Next'),
+    getNewElement('button', 'words-pagination__next-button'),
   );
 }
 
@@ -69,9 +69,20 @@ export default class Handbook implements IHandbook {
   ): void {
     const handbook = `
     <section id="handbook" class="handbook">
-      <h4 id="handbook__title">Учебник</h4>
+      <div class="handbook__views">
+        <h4 id="handbook__title" class="handbook__title">Учебник</h4>
+      </div>
       <div id="handbook__levels" class="handbook__levels">
         <h6>Уровни сложности</h6>
+      </div>
+      <div id="handbook__games" class="handbook__games">
+        <h4 class="handbook__games-title">Игры</h4>
+        <div id="handbook__audio-call" class="handbook__audio-call">
+          <h5 class="handbook__game-title">Аудиовызов</h5>
+        </div>
+        <div id="handbook__sprint" class="handbook__sprint">
+          <h5 class="handbook__game-title">Спринт</h5>
+        </div>
       </div>
       <div id="handbook__words" class="handbook__words">
         <h4 class="handbook__words-title">Слова</h4>
@@ -80,15 +91,6 @@ export default class Handbook implements IHandbook {
         <div id="handbook__word-card-info" class="handbook__word-card-info word-card-info">
         </div>
         <div id="handbook__words-pagination" class="handbook__words-pagination words-pagination">
-        </div>
-      </div>
-      <div id="handbook__games" class="handbook__games">
-        <h4>Игры</h4>
-        <div id="handbook__audio-call" class="handbook__audio-call">
-          <h5>Аудиовызов</h5>
-        </div>
-        <div id="handbook__sprint" class="handbook__sprint">
-          <h5>Спринт</h5>
         </div>
       </div>
     </div>`;
@@ -107,8 +109,10 @@ export default class Handbook implements IHandbook {
         handbookController,
       );
       const complicatedCard = <HTMLDivElement>
-      document.querySelector('.handbook__complicated-words-card');
+      document.querySelector('.handbook__complicated-words-title');
+      const words = <HTMLDivElement>document.querySelector('#handbook__words');
       complicatedCard.classList.add('active-handbook-page');
+      words.classList.add('complicated-words');
     } else {
       this.levelCards.renderLevelCards(handbookController, this.wordCards, this.wordCardInfo);
       this.wordCards.renderWordCards(wordsData, handbookController, PageName.handbook);
@@ -144,8 +148,10 @@ export default class Handbook implements IHandbook {
   ) {
     const title = <HTMLElement>document.querySelector('#handbook__title');
     title.addEventListener('click', async () => {
+      const words = <HTMLDivElement>document.querySelector('#handbook__words');
+      words.classList.remove('complicated-words');
       const complicatedCard = <HTMLDivElement>
-      document.querySelector('.handbook__complicated-words-card');
+      document.querySelector('.handbook__complicated-words-title');
       complicatedCard.classList.remove('active-handbook-page');
       title.classList.add('active-handbook-page');
 
@@ -243,15 +249,18 @@ export default class Handbook implements IHandbook {
   }
 
   async renderComplicatedWordsCard(handbookController: IhandbookController) {
+    const handbookTitle = <HTMLDivElement>document.querySelector('#handbook__title');
     const levels = <HTMLDivElement>document.querySelector('#handbook__levels');
-    const complicatedWords = getNewElement('div', 'handbook__complicated-words-card', 'Сложные слова');
+    const complicatedWords = getNewElement('h4', 'handbook__complicated-words-title', 'Сложные слова');
 
     complicatedWords.addEventListener('click', () => {
       this.complicatedWordsCardHandler(levels, handbookController);
       complicatedWords.classList.add('active-handbook-page');
+      const words = <HTMLDivElement>document.querySelector('#handbook__words');
+      words.classList.add('complicated-words');
     });
 
-    levels.before(complicatedWords);
+    handbookTitle.after(complicatedWords);
   }
 
   async complicatedWordsCardHandler(

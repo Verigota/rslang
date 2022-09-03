@@ -1,10 +1,135 @@
 .handbook {
-    padding: 50px 10px;
-    align-items: center;
-    grid-area: handbook;
-    display: grid;
-    grid-template: auto auto auto / 1fr $grid-container-width 1fr;
-    background-color: $background-light;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  margin: 40px 20px;
+  gap: 20px;
 }
 
+.handbook__views {
+  display: flex;
+  gap: 10px;
+}
+
+.active-handbook-page {
+  color: $text-dark;
+}
+
+.handbook__levels .active-level-card:nth-child(1),
+.A1 .active-word-card,
+.A1 .word-card-info__complicated-words-button,
+.A1 .word-card-info__play-audio-button,
+.A1 .word-card-info__headings,
+.A1 .word-card-info__learned-words-button,
+.A1 .words-pagination__curr-page {
+  background-color: $handbook-A1-lvl-bg;
+}
+
+.handbook__levels .active-level-card:nth-child(2),
+.A2 .active-word-card,
+.A2 .word-card-info__complicated-words-button,
+.A2 .word-card-info__play-audio-button,
+.A2 .word-card-info__headings,
+.A2 .word-card-info__learned-words-button,
+.A2 .words-pagination__curr-page {
+  background-color: $handbook-A2-lvl-bg;
+}
+
+.handbook__levels .active-level-card:nth-child(3),
+.B1 .active-word-card,
+.B1 .word-card-info__complicated-words-button,
+.B1 .word-card-info__play-audio-button,
+.B1 .word-card-info__headings,
+.B1 .word-card-info__learned-words-button,
+.B1 .words-pagination__curr-page {
+  background-color: $handbook-B1-lvl-bg;
+}
+
+.handbook__levels .active-level-card:nth-child(4),
+.B2 .active-word-card,
+.B2 .word-card-info__complicated-words-button,
+.B2 .word-card-info__play-audio-button,
+.B2 .word-card-info__headings,
+.B2 .word-card-info__learned-words-button,
+.B2 .words-pagination__curr-page {
+background-color: $handbook-B2-lvl-bg;
+}
+
+.handbook__levels .active-level-card:nth-child(5),
+.C1 .active-word-card,
+.C1 .word-card-info__complicated-words-button,
+.C1 .word-card-info__play-audio-button,
+.C1 .word-card-info__headings,
+.C1 .word-card-info__learned-words-button,
+.C1 .words-pagination__curr-page {
+  background-color: $handbook-C1-lvl-bg;
+}
+
+.handbook__levels .active-level-card:nth-child(6),
+.C2 .active-word-card,
+.C2 .word-card-info__complicated-words-button,
+.C2 .word-card-info__play-audio-button,
+.C2 .word-card-info__headings,
+.C2 .word-card-info__learned-words-button,
+.C2 .words-pagination__curr-page {
+  background-color: $handbook-C2-lvl-bg;
+}
+
+.complicated-words .active-word-card,
+.complicated-words .word-card-info__complicated-words-button,
+.complicated-words .word-card-info__play-audio-button,
+.complicated-words .word-card-info__headings,
+.complicated-words .word-card-info__learned-words-button,
+.complicated-words .word-card-info__remove-button,
+.complicated-words .words-pagination__curr-page  {
+  background-color: $handbook-complicated-words;
+}
+
+.learned::after {
+  background: center/cover $text-white no-repeat url('./public/assets/icons/handbook-learned.svg');
+}
+
+.hard::after {
+  background: center/cover $text-white no-repeat url('./public/assets/icons/handbook-hard.svg');
+}
+
+.hard::after, .learned::after {
+  position: absolute;
+  content: '';
+  top: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.all-words-learned::after {
+  position: absolute;
+  content: '';
+  top: 2px;
+  right: 2px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 3px solid white;
+}
+
+.page-learned::after {
+  position: absolute;
+  content: '';
+  top: -2px;
+  left: 90px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: center/cover $handbook-card-bg no-repeat url('./public/assets/icons/handbook-learned.svg');
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.disabled .handbook__game-title {
+  color: $handbook-disabled-font-clr;
+  backdrop-filter: blur(2px) grayscale(100%);
+  background-color: rgba(255, 255, 255, 0.8);
+}

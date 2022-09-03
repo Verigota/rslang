@@ -63,7 +63,7 @@ export default class WordCardInfo implements IwordCardInfo {
   ): void {
     const [wordCardInfo, img, playAudioButton, audio, playCounter] = [
       <HTMLDivElement>document.querySelector(this.wordCardInfoSelector), getNewImageElement('word-card-info__img', `${this.baseURL}/${wordData.image}`, 'word-image'),
-      getNewElement('button', 'word-card-info__play-audio-button', 'play'),
+      getNewElement('button', 'word-card-info__play-audio-button'),
       new Audio(`${this.baseURL}/${wordData.audio}`),
       { numOfPlays: 0 },
     ];
@@ -75,12 +75,17 @@ export default class WordCardInfo implements IwordCardInfo {
 
     playAudioButton.addEventListener('click', () => audio.play());
 
-    wordCardInfo.append(
-      img,
-      audio,
+    const headings = getNewElement('div', 'word-card-info__headings');
+    headings.append(
       getNewElement('h4', 'word-card-info__title', wordData.word),
       getNewElement('h5', 'word-card-info__subtitle', wordData.wordTranslate),
       getNewElement('h5', 'word-card-info__transcription', wordData.transcription),
+    );
+
+    wordCardInfo.append(
+      img,
+      audio,
+      headings,
       playAudioButton,
       getMeaningOrExampleContainer(
         'word-card-info__meaning-container',
@@ -114,19 +119,21 @@ export default class WordCardInfo implements IwordCardInfo {
   renderCardButtonsAfterAuth(handbookController: IhandbookController, wordData: WordDataT): void {
     const wordCardInfo = <HTMLDivElement>document.querySelector(this.wordCardInfoSelector);
 
-    const complicatedWordsButton = getNewElement('button', 'word__card-info-complicated-words-button', 'В сложные слова');
+    const complicatedWordsButton = getNewElement('button', 'word-card-info__complicated-words-button', 'В сложные слова');
     complicatedWordsButton.addEventListener('click', () => {
       handbookController.complicatedWordsButtonHandler(wordData.id, 'hard', {});
       toggleLearnedPageClasses('hard', 'learned');
     });
 
-    const learnedWordsButton = getNewElement('button', 'word__card-info-complicated-words-button', 'В изученные слова');
+    const learnedWordsButton = getNewElement('button', 'word-card-info__learned-words-button', 'В изученные слова');
     learnedWordsButton.addEventListener('click', () => {
       handbookController.learnedWordsButtonHandler(wordData.id, 'learned', {});
       toggleLearnedPageClasses('learned', 'hard');
     });
 
-    wordCardInfo.append(complicatedWordsButton, learnedWordsButton);
+    const buttons = getNewElement('div', 'word-card-info__buttons');
+    buttons.append(complicatedWordsButton, learnedWordsButton);
+    wordCardInfo.append(buttons);
   }
 
   renderRemoveButton(
@@ -136,7 +143,7 @@ export default class WordCardInfo implements IwordCardInfo {
     (levels: HTMLDivElement, handbookController: IhandbookController) => Promise<void>,
   ):void {
     const wordCardInfo = <HTMLDivElement>document.querySelector(this.wordCardInfoSelector);
-    const removeButton = getNewElement('button', 'word__card-info-remove-button', 'Удалить из сложных слов');
+    const removeButton = getNewElement('button', 'word-card-info__remove-button', 'Удалить из сложных слов');
 
     removeButton.addEventListener('click', async () => {
       const numOfCards = (<HTMLDivElement>document.querySelector('.handbook__word-cards')).children.length;
