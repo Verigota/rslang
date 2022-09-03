@@ -4,7 +4,7 @@ import GameAudioCallStartView from '../games/audiocall/audioCallStartView';
 import GameSprintStartView from '../games/sprint/sprintStartView';
 import PopupMessageView from '../popup/showmessage';
 import { gamesChoiceView } from '../viewsContent/views';
-import { checkLevelsBtns, setGamesButtonsActions } from './commonFunc';
+import { setGamesButtonsActions } from './commonFunc';
 
 const levels = {
   A1: 0,

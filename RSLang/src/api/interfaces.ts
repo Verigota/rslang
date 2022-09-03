@@ -1,7 +1,5 @@
 import { AxiosResponse } from 'axios';
-import {
-  AggregatedWordsResponseT, UserWordsT, WordDataT, WordsDataT,
-} from '../types/types';
+import { WordDataT, WordsDataT } from '../types/types';
 
 export type Indexed = { [index: string]: string };
 
@@ -34,6 +32,10 @@ export interface IUserSingIn extends Indexed {
   email: string,
   password: string,
 }
+type LearntWordsDataT = Omit<WordDataT, 'id'> & { _id: string };
+export type LearntWordsPesp = [
+  { paginatedResults : LearntWordsDataT[], totalCount : [{ count : number }] },
+];
 export interface IApi {
   setBaseUrlInAxios(): void;
   createUser: (userRegistration: IUserInfo) => Promise<AxiosResponse<IUserCreateResponse>>,

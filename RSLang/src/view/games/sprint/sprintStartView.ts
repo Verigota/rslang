@@ -31,8 +31,8 @@ export default class GameSprintStartView implements IMainSectionViewRender {
     this.content.innerHTML = gameSprintStart.sections.join('');
     if (this.selectedLevel !== null) {
       const words = this.page !== null
-        ? (await getGameWords({ level: this.selectedLevel, page: this.page })).data
-        : (await getGameWords({ level: this.selectedLevel })).data;
+        ? await getGameWords({ level: this.selectedLevel, page: this.page })
+        : await getGameWords({ level: this.selectedLevel });
       setGamesButtonsActions(words);
     }
   }

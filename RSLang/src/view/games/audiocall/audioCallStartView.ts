@@ -28,8 +28,8 @@ export default class GameAudioCallStartView implements IMainSectionViewRender {
     gamePlayBtn.addEventListener('click', async () => {
       if (this.selectedLevel !== null) {
         const words = this.page !== null
-          ? (await getGameWords({ level: this.selectedLevel, page: this.page })).data
-          : (await getGameWords({ level: this.selectedLevel })).data;
+          ? await getGameWords({ level: this.selectedLevel, page: this.page })
+          : await getGameWords({ level: this.selectedLevel });
         const audioCall = new AudioCall(words, this);
         audioCall.start();
       }
