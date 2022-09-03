@@ -10,7 +10,6 @@ function setGamesButtonsActions(words: WordsDataT) {
   gamePlayBtn.addEventListener('click', () => {
     const gamePlay = new GameSprintPlayView(words);
     gamePlay.render();
-    document.querySelector('.timer')?.classList.add('start');
   });
 }
 

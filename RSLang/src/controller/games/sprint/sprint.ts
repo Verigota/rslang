@@ -22,7 +22,7 @@ export class SprintGame implements ISprintGame {
 
   getRandomWord() {
     const wordsCount = this.gameWords.length;
-    const elementId = Math.floor(Math.random() * (wordsCount + 1));
+    const elementId = Math.floor(Math.random() * wordsCount);
     return this.gameWords[elementId];
   }
 
@@ -40,6 +40,7 @@ export class SprintGame implements ISprintGame {
       rightTranslation,
       translation,
       sound,
+      word,
     };
   }
 

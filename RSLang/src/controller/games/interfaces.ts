@@ -1,3 +1,5 @@
+import { IGameStart } from './audiocall/interfaces';
+
 export interface IGameStat {
   right: number;
   wrong: number;
@@ -20,6 +22,6 @@ export interface IAggregatedWord {
 }
 
 export interface ICommonGame {
-  start: () => void;
-  restart: () => void;
+  start: (startOpts?: IGameStart) => void;
+  restart: (startOpts?: IGameStart) => void;
 }

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { WordsDataT } from '../../../types/types';
 import { herokuApi } from '../../../api';
-import { IApi, IAuthInfo } from '../../../api/interfaces';
+import { IApi } from '../../../api/interfaces';
 import { IGameControllers, IStageInfo, initGameControllersObj } from './interfaces';
 import GameAudioCallPlayView from '../../../view/games/audiocall/audioCallPlayView';
 import GameStatisticsView from '../../../view/games/statistics/gameStatisticView';
