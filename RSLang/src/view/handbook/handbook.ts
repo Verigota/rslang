@@ -1,21 +1,29 @@
-import { LOCAL_STORAGE_KEY } from '../../controller/handbookController/handbookControllerConstants';
-import { getHandbookDataFromLocalStorage } from '../../controller/handbookController/handbookLocalStorageAPI';
+import authStorage from '../../controller/authorization/auth-storage';
+import { COMPLICATED_WORDS_PAGE_KEY } from '../../controller/handbookController/handbookControllerConstants';
+import { getHandbookComplicatedWordsDataFromLocalStorage, getHandbookDataFromLocalStorage, setHandbookComplicatedWordsToLocalStorage } from '../../controller/handbookController/handbookLocalStorageAPI';
 import IhandbookController from '../../controller/handbookController/IhandbookController';
-import { RsLangHandbookDataT, WordDataT, WordsDataT } from '../../types/types';
+import PageName from '../../enums/enums';
+import {
+  AggregatedWordsDataT,
+  PageNameT,
+  RsLangHandbookDataT,
+  WordDataT,
+  WordsDataT,
+} from '../../types/types';
 import GameAudioCallStartView from '../games/audiocall/audioCallStartView';
 import GameSprintStartView from '../games/sprint/sprintStartView';
 import IHandbook from './Ihandbook';
 import LevelCards from './levelCards/levelCards';
+import { getNewElement } from './templatesForElements/templateForCreatingNewElement';
 import WordCardInfo from './wordCardInfo/wordCardInfo';
 import WordCards from './wordCards/wordCards';
 
-function getPaginationElementsAndDataForThem():
-[HTMLButtonElement, HTMLDivElement, HTMLButtonElement, RsLangHandbookDataT, number] {
+function getPaginationElementsAndStep():
+[HTMLButtonElement, HTMLDivElement, HTMLButtonElement, number] {
   return [
     <HTMLButtonElement>document.querySelector('.words-pagination__prev-button'),
     <HTMLDivElement>document.querySelector('.words-pagination__curr-page'),
     <HTMLButtonElement>document.querySelector('.words-pagination__next-button'),
-    getHandbookDataFromLocalStorage('rsLangHandbookData'),
     1,
   ];
 }
@@ -29,6 +37,16 @@ function disablePaginationButton(
     const buttonCopy = button;
     buttonCopy.disabled = true;
   }
+}
+
+function renderPaginationControls() {
+  const pagintaion = <HTMLDivElement>document.querySelector('#handbook__words-pagination');
+  pagintaion.innerHTML = '';
+  pagintaion.append(
+    getNewElement('button', 'words-pagination__prev-button', 'Prev'),
+    getNewElement('div', 'words-pagination__curr-page'),
+    getNewElement('button', 'words-pagination__next-button', 'Next'),
+  );
 }
 
 export default class Handbook implements IHandbook {
@@ -51,7 +69,7 @@ export default class Handbook implements IHandbook {
   ): void {
     const handbook = `
     <section id="handbook" class="handbook">
-      <h4>Учебник</h4>
+      <h4 id="handbook__title">Учебник</h4>
       <div id="handbook__levels" class="handbook__levels">
         <h6>Уровни сложности</h6>
       </div>
@@ -62,9 +80,6 @@ export default class Handbook implements IHandbook {
         <div id="handbook__word-card-info" class="handbook__word-card-info word-card-info">
         </div>
         <div id="handbook__words-pagination" class="handbook__words-pagination words-pagination">
-          <button class="words-pagination__prev-button">Prev</button>
-          <div class="words-pagination__curr-page"></div>
-          <button class="words-pagination__next-button">Next</button>
         </div>
       </div>
       <div id="handbook__games" class="handbook__games">
@@ -78,22 +93,42 @@ export default class Handbook implements IHandbook {
       </div>
     </div>`;
     const main = <HTMLElement>document.querySelector('#main');
+
     main.innerHTML = '';
     main.insertAdjacentHTML('beforeend', handbook);
-    this.levelCards.renderLevelCards(handbookController, this.wordCards, this.wordCardInfo);
-    this.wordCards.renderWordCards(wordsData, handbookController);
-    this.wordCardInfo.renderWordCardInfo(wordData, handbookController);
-    this.handlePaginationButtons(handbookController);
+
+    if (authStorage.get()) {
+      this.renderComplicatedWordsCard(handbookController);
+    }
+
+    if (localStorage.getItem(COMPLICATED_WORDS_PAGE_KEY)) {
+      this.complicatedWordsCardHandler(
+        <HTMLDivElement>document.querySelector('#handbook__levels'),
+        handbookController,
+      );
+      const complicatedCard = <HTMLDivElement>
+      document.querySelector('.handbook__complicated-words-card');
+      complicatedCard.classList.add('active-handbook-page');
+    } else {
+      this.levelCards.renderLevelCards(handbookController, this.wordCards, this.wordCardInfo);
+      this.wordCards.renderWordCards(wordsData, handbookController, PageName.handbook);
+      this.wordCardInfo.renderWordCardInfo(wordData, handbookController, PageName.handbook);
+      this.handlePaginationButtons(handbookController, 1, 30, PageName.handbook);
+
+      (<HTMLElement>document.querySelector('#handbook__title')).classList.add('active-handbook-page');
+    }
+
+    if (authStorage.get()) this.handbookTitleHandler(handbookController);
 
     const audioBtn = document.querySelector('#handbook__audio-call');
     const sprintBtn = document.querySelector('#handbook__sprint');
     sprintBtn?.addEventListener('click', () => {
-      const startOpts = getHandbookDataFromLocalStorage(LOCAL_STORAGE_KEY);
+      const startOpts = getHandbookDataFromLocalStorage();
       const gameSprint = new GameSprintStartView({ level: startOpts.group, page: startOpts.page });
       gameSprint.render();
     });
     audioBtn?.addEventListener('click', () => {
-      const startOpts = getHandbookDataFromLocalStorage(LOCAL_STORAGE_KEY);
+      const startOpts = getHandbookDataFromLocalStorage();
       const gameAudio = new GameAudioCallStartView(
         {
           level: startOpts.group,
@@ -104,21 +139,55 @@ export default class Handbook implements IHandbook {
     });
   }
 
-  handlePaginationButtons(handbookController: IhandbookController) {
+  handbookTitleHandler(
+    handbookController: IhandbookController,
+  ) {
+    const title = <HTMLElement>document.querySelector('#handbook__title');
+    title.addEventListener('click', async () => {
+      const complicatedCard = <HTMLDivElement>
+      document.querySelector('.handbook__complicated-words-card');
+      complicatedCard.classList.remove('active-handbook-page');
+      title.classList.add('active-handbook-page');
+
+      localStorage.removeItem(COMPLICATED_WORDS_PAGE_KEY);
+      const rsLangHandbookData: RsLangHandbookDataT = getHandbookDataFromLocalStorage();
+      const wordsData = <WordsDataT>(await
+      handbookController.getChunkOfWords(rsLangHandbookData.group, rsLangHandbookData.page)).data;
+
+      this.levelCards.renderLevelCards(handbookController, this.wordCards, this.wordCardInfo);
+      this.wordCards.renderWordCards(wordsData, handbookController, PageName.handbook);
+      this.wordCardInfo.renderWordCardInfo(
+        wordsData[rsLangHandbookData.activeWordCardIndex],
+        handbookController,
+        PageName.handbook,
+      );
+      this.handlePaginationButtons(handbookController, 1, 30, PageName.handbook);
+    });
+  }
+
+  handlePaginationButtons(
+    handbookController: IhandbookController,
+    firstPage: number,
+    lastPage: number,
+    pageName: PageNameT,
+  ) {
+    renderPaginationControls();
+
+    const wordsData = (pageName === 'handbook')
+      ? getHandbookDataFromLocalStorage()
+      : getHandbookComplicatedWordsDataFromLocalStorage();
+
     const [
       wordsPaginationPrevButton,
       wordsPaginationCurrPage,
       wordsPaginationNextButton,
-      rsLangHandbookData,
       step,
-    ] = getPaginationElementsAndDataForThem();
+    ] = getPaginationElementsAndStep();
 
-    wordsPaginationCurrPage.textContent = `${rsLangHandbookData.currPage}`;
+    wordsPaginationCurrPage.textContent = `${wordsData.currPage}`;
 
-    const [firstPage, lastPage] = [1, 30];
-
-    disablePaginationButton(wordsPaginationPrevButton, rsLangHandbookData.currPage, firstPage);
-    disablePaginationButton(wordsPaginationNextButton, rsLangHandbookData.currPage, lastPage);
+    disablePaginationButton(wordsPaginationPrevButton, wordsData.currPage, firstPage);
+    disablePaginationButton(wordsPaginationNextButton, wordsData.currPage, lastPage);
 
     wordsPaginationPrevButton.addEventListener('click', () => {
       this.paginationButtonHandler(
@@ -128,6 +197,7 @@ export default class Handbook implements IHandbook {
         -step,
         wordsPaginationCurrPage,
         firstPage,
+        pageName,
       );
     });
 
@@ -139,6 +209,7 @@ export default class Handbook implements IHandbook {
         step,
         wordsPaginationCurrPage,
         lastPage,
+        pageName,
       );
     });
   }
@@ -150,20 +221,105 @@ export default class Handbook implements IHandbook {
     step: number,
     currPage: HTMLDivElement,
     firstOrLastPage: number,
+    pageName: PageNameT,
   ) {
-    const [wordsData, firstCardIndex] = [await
+    const [wordsData, firstCardIndex] = [<WordsDataT | AggregatedWordsDataT> await
     handbookController.wordsPaginationButtonHandler(
       activeButton,
       inactiveButton,
       +step,
       currPage,
       firstOrLastPage,
+      pageName,
     ), 0];
 
-    this.wordCards.renderWordCards(wordsData, handbookController);
+    this.wordCards.renderWordCards(wordsData, handbookController, pageName, (pageName === 'complicatedWords') ? this.complicatedWordsCardHandler.bind(this) : undefined);
     this.wordCardInfo.renderWordCardInfo(
       wordsData[firstCardIndex],
       handbookController,
+      pageName,
+      (pageName === 'complicatedWords') ? this.complicatedWordsCardHandler.bind(this) : undefined,
     );
+  }
+
+  async renderComplicatedWordsCard(handbookController: IhandbookController) {
+    const levels = <HTMLDivElement>document.querySelector('#handbook__levels');
+    const complicatedWords = getNewElement('div', 'handbook__complicated-words-card', 'Сложные слова');
+
+    complicatedWords.addEventListener('click', () => {
+      this.complicatedWordsCardHandler(levels, handbookController);
+      complicatedWords.classList.add('active-handbook-page');
+    });
+
+    levels.before(complicatedWords);
+  }
+
+  async complicatedWordsCardHandler(
+    levels: HTMLDivElement,
+    handbookController: IhandbookController,
+  ) {
+    const title = <HTMLElement>
+    document.querySelector('#handbook__title');
+    title.classList.remove('active-handbook-page');
+
+    localStorage.setItem(COMPLICATED_WORDS_PAGE_KEY, JSON.stringify(true));
+
+    const levelsCopy = levels;
+
+    if (!getHandbookComplicatedWordsDataFromLocalStorage()) {
+      setHandbookComplicatedWordsToLocalStorage(0, 1, 0);
+    }
+
+    const wordsData = getHandbookComplicatedWordsDataFromLocalStorage();
+
+    const aggregatedWordsData = (
+      await handbookController.getAllUserAggregatedHardWords(wordsData.page)).data[0];
+    const { paginatedResults, totalCount } = aggregatedWordsData;
+
+    levelsCopy.innerHTML = '';
+
+    this.renderComplicatedWordsContent(
+      totalCount[0],
+      paginatedResults,
+      handbookController,
+      wordsData.activeWordCardIndex,
+      this.complicatedWordsCardHandler.bind(this),
+    );
+
+    const numOfCardsPerPage = 20;
+    const lastPage = (totalCount[0]) ? Math.ceil(totalCount[0].count / numOfCardsPerPage) : 1;
+
+    this.handlePaginationButtons(handbookController, 1, lastPage, PageName.complicatedWords);
+  }
+
+  renderComplicatedWordsContent(
+    count: { count: number } | undefined,
+    paginatedResults: WordsDataT | AggregatedWordsDataT,
+    handbookController: IhandbookController,
+    activeWordCardIndex: number,
+    complicatedWordsCardHandler:
+    (levels: HTMLDivElement, handbookController: IhandbookController) => Promise<void>,
+  ): void {
+    if (count) {
+      this.wordCards.renderWordCards(
+        paginatedResults,
+        handbookController,
+        PageName.complicatedWords,
+        complicatedWordsCardHandler,
+      );
+      this.wordCardInfo.renderWordCardInfo(
+        paginatedResults[activeWordCardIndex],
+        handbookController,
+        PageName.complicatedWords,
+        complicatedWordsCardHandler,
+      );
+    } else {
+      const [wordCards, cardInfo] = [
+        <HTMLDivElement>document.querySelector('#handbook__word-cards'),
+        <HTMLDivElement>document.querySelector('#handbook__word-card-info'),
+      ];
+      wordCards.innerHTML = 'Для вас нет сложных слов';
+      cardInfo.innerHTML = '';
+    }
   }
 }

@@ -1,12 +1,14 @@
+import axios from 'axios';
 import { WordsDataT } from '../../../types/types';
 import { herokuApi } from '../../../api';
-import { IApi } from '../../../api/interfaces';
+import { IApi, IAuthInfo } from '../../../api/interfaces';
 import { IGameControllers, IStageInfo, initGameControllersObj } from './interfaces';
 import GameAudioCallPlayView from '../../../view/games/audiocall/audioCallPlayView';
 import GameStatisticsView from '../../../view/games/statistics/gameStatisticView';
 import { IMainSectionViewRender } from '../../../view/common/IMainViewRender';
 import GameAudioCallStartView from '../../../view/games/audiocall/audioCallStartView';
 import { ICommonGame } from '../interfaces';
+import DayStatistics from '../../daystatistics/daystatistics';
 
 function getRandomAnswers(wordTranslate: string, words: WordsDataT): string[] {
   return words
@@ -59,6 +61,14 @@ export default class AudioCall implements ICommonGame {
 
   private currentAudio: HTMLAudioElement;
 
+  private baseURL: string;
+
+  private rightAnswerAudio: HTMLAudioElement;
+
+  private wrongAnswerAudio: HTMLAudioElement;
+
+  private dayStat: DayStatistics;
+
   constructor(
     words: WordsDataT | [],
     returnToView: IMainSectionViewRender,
@@ -66,16 +76,15 @@ export default class AudioCall implements ICommonGame {
     this.api = herokuApi;
     this.words = [...words.sort(() => 0.5 - Math.random())];
     this.createStages();
-
     this.currentStage = 0;
-
+    this.baseURL = axios.defaults.baseURL as string;
     this.wrongAnswers = [];
     this.rightAnswers = [];
-
     this.returnToView = returnToView;
-
     this.currentAudio = new Audio();
-
+    this.rightAnswerAudio = new Audio('public/assets/audio/right.mp3');
+    this.wrongAnswerAudio = new Audio('public/assets/audio/wrong.mp3');
+    this.dayStat = new DayStatistics();
     this.answerClick = (event: Event) => {
       event.stopPropagation();
       this.resetMouseEvents();
@@ -114,7 +123,7 @@ export default class AudioCall implements ICommonGame {
           break;
         case 'Numpad5': answer = (this.gameCtrls as IGameControllers).answers[4] as HTMLAnchorElement;
           break;
-        case 'Space': console.log('play sound');
+        case 'Space': this.currentAudio.play();
           break;
         case 'Enter': answer = document.querySelector('.game__skip-btn') as HTMLButtonElement;
           break;
@@ -124,7 +133,7 @@ export default class AudioCall implements ICommonGame {
           break;
         default: break;
       }
-      // Number(str.replace('Digit', '').replace('Numpad',''))
+
       if (answer != null) {
         event.preventDefault();
         answer.classList.add('active');
@@ -148,6 +157,7 @@ export default class AudioCall implements ICommonGame {
       })
       .then(() => {
         this.updateCurrentStage();
+        this.currentAudio.play();
       });
     if (this.returnToView instanceof GameAudioCallStartView) {
       this.returnToView = this.view;
@@ -156,17 +166,28 @@ export default class AudioCall implements ICommonGame {
 
   private checkAnswer(userChoice: string | null, answer: HTMLElement) {
     if (userChoice !== null) {
+      answer?.classList.add('hide-help');
       if (userChoice === this.stages[this.currentStage].word.wordTranslate) {
+        this.rightAnswerAudio.play();
         this.currSerie += 1;
         if (this.bestSerie < this.currSerie) {
           this.bestSerie = this.currSerie;
         }
         this.rightAnswers.push({ ...this.stages[this.currentStage].word });
         answer.classList.add('ok');
+        this.dayStat.updateWord('audiocall', this.stages[this.currentStage].word, 'right');
       } else {
+        const findStr = this.stages[this.currentStage].word.wordTranslate;
+        const rightAnswerEl = this.gameCtrls?.answers.find((answ: HTMLElement) => answ.getAttribute('data-word') === findStr);
+        if (rightAnswerEl) {
+          rightAnswerEl.classList.add('ok');
+          rightAnswerEl.classList.add('hide-help');
+        }
+        this.wrongAnswerAudio.play();
         this.currSerie = 0;
         this.wrongAnswers.push({ ...this.stages[this.currentStage].word });
         answer.classList.add('fault');
+        this.dayStat.updateWord('audiocall', this.stages[this.currentStage].word, 'wrong');
       }
       setTimeout(() => {
         this.currentStage += 1;
@@ -187,11 +208,13 @@ export default class AudioCall implements ICommonGame {
   }
 
   public setKeyboardEvents() {
-    document.addEventListener('keydown', this.keyDownHandler);
+    const game = document.querySelector('.game') as HTMLDivElement;
+    game.addEventListener('keydown', this.keyDownHandler);
   }
 
   public resetKeyboardEvents() {
-    document.removeEventListener('keydown', this.keyDownHandler);
+    const game = document.querySelector('.game') as HTMLDivElement;
+    game.removeEventListener('keydown', this.keyDownHandler);
   }
 
   public restart() {
@@ -208,6 +231,11 @@ export default class AudioCall implements ICommonGame {
     (this.gameCtrls as IGameControllers).answers.forEach((el) => {
       el.addEventListener('click', this.answerClick);
     });
+
+    const playBtn = document.querySelector('.game__audio-btn');
+    playBtn?.addEventListener('click', () => {
+      this.currentAudio.play();
+    });
   }
 
   private resetMouseEvents() {
@@ -217,9 +245,9 @@ export default class AudioCall implements ICommonGame {
   }
 
   private updateCurrentStage() {
-    //this.currentAudio.src = '';
-    const testEl = document.querySelector('.game__test-field') as HTMLDivElement;
-    (testEl as HTMLDivElement).innerText = this.stages[this.currentStage].word.word;
+    this.currentAudio = new Audio(`${this.baseURL}/${this.stages[this.currentStage].word.audio}`);
+    this.currentAudio.play();
+    // this.currentAudio.addEventListener('ended', this.playEventHandler);
     const answers: string[] = [...this.stages[this.currentStage].answers];
     answers.push(this.stages[this.currentStage].word.wordTranslate);
     answers.sort(() => 0.5 - Math.random());
@@ -228,9 +256,13 @@ export default class AudioCall implements ICommonGame {
       ((this.gameCtrls as IGameControllers).answers[i] as HTMLAnchorElement).setAttribute('data-word', answers[i]);
       ((this.gameCtrls as IGameControllers).answers[i] as HTMLAnchorElement).classList.remove('ok');
       ((this.gameCtrls as IGameControllers).answers[i] as HTMLAnchorElement).classList.remove('fault');
+      ((this.gameCtrls as IGameControllers).answers[i] as HTMLAnchorElement).classList.remove('hide-help');
     }
-    this.setMouseEvents();
-    this.setKeyboardEvents();
+
+    setTimeout(() => {
+      this.setMouseEvents();
+      this.setKeyboardEvents();
+    }, 100);
   }
 
   private createStages() {

@@ -1,10 +1,12 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import authStorage from '../controller/authorization/auth-storage';
 import { IGameStart } from '../controller/games/audiocall/interfaces';
-import { WordDataT, WordsDataT } from '../types/types';
 import {
-  IApi, IRefreshTokenResponse, ISingInResponse, IUserInfo, IUserSingIn, LearntWordsPesp,
-} from './interfaces';
+  AggregatedWordsResponseT, UserWordsT, WordDataT, WordsDataT,
+} from '../types/types';
+import {
+  IApi, IAuthInfo, IRefreshTokenResponse, ISingInResponse, IUserInfo, IUserSingIn,
+  IApi, IAuthInfo, IRefreshTokenResponse, ISingInResponse, IUserInfo, IUserSingIn, LearntWordsPesp,} from './interfaces';
 
 export class Api implements IApi {
   apiClient: AxiosInstance;
@@ -60,14 +62,60 @@ export class Api implements IApi {
 
   public async getChunkOfWords(group: number, page: number):
   Promise<AxiosResponse<WordsDataT>> {
-    return this.apiClient.get(`/words?group=${group}&page=${page}`);
+    const res = await this.apiClient.get('/words', {
+      params: { group, page },
+    });
+    return res;
   }
 
   public async getWordWithAssetsById(wordId: string):
   Promise<AxiosResponse<WordDataT>> {
-    return this.apiClient.get(`/words/${wordId}`);
+    const res = await this.apiClient.get(`/words/${wordId}`);
+    return res;
   }
 
+  public async getUserWords(): Promise<AxiosResponse<UserWordsT>> {
+    const res = await this.apiClient.get(`/users/${(<IAuthInfo>authStorage.get()).userId}/words`);
+    return res;
+  }
+
+  public async updateOrCreateUserWord(
+    wordId: string,
+    difficulty: string,
+    optional: Record<string, never>,
+  ) {
+    const wordsIds = ((await this.getUserWords()).data.map((userData) => userData.wordId));
+    if (wordsIds.includes(wordId)) {
+      await this.updateUserWord(wordId, difficulty, optional);
+    } else {
+      await this.apiClient.post(`users/${(<IAuthInfo>authStorage.get()).userId}/words/${wordId}`, { difficulty, optional });
+    }
+  }
+
+  public async getUserWord(wordId: string) {
+    await this.apiClient.get(`/users/${(<IAuthInfo>authStorage.get()).userId}/words/${wordId}`);
+  }
+
+  public async getAllUserAggregatedHardWords(
+    page: number,
+  ): Promise<AxiosResponse<AggregatedWordsResponseT>> {
+    const res = await this.apiClient.get(`/users/${(<IAuthInfo>authStorage.get()).userId}/aggregatedWords`, {
+      params: {
+        page,
+        wordsPerPage: 20,
+        filter: '{"$or":[{"userWord.difficulty":"hard"}]}',
+      },
+    });
+    return res;
+  }
+
+  public async updateUserWord(
+    wordId: string,
+    difficulty: string,
+    optional: Record<string, never>,
+  ): Promise<void> {
+    await this.apiClient.put(`/users/${(<IAuthInfo>authStorage.get()).userId}/words/${wordId}`, { difficulty, optional });
+  }
   public async getLearntUserWords(userId: string):
   Promise<AxiosResponse<LearntWordsPesp>> {
     return this.apiClient.get(`/users/${userId}/aggregatedWords`, {
@@ -76,6 +124,7 @@ export class Api implements IApi {
       },
     });
   }
+
 
   getAudio(filePath: string) {
     return this.apiClient.get(filePath);

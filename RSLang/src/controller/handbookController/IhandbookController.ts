@@ -1,13 +1,25 @@
 import { AxiosResponse } from 'axios';
-import { WordDataT, WordsDataT, RsLangHandbookDataT } from '../../types/types';
+import {
+  WordDataT,
+  WordsDataT,
+  RsLangHandbookDataT,
+  AggregatedWordDataT,
+  AggregatedWordsDataT,
+  AggregatedWordsResponseT,
+  PageNameT,
+  UserWordsT,
+} from '../../types/types';
 
 export default interface IhandbookController {
   getChunkOfWords(group: number, page: number): Promise<AxiosResponse<WordsDataT>>;
 
   getWordWithAssetsById(wordId: string): Promise<AxiosResponse<WordDataT>>;
 
+  getAllUserAggregatedHardWords(page: number)
+  :Promise<AxiosResponse<AggregatedWordsResponseT>>
+
   wordInfoAudioHandler(
-    wordData: WordDataT,
+    wordData: WordDataT | AggregatedWordDataT,
     audioElement: HTMLAudioElement,
     playCounter: { numOfPlays: number },
   ): void
@@ -18,18 +30,13 @@ export default interface IhandbookController {
     step: number,
     currPage: HTMLDivElement,
     pageLimit: number,
-  ): Promise<WordsDataT>
+    pageName: PageNameT,
+  ): Promise<AggregatedWordsDataT | WordsDataT>
 
   handbookButtonHandler(): Promise<{
     wordsData: WordsDataT;
     rsLangHandbookData: RsLangHandbookDataT;
   }>
-
-  wordCardHandler(
-    wordCard: HTMLDivElement,
-    activeWordCard: HTMLDivElement,
-    wordCardIndex: number,
-  ): Promise<void>
 
   levelCardHandler(
     activeLevelCard: HTMLDivElement,
@@ -42,4 +49,35 @@ export default interface IhandbookController {
     wordsPaginationPrevButton: HTMLButtonElement,
     wordsPaginationNextButton: HTMLButtonElement,
   ): Promise<WordsDataT>
+
+  complicatedWordsButtonHandler(
+    wordId: string,
+    difficulty: string,
+    optional: Record<string, never>
+  ): void
+
+  learnedWordsButtonHandler(
+    wordId: string,
+    difficulty: string,
+    optional: Record<string, never>,
+  ): void
+
+  complicatedWordsCardHandler():Promise<AxiosResponse<UserWordsT>>
+
+  wordCardHandler(
+    wordCard: HTMLDivElement,
+    activeWordCard: HTMLDivElement,
+    wordCardIndex: number,
+    pageName: PageNameT,
+  ): Promise<void>
+
+  removeCardButtonHandler(
+    wordData: WordDataT | AggregatedWordDataT,
+    complicatedWordsCardHandler:
+    (levels: HTMLDivElement, handbookController: IhandbookController) => Promise<void>,
+    numOfCards: number,
+    levels: HTMLDivElement,
+  ): Promise<void>
+
+  getUserWords(): Promise<AxiosResponse<UserWordsT>>
 }

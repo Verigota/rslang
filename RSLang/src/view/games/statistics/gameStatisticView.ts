@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { IMainSectionViewRender } from '../../common/IMainViewRender';
 import { popupGameStat } from '../../viewsContent/views';
 import { WordsDataT } from '../../../types/types';
@@ -15,6 +16,8 @@ const closePopup = () => {
   }, 500);
 };
 
+const baseURL = axios.defaults.baseURL as string;
+
 function addWordItemsTo(wordsType: AnswerType, words: WordsDataT) {
   const container = (wordsType === 'right') ? document.querySelector('.game-stat__rights-words') as HTMLDivElement
     : document.querySelector('.game-stat__errors-words') as HTMLDivElement;
@@ -25,7 +28,10 @@ function addWordItemsTo(wordsType: AnswerType, words: WordsDataT) {
       .replace('<p class="game-stat__el-transl"></p>', `<p class="game-stat__el-transl">${el.wordTranslate}</p>`)
       .replace('<a href="#" class="game-stat__el-play">', `<a href="#" class="game-stat__el-play" data-audio="${el.audio}">`);
     container.appendChild(newElement);
-    // todo add EventListener for playing audio
+    newElement.addEventListener('click', () => {
+      const audio = new Audio(`${baseURL}/${el.audio}`);
+      audio.play();
+    });
   });
 }
 
