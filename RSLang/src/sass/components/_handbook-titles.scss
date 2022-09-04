@@ -49,4 +49,14 @@
     font-weight: 600;
     margin-bottom: 5px;
   }
+
+  &__statistic {
+    display: flex;
+    gap: 20px;
+  }
+}
+
+.sprint-statistic__title, .audio-call-statistic__title {
+  @include addFont('Philosopher', normal, 600, 1.2rem, 0.01em, $text-dark, 1.2rem);
+  margin-bottom: 5px;
 }

@@ -1,16 +1,20 @@
+import { IGameStart } from './audiocall/interfaces';
+
 export interface IGameStat {
   right: number;
   wrong: number;
 }
 
 enum Difficulty {
-  'hard', 'learnt',
+  'hard', 'learned', 'process',
 }
 
 export interface IAggregatedWord {
   id: string;
   difficulty: Difficulty;
   optional: {
+    serieRight: number;
+    serieWrong: number;
     addTime: string;
     games: {
       sprint: IGameStat;
@@ -20,6 +24,6 @@ export interface IAggregatedWord {
 }
 
 export interface ICommonGame {
-  start: () => void;
-  restart: () => void;
+  start: (startOpts?: IGameStart) => void;
+  restart: (startOpts?: IGameStart) => void;
 }

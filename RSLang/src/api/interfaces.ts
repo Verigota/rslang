@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { IAggregatedWord } from '../controller/games/interfaces';
 import {
   AggregatedWordsResponseT, UserWordsT, WordDataT, WordsDataT,
 } from '../types/types';
@@ -59,4 +60,5 @@ export interface IApi {
     difficulty: string,
     optional: Record<string, never>,
   ): Promise<void>
+  getWordStatistic(wordId: string): Promise<IAggregatedWord | null>;
 }

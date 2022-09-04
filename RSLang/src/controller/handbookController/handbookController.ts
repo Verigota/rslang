@@ -12,6 +12,7 @@ import {
   ComplicatedWordsStorageDataT,
   UserWordsT,
 } from '../../types/types';
+import { IAggregatedWord } from '../games/interfaces';
 import { DIFF_BETWEEN_ARR_INDEX_AND_PAGE_NUM, FIRST_CARD_INDEX } from './handbookControllerConstants';
 import {
   getHandbookComplicatedWordsDataFromLocalStorage,
@@ -256,6 +257,11 @@ export default class HandbookController implements IhandbookController {
 
   async getUserWords(): Promise<AxiosResponse<UserWordsT>> {
     const res = await this.herokuApi.getUserWords();
+    return res;
+  }
+
+  async getWordStatistic(wordId: string):Promise<IAggregatedWord | null> {
+    const res = this.herokuApi.getWordStatistic(wordId);
     return res;
   }
 }

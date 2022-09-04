@@ -54,13 +54,13 @@ export default class WordCardInfo implements IwordCardInfo {
     this.wordCardInfoSelector = '#handbook__word-card-info';
   }
 
-  renderWordCardInfo(
+  async renderWordCardInfo(
     wordData: WordDataT | AggregatedWordDataT,
     handbookController: IhandbookController,
     pageName: PageNameT,
     complicatedWordsCardHandler?:
     (levels: HTMLDivElement, handbookController: IhandbookController) => Promise<void>,
-  ): void {
+  ): Promise<void> {
     const [wordCardInfo, img, playAudioButton, audio, playCounter] = [
       <HTMLDivElement>document.querySelector(this.wordCardInfoSelector), getNewImageElement('word-card-info__img', `${this.baseURL}/${wordData.image}`, 'word-image'),
       getNewElement('button', 'word-card-info__play-audio-button'),
@@ -109,10 +109,20 @@ export default class WordCardInfo implements IwordCardInfo {
 
     if (authStorage.get() && pageName === 'handbook') {
       this.renderCardButtonsAfterAuth(handbookController, <WordDataT>wordData);
+      const aggregatedWordsId = '_id';
+      await this.renderWordStatistic(
+        handbookController,
+        (<WordDataT>wordData).id || (<AggregatedWordDataT>wordData)[aggregatedWordsId],
+      );
     }
 
     if (authStorage.get() && pageName === 'complicatedWords' && complicatedWordsCardHandler) {
       this.renderRemoveButton(handbookController, wordData, complicatedWordsCardHandler);
+      const aggregatedWordsId = '_id';
+      await this.renderWordStatistic(
+        handbookController,
+        (<WordDataT>wordData).id || (<AggregatedWordDataT>wordData)[aggregatedWordsId],
+      );
     }
   }
 
@@ -157,5 +167,45 @@ export default class WordCardInfo implements IwordCardInfo {
       );
     });
     wordCardInfo.append(removeButton);
+  }
+
+  async renderWordStatistic(handbookController: IhandbookController, wordId: string) {
+    const wordStatistic = await handbookController.getWordStatistic(wordId);
+    const wordCardInfo = <HTMLDivElement>document.querySelector(this.wordCardInfoSelector);
+    const statisticContainer = getNewElement('div', 'word-card-info__statistic');
+    const gamesStat = (wordStatistic) ? {
+      sprint: wordStatistic.optional.games.sprint,
+      audio: wordStatistic.optional.games.audio,
+    } : {
+      sprint: {
+        right: 0,
+        wrong: 0,
+      },
+      audio: {
+        right: 0,
+        wrong: 0,
+      },
+    };
+    const sprintStatistic = `
+    <div id='sprint-statistic'>
+      <h4 class="sprint-statistic__title">Спринт</h4>
+        <ul>
+          <li>Верно: ${gamesStat.sprint.right}</li>
+          <li>Неверно: ${gamesStat.sprint.wrong}</li>
+        </ul>
+      </div>
+    `;
+    const audioCallStatistic = `
+    <div id='audio-call-statistic'>
+      <h4 class="audio-call-statistic__title">Аудиовызов</h4>
+        <ul>
+          <li>Верно: ${gamesStat.audio.right}</li>
+          <li>Неверно: ${gamesStat.audio.wrong}</li>
+        </ul>
+      </div>
+    `;
+    statisticContainer.insertAdjacentHTML('afterbegin', sprintStatistic);
+    statisticContainer.insertAdjacentHTML('afterbegin', audioCallStatistic);
+    wordCardInfo.append(statisticContainer);
   }
 }

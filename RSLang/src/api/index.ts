@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import authStorage from '../controller/authorization/auth-storage';
 import { IGameStart } from '../controller/games/audiocall/interfaces';
+import { IAggregatedWord } from '../controller/games/interfaces';
 import {
   AggregatedWordsResponseT, UserWordsT, WordDataT, WordsDataT,
 } from '../types/types';
@@ -93,7 +94,8 @@ export class Api implements IApi {
   }
 
   public async getUserWord(wordId: string) {
-    await this.apiClient.get(`/users/${(<IAuthInfo>authStorage.get()).userId}/words/${wordId}`);
+    const res = await this.apiClient.get(`/users/${(<IAuthInfo>authStorage.get()).userId}/words/${wordId}`);
+    return res;
   }
 
   public async getAllUserAggregatedHardWords(
@@ -123,6 +125,15 @@ export class Api implements IApi {
 
   getAudio(filePath: string) {
     return this.apiClient.get(filePath);
+  }
+
+  public async getWordStatistic(wordId: string):Promise<IAggregatedWord | null> {
+    const wordsIds = ((await this.getUserWords()).data.map((userData) => userData.wordId));
+    if (wordsIds.includes(wordId)) {
+      const res = <IAggregatedWord>(await this.getUserWord(wordId)).data;
+      return res;
+    }
+    return null;
   }
 }
 export const herokuApi = new Api('https://rsschool-lang-app.herokuapp.com');
