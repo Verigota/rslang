@@ -8,6 +8,10 @@
     grid-template: 1fr / 1fr minmax(auto, 360px) minmax(auto, 360px) minmax(auto, 360px) minmax(auto, 360px) 1fr;
     background-color: $background-dark;
 
+    &.hidden {
+        display: none;
+    }
+
     &__githublink {
         grid-column: 2 / 3;
         justify-self: center;
