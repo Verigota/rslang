@@ -5,7 +5,7 @@
     display: grid;
     align-items: center;
 
-    grid-template: 1fr / 1fr minmax(auto, 480px) minmax(auto, 480px) minmax(auto, 480px) 1fr;
+    grid-template: 1fr / 1fr minmax(auto, 360px) minmax(auto, 360px) minmax(auto, 360px) minmax(auto, 360px) 1fr;
     background-color: $background-dark;
 
     &__githublink {
@@ -15,8 +15,25 @@
         height: 70px;
     }
 
-    &__copyrights {
+    &__links {
         grid-column: 3 / 4;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        gap: 10px;
+        transition: all .5s;
+        &-item {
+            @include addFont('Philosopher', normal, 600, 2rem, 0.06em, $text-light, 1rem);
+            &:hover {
+                color: $text-white;
+                transition: all .5s;
+            }
+        }
+    }
+
+    &__copyrights {
+        grid-column: 4 / 5;
         justify-self: center;
         font-size: 14px;
         color: $border-color-dark;
@@ -25,7 +42,7 @@
     }
 
     &__rsschoollink {
-        grid-column: 4 / 5;
+        grid-column: 5 / 6;
         justify-self: center;
         width: 150px;
         height: 50px;
