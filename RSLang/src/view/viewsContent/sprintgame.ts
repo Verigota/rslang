@@ -18,7 +18,7 @@ export const sectionSprintGameStart = `
             </section>`;
 
 export const sectionSprintGameBody = `
-<section class="game content__item">
+<section class="game content__item" tabindex="-1">
                     <div class="game__timer-wrap">
                         <div class="timer">
                             <div class="timer__line"></div>
