@@ -31,7 +31,7 @@ export default class GameSelectorView implements IMainSectionViewRender {
     const sprintGameBtn = document.querySelector('#sprint-game') as HTMLAnchorElement;
     sprintGameBtn.addEventListener('click', () => {
       if (this.selectedLevel != null) {
-        const gameSprint = new GameSprintStartView({ level: this.selectedLevel });
+        const gameSprint = new GameSprintStartView({ level: this.selectedLevel }, this);
         gameSprint.render();
       } else {
         const popup = new PopupMessageView('Не выбран уровень сложности!', 'Выберите уровень сложности, чтобы продолжить!');

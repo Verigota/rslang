@@ -18,7 +18,7 @@ export class HandbookView implements IMainSectionViewRender {
   private getViewData: () => Promise<HandbookViewData>;
 
   constructor(getViewData: () => Promise<HandbookViewData>) {
-    this.handbook = new Handbook();
+    this.handbook = new Handbook(this);
     this.getViewData = getViewData;
   }
 
