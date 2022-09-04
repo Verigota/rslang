@@ -12,7 +12,7 @@ import {
   ComplicatedWordsStorageDataT,
   UserWordsT,
 } from '../../types/types';
-import { IAggregatedWord } from '../games/interfaces';
+import { Difficulty, IAggregatedWord } from '../games/interfaces';
 import { DIFF_BETWEEN_ARR_INDEX_AND_PAGE_NUM, FIRST_CARD_INDEX } from './handbookControllerConstants';
 import {
   getHandbookComplicatedWordsDataFromLocalStorage,
@@ -143,18 +143,16 @@ export default class HandbookController implements IhandbookController {
   complicatedWordsButtonHandler(
     wordId: string,
     difficulty: string,
-    optional: Record<string, never>,
   ): void {
-    this.herokuApi.updateOrCreateUserWord(wordId, difficulty, optional);
+    this.herokuApi.updateOrCreateUserWord(wordId, difficulty);
     setHandbookComplicatedWordsToLocalStorage(0, 1, 0);
   }
 
   learnedWordsButtonHandler(
     wordId: string,
     difficulty: string,
-    optional: Record<string, never>,
   ): void {
-    this.herokuApi.updateOrCreateUserWord(wordId, difficulty, optional);
+    this.herokuApi.updateOrCreateUserWord(wordId, difficulty);
   }
 
   async wordCardHandler(
@@ -241,7 +239,7 @@ export default class HandbookController implements IhandbookController {
   ): Promise<void> {
     const aggregatedWordsId = '_id';
     const id = ('id' in wordData) ? wordData.id : wordData[aggregatedWordsId];
-    await this.herokuApi.updateUserWord(id, 'process', {});
+    await this.herokuApi.updateOrCreateUserWord(id, Difficulty[2]);
 
     const storageWordsData = getHandbookComplicatedWordsDataFromLocalStorage();
 

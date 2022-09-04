@@ -5,25 +5,27 @@ export interface IGameStat {
   wrong: number;
 }
 
-enum Difficulty {
+export enum Difficulty {
   'hard', 'learned', 'process',
 }
 
 export interface IAggregatedWord {
   id: string;
   difficulty: Difficulty;
-  optional: {
-    serieRight: number;
-    serieWrong: number;
-    addTime: string;
-    games: {
-      sprint: IGameStat;
-      audio: IGameStat;
-    }
-  }
+  optional: IOptional
 }
 
 export interface ICommonGame {
   start: (startOpts?: IGameStart) => void;
   restart: (startOpts?: IGameStart) => void;
+}
+
+export interface IOptional {
+  serieRight: number;
+  serieWrong: number;
+  addTime: string;
+  games: {
+    sprint: IGameStat;
+    audio: IGameStat;
+  }
 }

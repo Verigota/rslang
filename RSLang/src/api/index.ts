@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import authStorage from '../controller/authorization/auth-storage';
 import { IGameStart } from '../controller/games/audiocall/interfaces';
-import { IAggregatedWord } from '../controller/games/interfaces';
+import { Difficulty, IAggregatedWord, IOptional } from '../controller/games/interfaces';
 import {
   AggregatedWordsResponseT, UserWordsT, WordDataT, WordsDataT,
 } from '../types/types';
@@ -82,14 +82,39 @@ export class Api implements IApi {
 
   public async updateOrCreateUserWord(
     wordId: string,
-    difficulty: string,
-    optional: Record<string, never>,
+    difficulty?: string,
+    optional?: IOptional,
   ) {
-    const wordsIds = ((await this.getUserWords()).data.map((userData) => userData.wordId));
+    const defaultDifficulty = Difficulty[2];
+    const date = new Date().toString();
+    const defaultOptional = {
+      serieRight: 0,
+      serieWrong: 0,
+      addTime: date,
+      games: {
+        sprint: {
+          right: 0,
+          wrong: 0,
+        },
+        audio: {
+          right: 0,
+          wrong: 0,
+        },
+      },
+    };
+
+    const userWordsData = (await this.getUserWords()).data;
+    const wordsIds = (userWordsData.map((userData) => userData.wordId));
+
     if (wordsIds.includes(wordId)) {
-      await this.updateUserWord(wordId, difficulty, optional);
+      const userWordData = (await this.getUserWord(wordId)).data;
+      const newDifficulty = difficulty || userWordData.difficulty || defaultDifficulty;
+      const newOptional = optional || userWordData.optional || defaultOptional;
+      await this.updateUserWord(wordId, newDifficulty, newOptional);
     } else {
-      await this.apiClient.post(`users/${(<IAuthInfo>authStorage.get()).userId}/words/${wordId}`, { difficulty, optional });
+      const newDifficulty = difficulty || defaultDifficulty;
+      const newOptional = optional || defaultOptional;
+      await this.apiClient.post(`users/${(<IAuthInfo>authStorage.get()).userId}/words/${wordId}`, { difficulty: newDifficulty, optional: newOptional });
     }
   }
 
@@ -114,7 +139,7 @@ export class Api implements IApi {
   public async updateUserWord(
     wordId: string,
     difficulty: string,
-    optional: Record<string, never>,
+    optional: IOptional,
   ): Promise<void> {
     await this.apiClient.put(`/users/${(<IAuthInfo>authStorage.get()).userId}/words/${wordId}`, { difficulty, optional });
   }

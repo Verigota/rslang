@@ -1,5 +1,6 @@
 import axios from 'axios';
 import authStorage from '../../../controller/authorization/auth-storage';
+import { Difficulty } from '../../../controller/games/interfaces';
 import IhandbookController from '../../../controller/handbookController/IhandbookController';
 import { AggregatedWordDataT, PageNameT, WordDataT } from '../../../types/types';
 import { getNewElement, getNewImageElement, getMeaningOrExampleContainer } from '../templatesForElements/templateForCreatingNewElement';
@@ -131,13 +132,13 @@ export default class WordCardInfo implements IwordCardInfo {
 
     const complicatedWordsButton = getNewElement('button', 'word-card-info__complicated-words-button', 'В сложные слова');
     complicatedWordsButton.addEventListener('click', () => {
-      handbookController.complicatedWordsButtonHandler(wordData.id, 'hard', {});
+      handbookController.complicatedWordsButtonHandler(wordData.id, Difficulty[0]);
       toggleLearnedPageClasses('hard', 'learned');
     });
 
     const learnedWordsButton = getNewElement('button', 'word-card-info__learned-words-button', 'В изученные слова');
     learnedWordsButton.addEventListener('click', () => {
-      handbookController.learnedWordsButtonHandler(wordData.id, 'learned', {});
+      handbookController.learnedWordsButtonHandler(wordData.id, Difficulty[1]);
       toggleLearnedPageClasses('learned', 'hard');
     });
 
@@ -173,18 +174,9 @@ export default class WordCardInfo implements IwordCardInfo {
     const wordStatistic = await handbookController.getWordStatistic(wordId);
     const wordCardInfo = <HTMLDivElement>document.querySelector(this.wordCardInfoSelector);
     const statisticContainer = getNewElement('div', 'word-card-info__statistic');
-    const gamesStat = (wordStatistic) ? {
-      sprint: wordStatistic.optional.games.sprint,
-      audio: wordStatistic.optional.games.audio,
-    } : {
-      sprint: {
-        right: 0,
-        wrong: 0,
-      },
-      audio: {
-        right: 0,
-        wrong: 0,
-      },
+    const gamesStat = {
+      sprint: wordStatistic?.optional.games.sprint || { right: 0, wrong: 0 },
+      audio: wordStatistic?.optional.games.audio || { right: 0, wrong: 0 },
     };
     const sprintStatistic = `
     <div id='sprint-statistic'>
