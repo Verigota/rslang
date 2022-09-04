@@ -34,7 +34,7 @@ export default class DayStatistics {
     if (keyValue !== null) {
       const userStat: IUserStatistics = JSON.parse(keyValue);
       const currentDate = new Date();
-      const statDate = new Date();
+      const statDate = new Date(userStat.date);
       if (currentDate.getDate() === statDate.getDate()
         && currentDate.getMonth() === statDate.getMonth()
         && currentDate.getFullYear() === statDate.getFullYear()) {
