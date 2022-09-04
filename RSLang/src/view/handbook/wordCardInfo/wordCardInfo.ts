@@ -132,13 +132,13 @@ export default class WordCardInfo implements IwordCardInfo {
 
     const complicatedWordsButton = getNewElement('button', 'word-card-info__complicated-words-button', 'В сложные слова');
     complicatedWordsButton.addEventListener('click', () => {
-      handbookController.complicatedWordsButtonHandler(wordData.id, Difficulty[0]);
+      handbookController.complicatedWordsButtonHandler(wordData.id, Difficulty.hard);
       toggleLearnedPageClasses('hard', 'learned');
     });
 
     const learnedWordsButton = getNewElement('button', 'word-card-info__learned-words-button', 'В изученные слова');
     learnedWordsButton.addEventListener('click', () => {
-      handbookController.learnedWordsButtonHandler(wordData.id, Difficulty[1]);
+      handbookController.learnedWordsButtonHandler(wordData.id, Difficulty.learned);
       toggleLearnedPageClasses('learned', 'hard');
     });
 
@@ -176,7 +176,7 @@ export default class WordCardInfo implements IwordCardInfo {
     const statisticContainer = getNewElement('div', 'word-card-info__statistic');
     const gamesStat = {
       sprint: wordStatistic?.optional.games.sprint || { right: 0, wrong: 0 },
-      audio: wordStatistic?.optional.games.audio || { right: 0, wrong: 0 },
+      audio: wordStatistic?.optional.games.audiocall || { right: 0, wrong: 0 },
     };
     const sprintStatistic = `
     <div id='sprint-statistic'>

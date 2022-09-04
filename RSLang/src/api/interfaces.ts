@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { IAggregatedWord, IOptional } from '../controller/games/interfaces';
+import { Difficulty, IAggregatedWord, IOptional } from '../controller/games/interfaces';
 import {
   AggregatedWordsResponseT, UserWordsT, WordDataT, WordsDataT,
 } from '../types/types';
@@ -16,6 +16,11 @@ export interface IUserCreateResponse {
   id: string,
   name: string,
   email: string,
+}
+
+export interface IUserAggregatedWord {
+  difficulty: Difficulty;
+  optional: IOptional
 }
 
 export interface ISingInResponse {
@@ -55,13 +60,13 @@ export interface IApi {
   getUserWords(): Promise<AxiosResponse<UserWordsT>>
   updateOrCreateUserWord(
     wordId: string,
-    difficulty?: string,
+    difficulty?: Difficulty,
     optional?: IOptional,
   ): Promise<void>
   getAllUserAggregatedHardWords(page: number): Promise<AxiosResponse<AggregatedWordsResponseT>>
   updateUserWord(
     wordId: string,
-    difficulty: string,
+    difficulty: Difficulty,
     optional: IOptional,
   ): Promise<void>
   getWordStatistic(wordId: string): Promise<IAggregatedWord | null>;

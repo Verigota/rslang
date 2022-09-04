@@ -26,6 +26,6 @@ export interface IOptional {
   addTime: string;
   games: {
     sprint: IGameStat;
-    audio: IGameStat;
+    audiocall: IGameStat;
   }
 }
