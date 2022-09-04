@@ -5,6 +5,10 @@
     width: 100%;
     display: grid;
     grid-template: [start] "header" minmax(100px, auto) [row2] [row2] "content" 1fr [row3] [row3] "footer" minmax(100px, auto) [row-end] / 1fr;
+
+    &.hide-footer {
+        grid-template: [start] "header" minmax(100px, auto) [row2] [row2] "content" 1fr [row-end] / 1fr;
+    }
 }
 
 .content {
