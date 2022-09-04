@@ -114,7 +114,6 @@ export default class GameStatisticsView implements IMainSectionViewRender {
     popupClose.addEventListener('click', (event: Event) => {
       event.preventDefault();
       popup.classList.remove('open');
-      // this.game.restart();
       this.returnToView.render();
       setTimeout(() => {
         popup.remove();

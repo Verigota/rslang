@@ -10,6 +10,7 @@ import {
   WordDataT,
   WordsDataT,
 } from '../../types/types';
+import { IMainSectionViewRender } from '../common/IMainViewRender';
 import GameAudioCallStartView from '../games/audiocall/audioCallStartView';
 import GameSprintStartView from '../games/sprint/sprintStartView';
 import IHandbook from './Ihandbook';
@@ -56,10 +57,13 @@ export default class Handbook implements IHandbook {
 
   private wordCardInfo: WordCardInfo;
 
-  constructor() {
+  private startView: IMainSectionViewRender;
+
+  constructor(startView: IMainSectionViewRender) {
     this.levelCards = new LevelCards();
     this.wordCards = new WordCards();
     this.wordCardInfo = new WordCardInfo();
+    this.startView = startView;
   }
 
   renderHandbook(
@@ -124,7 +128,10 @@ export default class Handbook implements IHandbook {
     const sprintBtn = document.querySelector('#handbook__sprint');
     sprintBtn?.addEventListener('click', () => {
       const startOpts = getHandbookDataFromLocalStorage();
-      const gameSprint = new GameSprintStartView({ level: startOpts.group, page: startOpts.page });
+      const gameSprint = new GameSprintStartView(
+        { level: startOpts.group, page: startOpts.page },
+        this.startView,
+      );
       gameSprint.render();
     });
     audioBtn?.addEventListener('click', () => {

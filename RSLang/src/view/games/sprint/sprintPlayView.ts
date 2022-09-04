@@ -35,7 +35,9 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
 
   private words: WordsDataT;
 
-  constructor(words: WordsDataT) {
+  private returnView: IMainSectionViewRender;
+
+  constructor(words: WordsDataT, returnView: IMainSectionViewRender) {
     this.game = new SprintGame(words);
     this.content = document.querySelector('#main') as HTMLElement;
     this.api = herokuApi;
@@ -46,6 +48,7 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
     this.rightAnswers = [];
     this.dayStat = new DayStatistics();
     this.words = words;
+    this.returnView = returnView;
   }
 
   renderStage() {
@@ -67,8 +70,8 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
         this.bestSerie,
         this.wrongAnswers,
         this.rightAnswers,
-        new GameSprintPlayView(this.words),
-        this,
+        new GameSprintPlayView(this.words, this.returnView),
+        this.returnView,
       );
       stat.render();
     }, 30000);
@@ -103,11 +106,56 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
           this.wrongAnswerAudio.play();
           this.currSerie = 0;
           this.wrongAnswers.push({ ...this.game.currentStage.word });
-          this.dayStat.updateWord('audiocall', this.game.currentStage.word, 'wrong');
+          this.dayStat.updateWord('sprint', this.game.currentStage.word, 'wrong');
         }
         this.game.goToNextStage();
         setTimeout(() => this.renderStage(), 500);
       });
+    });
+
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.code === 'ArrowRight') {
+        e.stopPropagation();
+        if (isRightTranslation(this.game.currentStage) === 'wrong') {
+          this.content.querySelector('#answer2')?.classList.add('ok');
+          this.rightAnswerAudio.play();
+          this.currSerie += 1;
+          if (this.bestSerie < this.currSerie) {
+            this.bestSerie = this.currSerie;
+          }
+          this.rightAnswers.push({ ...this.game.currentStage.word });
+          this.dayStat.updateWord('sprint', this.game.currentStage.word, 'right');
+        } else {
+          this.content.querySelector('#answer2')?.classList.add('fault');
+          this.wrongAnswerAudio.play();
+          this.currSerie = 0;
+          this.wrongAnswers.push({ ...this.game.currentStage.word });
+          this.dayStat.updateWord('sprint', this.game.currentStage.word, 'wrong');
+        }
+        this.game.goToNextStage();
+        setTimeout(() => this.renderStage(), 500);
+      }
+      if (e.code === 'ArrowLeft') {
+        e.stopPropagation();
+        if (isRightTranslation(this.game.currentStage) === 'right') {
+          this.content.querySelector('#answer1')?.classList.add('ok');
+          this.rightAnswerAudio.play();
+          this.currSerie += 1;
+          if (this.bestSerie < this.currSerie) {
+            this.bestSerie = this.currSerie;
+          }
+          this.rightAnswers.push({ ...this.game.currentStage.word });
+          this.dayStat.updateWord('sprint', this.game.currentStage.word, 'right');
+        } else {
+          this.content.querySelector('#answer1')?.classList.add('fault');
+          this.wrongAnswerAudio.play();
+          this.currSerie = 0;
+          this.wrongAnswers.push({ ...this.game.currentStage.word });
+          this.dayStat.updateWord('sprint', this.game.currentStage.word, 'wrong');
+        }
+        this.game.goToNextStage();
+        setTimeout(() => this.renderStage(), 500);
+      }
     });
   }
 }
