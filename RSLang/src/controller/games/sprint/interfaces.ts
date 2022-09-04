@@ -5,6 +5,7 @@ export interface IStageInfo {
   rightTranslation: string,
   translation: string,
   sound: string,
+  word: WordDataT
 }
 
 export interface ISprintGame {
