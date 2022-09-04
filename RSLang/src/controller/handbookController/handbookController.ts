@@ -12,6 +12,7 @@ import {
   ComplicatedWordsStorageDataT,
   UserWordsT,
 } from '../../types/types';
+import { Difficulty, IAggregatedWord } from '../games/interfaces';
 import { DIFF_BETWEEN_ARR_INDEX_AND_PAGE_NUM, FIRST_CARD_INDEX } from './handbookControllerConstants';
 import {
   getHandbookComplicatedWordsDataFromLocalStorage,
@@ -142,18 +143,16 @@ export default class HandbookController implements IhandbookController {
   complicatedWordsButtonHandler(
     wordId: string,
     difficulty: string,
-    optional: Record<string, never>,
   ): void {
-    this.herokuApi.updateOrCreateUserWord(wordId, difficulty, optional);
+    this.herokuApi.updateOrCreateUserWord(wordId, difficulty);
     setHandbookComplicatedWordsToLocalStorage(0, 1, 0);
   }
 
   learnedWordsButtonHandler(
     wordId: string,
     difficulty: string,
-    optional: Record<string, never>,
   ): void {
-    this.herokuApi.updateOrCreateUserWord(wordId, difficulty, optional);
+    this.herokuApi.updateOrCreateUserWord(wordId, difficulty);
   }
 
   async wordCardHandler(
@@ -200,6 +199,10 @@ export default class HandbookController implements IhandbookController {
     storageWordsData.currPage += step;
     storageWordsData.page += step;
 
+    if (storageWordsData.currPage === pageLimit) {
+      activeButtonCopy.disabled = true;
+    }
+
     if (isHandbook) {
       setHandbookDataToLocalStorage(
         (<RsLangHandbookDataT>storageWordsData).group,
@@ -224,10 +227,6 @@ export default class HandbookController implements IhandbookController {
 
     currPageCopy.textContent = `${storageWordsData.currPage}`;
 
-    if (storageWordsData.currPage === pageLimit) {
-      activeButtonCopy.disabled = true;
-    }
-
     return wordsData;
   }
 
@@ -240,7 +239,7 @@ export default class HandbookController implements IhandbookController {
   ): Promise<void> {
     const aggregatedWordsId = '_id';
     const id = ('id' in wordData) ? wordData.id : wordData[aggregatedWordsId];
-    await this.herokuApi.updateUserWord(id, 'process', {});
+    await this.herokuApi.updateOrCreateUserWord(id, Difficulty[2]);
 
     const storageWordsData = getHandbookComplicatedWordsDataFromLocalStorage();
 
@@ -256,6 +255,11 @@ export default class HandbookController implements IhandbookController {
 
   async getUserWords(): Promise<AxiosResponse<UserWordsT>> {
     const res = await this.herokuApi.getUserWords();
+    return res;
+  }
+
+  async getWordStatistic(wordId: string):Promise<IAggregatedWord | null> {
+    const res = this.herokuApi.getWordStatistic(wordId);
     return res;
   }
 }

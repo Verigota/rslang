@@ -1,0 +1,62 @@
+.handbook {
+  &__title {
+    height: fit-content;
+    width: fit-content;
+    @include addFont('Philosopher', normal, 600, 2rem, 0.01em, $handbook-disabled-font-clr, 2rem);
+    cursor: pointer;
+    transition: $handbook-transititon;
+  }
+
+  &__complicated-words-title {
+    height: fit-content;
+    width: fit-content;
+    @include addFont('Philosopher', normal, 600, 2rem, 0.01em, $handbook-disabled-font-clr, 2rem);
+    cursor: pointer;
+    border-left: 5px solid $handbook-disabled-font-clr;
+    padding-left: 8px;
+  }
+
+  &__words-title {
+    grid-area: words-title;
+    @include addFont('Philosopher', normal, 600, 2rem, 0.01em, $text-dark, 2rem);
+  }
+
+  &__card-subtitle {
+    @include addFont('Philosopher', normal, 600, 1rem, 0.01em, $text-dark, 1rem);
+  }
+
+  &__games-title {
+    grid-area: games-title;
+    @include addFont('Philosopher', normal, 600, 2rem, 0.01em, $text-dark, 2rem);
+  }
+
+  &__game-title {
+    width: 100%;
+    height: 100%;
+    @include addFont('Philosopher', normal, 600, 1.8rem, 0.01em, $text-dark, 1.8rem);
+    text-align: center;
+    line-height: 150px;
+    backdrop-filter: blur(4px);
+    background-color: rgba(240, 240, 240, 0.8);
+    border-radius: 10px;
+  }
+}
+
+.word-card-info {
+
+  &__meaning-title,
+  &__example-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+
+  &__statistic {
+    display: flex;
+    gap: 20px;
+  }
+}
+
+.sprint-statistic__title, .audio-call-statistic__title {
+  @include addFont('Philosopher', normal, 600, 1.2rem, 0.01em, $text-dark, 1.2rem);
+  margin-bottom: 5px;
+}

@@ -1,0 +1,47 @@
+.words-pagination {
+  grid-area: words-pagination;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  &__next-button,
+  &__prev-button,
+  &__curr-page {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: $handbook-shadow;
+    transition: 0.3s ease-in-out;
+  }
+
+  &__next-button {
+    background: center/20% white no-repeat url('./public/assets/icons/arrow-right.svg');
+  }
+
+  &__prev-button {
+    background: center/20% white no-repeat url('./public/assets/icons/arrow-left.svg');
+  }
+
+  &__curr-page {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include addFont('Philosopher', normal, 400, 1rem, 0.01em, $text-dark, 1rem);
+  }
+
+  &__next-button:disabled,
+  &__prev-button:disabled {
+    box-shadow: none;
+    pointer-events: none;
+    background-color: $handbook-pagination-btn-bg;
+  }
+
+  &__next-button:disabled {
+    background: center/20% white no-repeat url('./public/assets/icons/arrow-right-disabled.svg');
+  }
+
+  &__prev-button:disabled {
+    background: center/20% white no-repeat url('./public/assets/icons/arrow-left-disabled.svg');
+  }
+}

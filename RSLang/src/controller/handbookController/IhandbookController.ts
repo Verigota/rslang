@@ -9,6 +9,7 @@ import {
   PageNameT,
   UserWordsT,
 } from '../../types/types';
+import { IAggregatedWord } from '../games/interfaces';
 
 export default interface IhandbookController {
   getChunkOfWords(group: number, page: number): Promise<AxiosResponse<WordsDataT>>;
@@ -53,13 +54,11 @@ export default interface IhandbookController {
   complicatedWordsButtonHandler(
     wordId: string,
     difficulty: string,
-    optional: Record<string, never>
   ): void
 
   learnedWordsButtonHandler(
     wordId: string,
     difficulty: string,
-    optional: Record<string, never>,
   ): void
 
   complicatedWordsCardHandler():Promise<AxiosResponse<UserWordsT>>
@@ -80,4 +79,5 @@ export default interface IhandbookController {
   ): Promise<void>
 
   getUserWords(): Promise<AxiosResponse<UserWordsT>>
+  getWordStatistic(wordId: string): Promise<IAggregatedWord | null>
 }

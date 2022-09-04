@@ -1,0 +1,27 @@
+.handbook {
+  &__games {
+    display: grid;
+    grid-area: games;
+    grid-template-areas:
+      'games-title .'
+      'audio-call sprint'
+    ;
+    gap: 10px;
+  }
+
+  &__audio-call {
+    grid-area: audio-call;
+    height: 150px;
+    cursor: pointer;
+    background: 20%/cover $handbook-card-bg no-repeat url('./public/assets/images/audio.png');
+    border-radius: 10px;
+  }
+
+  &__sprint {
+    grid-area: sprint;
+    height: 150px;
+    cursor: pointer;
+    background: center/cover $handbook-card-bg no-repeat url('./public/assets/images/sprint.png');
+    border-radius: 10px;
+  }
+}
