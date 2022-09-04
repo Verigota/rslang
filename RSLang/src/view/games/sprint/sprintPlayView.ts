@@ -38,6 +38,8 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
 
   private returnView: IMainSectionViewRender;
 
+  private timerId: NodeJS.Timeout | null;
+
   constructor(words: WordsDataT, returnView: IMainSectionViewRender) {
     this.game = new SprintGame(words);
     this.content = document.querySelector('#main') as HTMLElement;
@@ -51,9 +53,21 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
     this.words = words;
     this.returnView = returnView;
     this.keyDownHandler = this.keyDownHandler.bind(this);
+    this.timerId = null;
   }
 
   renderStage() {
+    if (this.words.length === 0) {
+      const stat = new GameStatisticsView(
+        this.bestSerie,
+        this.wrongAnswers,
+        this.rightAnswers,
+        new GameSprintPlayView(this.words, this.returnView),
+        this.returnView,
+      );
+      stat.render();
+      if (this.timerId) clearTimeout(this.timerId);
+    }
     const btns = this.content.querySelectorAll('.answer') as NodeListOf<HTMLButtonElement>;
     btns?.forEach((btn) => btn?.classList.remove('fault', 'ok'));
     const engWord = this.content.querySelector('#engWord') as HTMLElement;
@@ -67,7 +81,7 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
   render() {
     this.content.innerHTML = gameSprintBody.sections.join('');
     this.addEventHandlers();
-    const timerId = setTimeout(() => {
+    this.timerId = setTimeout(() => {
       const stat = new GameStatisticsView(
         this.bestSerie,
         this.wrongAnswers,
@@ -80,8 +94,10 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
     const observer = new MutationObserver((mutationsList) => {
       mutationsList.forEach((mutation) => {
         if (mutation.type === 'childList') {
-          clearTimeout(timerId);
-          document.removeEventListener('keydown', this.keyDownHandler);
+          if (this.timerId) {
+            clearTimeout(this.timerId);
+            document.removeEventListener('keydown', this.keyDownHandler);
+          }
         }
       });
     });

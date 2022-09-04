@@ -142,7 +142,7 @@ export default class HandbookController implements IhandbookController {
 
   complicatedWordsButtonHandler(
     wordId: string,
-    difficulty: string,
+    difficulty: Difficulty,
   ): void {
     this.herokuApi.updateOrCreateUserWord(wordId, difficulty);
     setHandbookComplicatedWordsToLocalStorage(0, 1, 0);
@@ -150,7 +150,7 @@ export default class HandbookController implements IhandbookController {
 
   learnedWordsButtonHandler(
     wordId: string,
-    difficulty: string,
+    difficulty: Difficulty,
   ): void {
     this.herokuApi.updateOrCreateUserWord(wordId, difficulty);
   }
@@ -239,7 +239,7 @@ export default class HandbookController implements IhandbookController {
   ): Promise<void> {
     const aggregatedWordsId = '_id';
     const id = ('id' in wordData) ? wordData.id : wordData[aggregatedWordsId];
-    await this.herokuApi.updateOrCreateUserWord(id, Difficulty[2]);
+    await this.herokuApi.updateOrCreateUserWord(id, Difficulty.process);
 
     const storageWordsData = getHandbookComplicatedWordsDataFromLocalStorage();
 

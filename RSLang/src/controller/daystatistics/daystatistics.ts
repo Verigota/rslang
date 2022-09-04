@@ -1,9 +1,10 @@
+import { herokuApi } from '../../api';
 import { IAuthInfo } from '../../api/interfaces';
 import { WordDataT } from '../../types/types';
 import getEmptyStatObj from './commonFunc';
 import { IGameStatistics, IUserStatistics, TAnswerType } from './interfaces';
 
-type TGameName = 'audiocall' | 'sprint';
+export type TGameName = 'audiocall' | 'sprint';
 
 export default class DayStatistics {
   private user: IAuthInfo;
@@ -113,6 +114,7 @@ export default class DayStatistics {
     }
     // console.log('updateWord', word);
     this.updateUserStat();
+    herokuApi.setAggregatedWord(word.id, gameName, answer);
   }
 
   public getGameStat(gameName: TGameName): IGameStatistics {

@@ -12,10 +12,28 @@ function getNotLearntWordsOnPage(learntWords: LearntWordsPesp, pageWords: WordsD
 
 export default async function getGameWords(startOpt: IGameStart)
   : Promise<WordsDataT> {
-  if (startOpt.page) {
+  if (startOpt.page !== undefined) {
     const user = authStorage.get();
+    const isHardWords = localStorage.getItem('complicatedWordsPage');
     let { page } = startOpt;
     if (user) {
+      if (isHardWords) {
+        const complWords = localStorage.getItem('handbookComplicatedWords');
+        let pageHard = JSON.parse(complWords as string).page;
+        let gameWords = (await herokuApi.getAllUserAggregatedHardWords(pageHard))
+          .data[0]
+          .paginatedResults;
+        while (gameWords.length < 20 && pageHard > 0) {
+          pageHard -= 1;
+          // eslint-disable-next-line no-await-in-loop
+          const pageWord = (await herokuApi.getAllUserAggregatedHardWords(pageHard))
+            .data[0]
+            .paginatedResults;
+          gameWords = gameWords.concat(pageWord);
+        }
+        // eslint-disable-next-line no-underscore-dangle
+        return gameWords.map((word) => ({ ...word, id: word._id }));
+      }
       const learntWordsPromise = herokuApi.getLearntUserWords(user.userId);
       const currPageWordsPromise = herokuApi.getChunkOfWords(startOpt.level, page);
       const promises = [learntWordsPromise, currPageWordsPromise];
