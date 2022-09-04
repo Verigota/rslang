@@ -12,7 +12,7 @@ function getNotLearntWordsOnPage(learntWords: LearntWordsPesp, pageWords: WordsD
 
 export default async function getGameWords(startOpt: IGameStart)
   : Promise<WordsDataT> {
-  if (startOpt.page) {
+  if (startOpt.page !== undefined) {
     const user = authStorage.get();
     let { page } = startOpt;
     if (user) {

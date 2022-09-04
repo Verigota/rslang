@@ -17,7 +17,7 @@ export default class GameSprintStartView implements IMainSectionViewRender {
   constructor(startOpts: IGameStart, startView: IMainSectionViewRender) {
     this.content = document.querySelector('#main') as HTMLElement;
     this.selectedLevel = startOpts?.level;
-    this.page = startOpts.page || null;
+    this.page = startOpts.page;
     this.returnView = startView;
   }
 
