@@ -10,6 +10,7 @@ import { IMainSectionViewRender } from '../../common/IMainViewRender';
 import { gameSprintBody } from '../../viewsContent/views';
 import GameStatisticsView from '../statistics/gameStatisticView';
 
+const config = { childList: true };
 export default class GameSprintPlayView implements ICommonGame, IMainSectionViewRender {
   game: ISprintGame;
 
@@ -49,6 +50,7 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
     this.dayStat = new DayStatistics();
     this.words = words;
     this.returnView = returnView;
+    this.keyDownHandler = this.keyDownHandler.bind(this);
   }
 
   renderStage() {
@@ -65,7 +67,7 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
   render() {
     this.content.innerHTML = gameSprintBody.sections.join('');
     this.addEventHandlers();
-    setTimeout(() => {
+    const timerId = setTimeout(() => {
       const stat = new GameStatisticsView(
         this.bestSerie,
         this.wrongAnswers,
@@ -75,6 +77,15 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
       );
       stat.render();
     }, 30000);
+    const observer = new MutationObserver((mutationsList) => {
+      mutationsList.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          clearTimeout(timerId);
+          document.removeEventListener('keydown', this.keyDownHandler);
+        }
+      });
+    });
+    observer.observe(this.content, config);
     this.renderStage();
     document.querySelector('.timer')?.classList.add('start');
     return Promise.resolve();
@@ -109,53 +120,55 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
           this.dayStat.updateWord('sprint', this.game.currentStage.word, 'wrong');
         }
         this.game.goToNextStage();
-        setTimeout(() => this.renderStage(), 500);
+        setTimeout(() => this.renderStage(), 600);
       });
     });
 
-    document.addEventListener('keydown', (e: KeyboardEvent) => {
-      if (e.code === 'ArrowRight') {
-        e.stopPropagation();
-        if (isRightTranslation(this.game.currentStage) === 'wrong') {
-          this.content.querySelector('#answer2')?.classList.add('ok');
-          this.rightAnswerAudio.play();
-          this.currSerie += 1;
-          if (this.bestSerie < this.currSerie) {
-            this.bestSerie = this.currSerie;
-          }
-          this.rightAnswers.push({ ...this.game.currentStage.word });
-          this.dayStat.updateWord('sprint', this.game.currentStage.word, 'right');
-        } else {
-          this.content.querySelector('#answer2')?.classList.add('fault');
-          this.wrongAnswerAudio.play();
-          this.currSerie = 0;
-          this.wrongAnswers.push({ ...this.game.currentStage.word });
-          this.dayStat.updateWord('sprint', this.game.currentStage.word, 'wrong');
+    document.addEventListener('keydown', this.keyDownHandler);
+  }
+
+  keyDownHandler(e: KeyboardEvent) {
+    if (e.code === 'ArrowRight') {
+      e.stopPropagation();
+      if (isRightTranslation(this.game.currentStage) === 'wrong') {
+        this.content.querySelector('#answer2')?.classList.add('ok');
+        this.rightAnswerAudio.play();
+        this.currSerie += 1;
+        if (this.bestSerie < this.currSerie) {
+          this.bestSerie = this.currSerie;
         }
-        this.game.goToNextStage();
-        setTimeout(() => this.renderStage(), 500);
+        this.rightAnswers.push({ ...this.game.currentStage.word });
+        this.dayStat.updateWord('sprint', this.game.currentStage.word, 'right');
+      } else {
+        this.content.querySelector('#answer2')?.classList.add('fault');
+        this.wrongAnswerAudio.play();
+        this.currSerie = 0;
+        this.wrongAnswers.push({ ...this.game.currentStage.word });
+        this.dayStat.updateWord('sprint', this.game.currentStage.word, 'wrong');
       }
-      if (e.code === 'ArrowLeft') {
-        e.stopPropagation();
-        if (isRightTranslation(this.game.currentStage) === 'right') {
-          this.content.querySelector('#answer1')?.classList.add('ok');
-          this.rightAnswerAudio.play();
-          this.currSerie += 1;
-          if (this.bestSerie < this.currSerie) {
-            this.bestSerie = this.currSerie;
-          }
-          this.rightAnswers.push({ ...this.game.currentStage.word });
-          this.dayStat.updateWord('sprint', this.game.currentStage.word, 'right');
-        } else {
-          this.content.querySelector('#answer1')?.classList.add('fault');
-          this.wrongAnswerAudio.play();
-          this.currSerie = 0;
-          this.wrongAnswers.push({ ...this.game.currentStage.word });
-          this.dayStat.updateWord('sprint', this.game.currentStage.word, 'wrong');
+      this.game.goToNextStage();
+      setTimeout(() => this.renderStage(), 600);
+    }
+    if (e.code === 'ArrowLeft') {
+      e.stopPropagation();
+      if (isRightTranslation(this.game.currentStage) === 'right') {
+        this.content.querySelector('#answer1')?.classList.add('ok');
+        this.rightAnswerAudio.play();
+        this.currSerie += 1;
+        if (this.bestSerie < this.currSerie) {
+          this.bestSerie = this.currSerie;
         }
-        this.game.goToNextStage();
-        setTimeout(() => this.renderStage(), 500);
+        this.rightAnswers.push({ ...this.game.currentStage.word });
+        this.dayStat.updateWord('sprint', this.game.currentStage.word, 'right');
+      } else {
+        this.content.querySelector('#answer1')?.classList.add('fault');
+        this.wrongAnswerAudio.play();
+        this.currSerie = 0;
+        this.wrongAnswers.push({ ...this.game.currentStage.word });
+        this.dayStat.updateWord('sprint', this.game.currentStage.word, 'wrong');
       }
-    });
+      this.game.goToNextStage();
+      setTimeout(() => this.renderStage(), 600);
+    }
   }
 }
