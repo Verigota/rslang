@@ -12,6 +12,18 @@ import { HandbookView, HandbookViewData, IMainSectionViewRender } from '../view/
 import GameSelectorView from '../view/gameSelector/gameSelectorView';
 import StatisticsView from '../view/statistics/statisticsView';
 
+export function hideFooter(hide: boolean) {
+  const footer = document.querySelector('.footer') as HTMLElement;
+  const wrapper = document.querySelector('.wrapper') as HTMLDivElement;
+  if (hide) {
+    footer.classList.add('hidden');
+    wrapper.classList.add('hide-footer');
+  } else {
+    footer.classList.remove('hidden');
+    wrapper.classList.remove('hide-footer');
+  }
+}
+
 function setActiveMenuItem(id: string) {
   const navigation = document.querySelector('.header__list');
   const links = navigation?.querySelectorAll('.menu__item-link') as NodeListOf<Element>;
@@ -113,21 +125,25 @@ class App implements IApp {
       };
     });
     this.appView.render();
+    hideFooter(false);
   }
 
   gameSelectorLinkHandler() {
     this.appView = new GameSelectorView();
     this.appView.render();
+    hideFooter(true);
   }
 
   mainLinkHandler() {
     this.appView = new MainView();
     this.appView.render();
+    hideFooter(false);
   }
 
   statisticsLinkHandler() {
     this.appView = new StatisticsView();
     this.appView.render();
+    hideFooter(false);
   }
 }
 export default App;
