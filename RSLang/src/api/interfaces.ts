@@ -1,5 +1,7 @@
 import { AxiosResponse } from 'axios';
-import { WordDataT, WordsDataT } from '../types/types';
+import {
+  AggregatedWordsResponseT, UserWordsT, WordDataT, WordsDataT,
+} from '../types/types';
 
 export type Indexed = { [index: string]: string };
 

@@ -1,7 +1,9 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import authStorage from '../controller/authorization/auth-storage';
 import { IGameStart } from '../controller/games/audiocall/interfaces';
-import { WordsDataT, WordDataT } from '../types/types';
+import {
+  WordsDataT, WordDataT, AggregatedWordsResponseT, UserWordsT,
+} from '../types/types';
 import {
   IApi, IAuthInfo, IRefreshTokenResponse, ISingInResponse, IUserInfo, IUserSingIn, LearntWordsPesp,
 } from './interfaces';

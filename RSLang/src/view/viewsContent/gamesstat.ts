@@ -5,7 +5,7 @@ export const popupGameStatView = `
                         <img src="./public/assets/icons/cross.svg" alt="close">
                     </a>
                     <div class="game-stat__about">
-                        <h2 class="game-stat__title">Аудиовызов</h2>
+                        <h2 class="game-stat__title">Результаты игры</h2>
                         <p class="game-stat__result">Ваш результат <span class="game-stat__result-val">250</span></p>
                         <p class="game-stat__serie">Длина серии: <span class="game-stat__serie-val">10</span></p>
                     </div>

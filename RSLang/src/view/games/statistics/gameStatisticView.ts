@@ -137,9 +137,13 @@ export default class GameStatisticsView implements IMainSectionViewRender {
     });
 
     const totalAnswers = this.wrongWords.length + this.rightWords.length;
-    const percent = (this.rightWords.length / totalAnswers) * 100;
     const percentEl = popup.querySelector('.game-stat__percent span') as HTMLSpanElement;
-    percentEl.innerText = percent.toString();
+    if (totalAnswers) {
+      const percent = (this.rightWords.length / totalAnswers) * 100;
+      percentEl.innerText = percent.toString();
+    } else {
+      percentEl.innerText = '0';
+    }
 
     const rusultEl = popup.querySelector('.game-stat__result-val') as HTMLSpanElement;
     rusultEl.innerText = (this.rightWords.length * 10).toString();

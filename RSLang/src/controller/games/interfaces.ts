@@ -13,6 +13,8 @@ export interface IAggregatedWord {
   id: string;
   difficulty: Difficulty;
   optional: {
+    serieRight: number;
+    serieWrong: number;
     addTime: string;
     games: {
       sprint: IGameStat;
