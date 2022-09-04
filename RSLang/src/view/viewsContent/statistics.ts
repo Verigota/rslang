@@ -24,7 +24,7 @@ const sectionStatistics = `
                         </div>
                         <div class="game-stat-el__item">
                             <img class="game-stat-el__item-img" src="./public/assets/icons/stat-longserie.svg" width="30" height="30" alt="learnt">
-                            <p class="game-stat-el__item-text">Самая длинная цепочка <span id="sprint-longest-serie">0 </span>слов.</p>
+                            <p class="game-stat-el__item-text">Самая длинная цепочка <span id="sprint-longest-serie">0</span> слов.</p>
                         </div>
                         <div class="game-stat-el__decor"></div>
                     </div>
