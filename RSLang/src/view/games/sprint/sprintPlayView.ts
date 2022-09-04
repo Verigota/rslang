@@ -35,7 +35,9 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
 
   private words: WordsDataT;
 
-  constructor(words: WordsDataT) {
+  private returnView: IMainSectionViewRender;
+
+  constructor(words: WordsDataT, returnView: IMainSectionViewRender) {
     this.game = new SprintGame(words);
     this.content = document.querySelector('#main') as HTMLElement;
     this.api = herokuApi;
@@ -46,6 +48,7 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
     this.rightAnswers = [];
     this.dayStat = new DayStatistics();
     this.words = words;
+    this.returnView = returnView;
   }
 
   renderStage() {
@@ -67,8 +70,8 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
         this.bestSerie,
         this.wrongAnswers,
         this.rightAnswers,
-        new GameSprintPlayView(this.words),
-        this,
+        new GameSprintPlayView(this.words, this.returnView),
+        this.returnView,
       );
       stat.render();
     }, 30000);

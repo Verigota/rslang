@@ -114,10 +114,7 @@ export default class GameStatisticsView implements IMainSectionViewRender {
     popupClose.addEventListener('click', (event: Event) => {
       event.preventDefault();
       popup.classList.remove('open');
-      this.game.restart();
-      setTimeout(() => {
-        popup.remove();
-      }, 500);
+      this.returnToView.render();
     });
 
     const slider = popup.querySelector('.game-stat__slider') as HTMLDivElement;

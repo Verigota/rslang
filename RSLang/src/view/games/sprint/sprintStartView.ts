@@ -5,14 +5,6 @@ import { IMainSectionViewRender } from '../../common/IMainViewRender';
 import { gameSprintStart } from '../../viewsContent/views';
 import GameSprintPlayView from './sprintPlayView';
 
-function setGamesButtonsActions(words: WordsDataT) {
-  const gamePlayBtn = document.querySelector('.game__start-btn') as HTMLAnchorElement;
-  gamePlayBtn.addEventListener('click', () => {
-    const gamePlay = new GameSprintPlayView(words);
-    gamePlay.render();
-  });
-}
-
 export default class GameSprintStartView implements IMainSectionViewRender {
   private content: HTMLElement;
 
@@ -20,10 +12,13 @@ export default class GameSprintStartView implements IMainSectionViewRender {
 
   page?: number | null;
 
-  constructor(startOpts: IGameStart) {
+  returnView: IMainSectionViewRender;
+
+  constructor(startOpts: IGameStart, startView: IMainSectionViewRender) {
     this.content = document.querySelector('#main') as HTMLElement;
     this.selectedLevel = startOpts?.level;
     this.page = startOpts.page || null;
+    this.returnView = startView;
   }
 
   async render() {
@@ -32,7 +27,15 @@ export default class GameSprintStartView implements IMainSectionViewRender {
       const words = this.page !== null
         ? await getGameWords({ level: this.selectedLevel, page: this.page })
         : await getGameWords({ level: this.selectedLevel });
-      setGamesButtonsActions(words);
+      this.setGamesButtonsActions(words);
     }
+  }
+
+  setGamesButtonsActions(words: WordsDataT) {
+    const gamePlayBtn = document.querySelector('.game__start-btn') as HTMLAnchorElement;
+    gamePlayBtn.addEventListener('click', () => {
+      const gamePlay = new GameSprintPlayView(words, this.returnView);
+      gamePlay.render();
+    });
   }
 }
