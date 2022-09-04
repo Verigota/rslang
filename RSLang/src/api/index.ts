@@ -123,6 +123,8 @@ export class Api implements IApi {
     return res;
   }
 
+  
+
   public async getAllUserAggregatedHardWords(
     page: number,
   ): Promise<AxiosResponse<AggregatedWordsResponseT>> {
@@ -148,6 +150,7 @@ export class Api implements IApi {
   Promise<AxiosResponse<LearntWordsPesp>> {
     return this.apiClient.get(`/users/${userId}/aggregatedWords`, {
       params: {
+        wordsPerPage: 4000,
         filter: '{"userWord.difficulty":"learned"}',
       },
     });

@@ -22,6 +22,11 @@ export class SprintGame implements ISprintGame {
 
   getRandomWord() {
     const wordsCount = this.gameWords.length;
+    if (wordsCount < 5) {
+      const word = this.gameWords[0];
+      this.gameWords.shift();
+      return word;
+    }
     const elementId = Math.floor(Math.random() * wordsCount);
     return this.gameWords[elementId];
   }
