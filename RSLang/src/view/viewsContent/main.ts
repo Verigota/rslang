@@ -1,9 +1,7 @@
 export const sectionAbout = `<section class="about content__item">
                 <h2 class="section-title about__title">RSlang</h2>
-                <p class="about__text">С нашим приложением учить английский язык легко и увлекательно! Учите слова
-                    эффективно с нашим словарём,
-                    разделённым на уровни сложности. Играйте в мини-игры учите, запоминайте и закрепляйте знания.
-                    Следите за вашей статистикой и вдохновляётесь результатами!</p>
+                <p class="about__text">С нашим приложением учить английский язык легко и увлекательно! В этом вам помогут
+                    электронный учебник с различными уровнями сложности, а также мини-игры. Вы сможете следить за прогрессом обучения и вдохновляётесь результатами!</p>
                 <div class="about__image-wrap">
                     <img src="./public/assets/images/about.png" width="50" height="50" alt="" class="about__image">
                 </div>
@@ -11,7 +9,7 @@ export const sectionAbout = `<section class="about content__item">
 
 export const sectionScope = `<section class="scope content__item">
                 <h2 class="section-title scope__title">Преимущества нашего приложения</h2>
-                <p class="scope__text">Мы разработали для вас удобные средства для скореёшего изучения языка и быстрого
+                <p class="scope__text">Мы разработали для вас удобные средства для скорейшего изучения языка и быстрого
                     закрепления результата.</p>
                 <div class="scope-card scope__item">
                     <img class="scope-card__img" src="./public/assets/icons/games.svg" alt="games">
@@ -31,8 +29,7 @@ export const sectionScope = `<section class="scope content__item">
                     <img class="scope-card__img" src="./public/assets/icons/statistics.svg" alt="statistics">
                     <h3 class="scope-card__title">Статистика</h3>
                     <p class="scope-card__text">Весь ход обучения можно просмотреть в статистике, в которой представлены
-                        данные как за текущий день, так и за весь период
-                        обучения. Для вашего удобства информация представляется в виде таблицы или в виде графиков.</p>
+                        данные за текущий день обучения в целом и с разделением по играм.</p>
                 </div>
                 <div class="scope-card scope__item">
                     <img class="scope-card__img" src="./public/assets/icons/ui.svg" alt="interface">
@@ -48,51 +45,37 @@ export const sectionTeam = `<section class="team content__item">
                     <img src="./public/assets/icons/avatar-2.svg" alt="memeber photo" class="member-card__photo">
                     <p class="member-card__role">Team leader</p>
                     <p class="member-card__name">Татьяна</p>
-                    <p class="member-card__contribution">Разнообразный и богатый опыт постоянное
-                        информационно-пропогандистское обеспечение нашей деятельности играет важную роль в формировании
-                        системы массового участия. Для современного мира управление и развитие структуры способствует
-                        повышению качества модели развития. </p>
-                    <a href="#" class="member-card__github">
+                    <p class="member-card__contribution">
+                    Занималась настройкой сборки проекта, реализовала процесс авторизации и регистрации пользователя, разработала функционал игры Спринт, а также функцию получения слов для игр</p>
+                    <a href="https://github.com/Verigota/" class="member-card__github" target="_blank">
                         <img class="member-card__github-img" src="./public/assets/icons/github.svg" alt="github">
-                        <span class="member-card__github-nickname">Github nick</span>
+                        <span class="member-card__github-nickname">Verigota</span>
                     </a>
                 </div>
                 <div class="member-card team__item">
                     <img src="./public/assets/icons/avatar-1.svg" alt="memeber photo" class="member-card__photo">
                     <p class="member-card__role">Developer</p>
                     <p class="member-card__name">Артур</p>
-                    <p class="member-card__contribution">Задача организации, в особенности же постоянный количественный
-                        рост и сфера нашей активности играет важную роль в формировании дальнейших направлений развития.
-                        Таким образом социально-экономическое развитие требует анализа системы массового участия.</p>
-                    <a href="#" class="member-card__github">
+                    <p class="member-card__contribution">Разработал весь функционал раздела Учебник, в том числе отображение слов для авторизованного и анонимного пользователей, реализовал возможность добавления слов в изученные и сложные, а также оторажение статистики по отдельновзятому слову</p>
+                    <a href="https://github.com/Nozeil/" class="member-card__github" target="_blank">
                         <img class="member-card__github-img" src="./public/assets/icons/github.svg" alt="github">
-                        <span class="member-card__github-nickname">Github nick</span>
+                        <span class="member-card__github-nickname">Nozeil</span>
                     </a>
                 </div>
                 <div class="member-card team__item">
                     <img src="./public/assets/icons/avatar-3.svg" alt="memeber photo" class="member-card__photo">
                     <p class="member-card__role">Developer</p>
                     <p class="member-card__name">Евгений</p>
-                    <p class="member-card__contribution">Таким образом дальнейшее развитие различных форм деятельности
-                        напрямую зависит от поэтапного и последовательного развития общества. Не вызывает сомнений, что
-                        рамки и место обучения кадров способствует повышению качества укрепления демократической
-                        системы.</p>
-                    <a href="#" class="member-card__github">
+                    <p class="member-card__contribution">Отвечал за верстку проекта, реализовал функционал игры Аудио Вызов, а также отображение и хранение дневной статистики</p>
+                    <a href="https://github.com/beaJeniuS/" class="member-card__github" target="_blank">
                         <img class="member-card__github-img" src="./public/assets/icons/github.svg" alt="github">
-                        <span class="member-card__github-nickname">Github nick</span>
+                        <span class="member-card__github-nickname">beaJeniuS</span>
                     </a>
                 </div>
                 <div class="member-card team__item">
                     <img src="./public/assets/icons/avatar-4.svg" alt="memeber photo" class="member-card__photo">
                     <p class="member-card__role">Mentor</p>
                     <p class="member-card__name">Дмитрий</p>
-                    <p class="member-card__contribution">Задача организации, в особенности же дальнейшее развитие
-                        различных форм деятельности требует от нас анализа укрепления демократической системы. Не
-                        вызывает сомнений, что новая модель организационной деятельности позволяет выполнять важные
-                        задания по разработке поэтапного и последовательного развития общества. </p>
-                    <a href="#" class="member-card__github">
-                        <img class="member-card__github-img" src="./public/assets/icons/github.svg" alt="github">
-                        <span class="member-card__github-nickname">Github nick</span>
-                    </a>
+                    <p class="member-card__contribution">Проводил кодревью, консультировал по сложным вопросам, возникавшим в ходе разработки</p>
                 </div>
                 </section>`;

@@ -77,7 +77,6 @@ export default class Handbook implements IHandbook {
         <h4 id="handbook__title" class="handbook__title">Учебник</h4>
       </div>
       <div id="handbook__levels" class="handbook__levels">
-        <h6>Уровни сложности</h6>
       </div>
       <div id="handbook__games" class="handbook__games">
         <h4 class="handbook__games-title">Игры</h4>

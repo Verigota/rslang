@@ -162,6 +162,9 @@ export class Api implements IApi {
           wordDifficulty = Difficulty.hard;
         }
         optional.serieWrong += 1;
+        if (wordDifficulty === Difficulty.learned) {
+          wordDifficulty = Difficulty.process;
+        }
       }
       this.updateOrCreateUserWord(wordId, wordDifficulty, optional);
     } catch (error) {

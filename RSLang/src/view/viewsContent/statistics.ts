@@ -45,11 +45,6 @@ const sectionStatistics = `
                         <div class="game-stat-el__decor"></div>
                     </div>
                 </div>
-                <div class="statistics__total">
-                    <h2 class="section-title statistics__total-title">Статистика за всё время</h2>
-                    <p class="statistics__total-desc">Статистика доступна только для авторизованных пользователей.</p>
-                    <div class="statistics__total-graph-wrap"></div>
-                </div>
             </section>`;
 
 export default sectionStatistics;
