@@ -145,6 +145,7 @@ export default class Handbook implements IHandbook {
           level: startOpts.group,
           page: startOpts.page,
         },
+        this.startView,
       );
       gameAudio.render();
     });
