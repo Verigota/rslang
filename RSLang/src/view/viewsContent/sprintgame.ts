@@ -7,9 +7,7 @@ export const sectionSprintGameStart = `
                 </div>
                 <div class="game__help">
                     <p class="game__help-item">Для игры с помощью клавиатуры, используйте клавиши:</p>
-                    <p class="game__help-item">1, 2 - чтобы дать ответ,</p>
-                    <p class="game__help-item">стрелка влево, стрелка вправо - чтобы дать ответ,</p>
-                    <p class="game__help-item">enter - чтобы пропустить вопрос</p>
+                    <p class="game__help-item">стрелка влево, стрелка вправо - чтобы дать ответ</p>
                     <p class="game__help-item"></p>
                 </div>
                 <div class="game__start">
