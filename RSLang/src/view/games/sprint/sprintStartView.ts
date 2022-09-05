@@ -22,6 +22,7 @@ export default class GameSprintStartView implements IMainSectionViewRender {
   }
 
   async render() {
+    document.querySelector('.footer')?.classList.add('hidden');
     this.content.innerHTML = gameSprintStart.sections.join('');
     if (this.selectedLevel !== null) {
       const words = this.page !== null

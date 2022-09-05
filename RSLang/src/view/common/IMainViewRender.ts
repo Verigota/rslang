@@ -23,6 +23,7 @@ export class HandbookView implements IMainSectionViewRender {
   }
 
   public async render() {
+    document.querySelector('.footer')?.classList.remove('hidden');
     const { wordData, wordsData, handbookController } = await this.getViewData();
     this.handbook.renderHandbook(wordsData, wordData, handbookController);
   }

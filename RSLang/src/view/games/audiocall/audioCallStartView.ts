@@ -21,6 +21,7 @@ export default class GameAudioCallStartView implements IMainSectionViewRender {
   }
 
   render() {
+    document.querySelector('.footer')?.classList.add('hidden');
     this.content.innerHTML = gameAudioCallStart.sections.join('');
     this.setGamesButtonsActions();
     return Promise.resolve();
