@@ -2,8 +2,6 @@
 @import '../../utils/mixines';
 
 .choice {
-    display: grid;
-    grid-template: 10rem 210px 5rem/ repeat(3, 1fr);
     gap: 5px;
 
     &__title {
