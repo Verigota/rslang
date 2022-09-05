@@ -1,0 +1,164 @@
+@import '../utils/variables';
+@import '../utils/mixines';
+
+.popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: $color-background-transparent;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 20;
+
+  &[id="message"] {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.8s ease 0s;
+    
+    & .popup__content {
+      max-width: 800px;
+      width: 80%;
+      @media (max-width: 950px) {
+        width: 100%;
+      }
+    }
+    
+    & h2 {
+      @media (max-width: 750px) {
+        @include addFont('Philosopher', normal, 600, 2rem, 0.01em, $text-dark, 2.2rem);
+      }
+      @media (max-width: 600px) {
+        @include addFont('Philosopher', normal, 600, 1rem, 0.01em, $text-dark, 1.1rem);
+      }
+    }
+  }
+
+  &[id="game-stat"] {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.8s ease 0s;
+
+    & .popup__content {
+      width: 60%;
+      height: 600px;
+      padding: 20px;
+    }
+  }
+
+  &__message {
+    @include addFont('Philosopher', normal, 600, 2rem, 0.01em, $text-dark, 2.2rem);
+    text-align: justify;
+  }
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    background-color: $background-light;
+    color: $text-dark;
+    padding: 30px;
+    border: 3px solid $background-dark;
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px #073ae080;
+    position: relative;
+    visibility: hidden;
+    opacity: 0;
+    transform: perspective(600px) translate(0px, -100%) rotateX(45deg); 
+    transition: all 0.8s ease 0s;
+  }
+
+  &.open .popup__content {
+    transform: perspective(600px) translate(0px, 0%) rotateX(0deg);
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.8s ease 0s;
+  }
+
+  &__area {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  &__body {
+    min-height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 10px;
+  }
+
+  &__close {
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    & img {
+      width: 48px;
+      height: 48px;
+      transition: all 0.5s linear;
+      background-color: $background-light;
+      border-radius: 50%;
+      border: 3px solid $background-dark;
+      @media (max-width: 545px) {
+        width: 32px;
+        height: 32px;
+        transition: all 0.2s linear;
+      }
+    }
+    &:hover img {
+      transform: scale(1.2);
+      transition: all 0.5s linear;
+    }
+  }
+
+  &__close-btn {
+    width: 40%;
+    height: 4rem;
+    @include addFont('Philosopher', normal, 600, 2.5rem, 0.01em, $text-light, 3.2rem);
+    background-color: $background-dark;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px $background-dark;
+    transition: all 0.1s linear;
+    &:hover {
+      color: $text-white;
+
+    }
+    &:active {
+      transform: translateY(2px);
+      transition: all 0.2s linear;
+    }
+  }
+
+  &__title {
+    & .popup__title-text {
+      text-align: center;
+      transition: all 0.2s linear;
+      @include addFont('Philosopher', normal, 600, 2.5rem, 0.01em, $text-dark, 3.2rem);
+    }
+
+    margin: 0 0 20px 0;
+    @media (max-width: 545px) {
+      @include addFont('Philosopher', normal, 600, 1.5rem, 0.01em, $text-dark, 2rem);
+      transition: 0.2s linear;
+    }
+    @media (max-width: 445px) {
+      @include addFont('Philosopher', normal, 600, 1rem, 0.01em, $text-dark, 1.2rem);
+      transition: 0.2s linear;
+    }
+  }
+}

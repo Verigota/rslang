@@ -1,0 +1,36 @@
+.about {
+    padding: 50px 10px;
+    align-items: center;
+    grid-column: 2/3;
+    grid-row: 1/2;
+    display: grid;
+    grid-template: 1fr 3fr / 1fr $grid-container-width * 0.6 $grid-container-width * 0.4 1fr;
+    background-color: $background-light;
+    gap: 10px;
+
+    &__title {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+    }
+
+    &__text {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+        text-align: justify;
+        @include addFont('Philosopher', normal, 600, 3rem, 0.01em, $text-dark, 4rem);
+    }
+
+    &__image-wrap {
+        grid-column: 3 / 4;
+        grid-row: 1 / 3;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}

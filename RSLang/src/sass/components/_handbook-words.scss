@@ -1,0 +1,12 @@
+.handbook__words {
+  position: relative;
+  display: grid;
+  grid-area: words;
+  grid-template-areas:
+    'words-title words-title'
+    'word-cards word-card-info'
+    'words-pagination words-pagination'
+  ;
+  grid-auto-columns: 3fr 0.5fr;
+  gap: 20px;
+}

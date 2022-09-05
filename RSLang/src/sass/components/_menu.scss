@@ -1,0 +1,28 @@
+@import '../utils/variables';
+@import '../utils/mixines';
+
+.menu {
+    display: grid;
+    grid-auto-flow: column;
+    justify-items: center;
+    grid-column: 3 / 4;
+    &__item {
+        display: flex;
+        align-items: center;
+    }
+    &__item-link {
+        text-decoration: none;
+        text-transform: uppercase;
+        padding: 0px 10px;
+        @include addFont('Philosopher', normal, 600, 2rem, 0.06em, $text-light, 5rem);
+        &:hover {
+            background-color: $hover-dark;
+        }
+        &.selected {
+            background-color: $hover-dark;
+        }
+        &.selected:hover {
+            background-color: $hover-dark-sel;
+        }
+    }
+}

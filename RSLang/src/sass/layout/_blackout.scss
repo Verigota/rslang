@@ -1,0 +1,22 @@
+@import '../utils/variables';
+
+.blackout {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    z-index: 5;
+    background-color: $blackout;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.blackout_hidden {
+    display: none;
+}
+
+.body {
+    position: relative;
+}

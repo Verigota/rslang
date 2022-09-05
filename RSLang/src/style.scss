@@ -1,0 +1,51 @@
+/* base */
+@import './sass/base/normalize';
+
+/* components styles */
+@import './sass/components/menu';
+@import './sass/components/scope-card';
+@import './sass/components/member-card';
+@import './sass/components/section-title';
+@import './sass/components/word';
+@import './sass/components/pagination';
+@import './sass/components/word';
+@import './sass/components/registration-modal';
+@import './sass/components/gamespanel';
+@import './sass/components/popup';
+@import './sass/components/answer';
+@import './sass/components/gamestat';
+@import './sass/components/button';
+@import './sass/components/button-reg';
+@import './sass/components/timer';
+@import './sass/components/game-stat-el';
+
+@import './sass/components/handbook-titles';
+@import './sass/components/handbook-levels';
+@import './sass/components/handbook-level-card';
+@import './sass/components/handbook-games';
+@import './sass/components/handbook-words';
+@import './sass/components/handbook-word-cards';
+@import './sass/components/handbook-word-card';
+@import './sass/components/handbook-word-card-info';
+@import './sass/components/handbook-play-btn';
+@import './sass/components/handbook-words-pagination';
+
+/* pages */
+@import './sass/pages/main/main';
+@import './sass/pages/choice/choice';
+@import './sass/pages/game/game';
+@import './sass/pages/statistics/statistics';
+
+/* layouts*/
+@import './sass/layout/header';
+@import './sass/layout/main/about';
+@import './sass/layout/main/scope';
+@import './sass/layout/main/team';
+@import './sass/layout/footer';
+@import './sass/layout/choice/choice';
+@import './sass/layout/game/game';
+@import './sass/layout/modal';
+@import './sass/layout/blackout';
+@import './sass/layout/body';
+@import './sass/layout/statistics/statistics';
+@import './sass/layout/handbook/handbook';
