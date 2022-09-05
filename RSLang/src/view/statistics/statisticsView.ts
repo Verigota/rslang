@@ -1,4 +1,7 @@
+import { herokuApi } from '../../api';
+import authStorage from '../../controller/authorization/auth-storage';
 import DayStatistics from '../../controller/daystatistics/daystatistics';
+import { Difficulty } from '../../controller/games/interfaces';
 import { IMainSectionViewRender } from '../common/IMainViewRender';
 import { statisticsView } from '../viewsContent/views';
 
@@ -13,15 +16,40 @@ export default class StatisticsView implements IMainSectionViewRender {
     this.content.innerHTML = statisticsView.sections.join('');
     const dayStat = new DayStatistics();
     const dayStatData = dayStat.getCurrentUserStatistics();
-    const learnedWordsEl = document.querySelector('#statistics-learnt') as HTMLParagraphElement;
+    const newWordsEl = document.querySelector('#statistics-newwords') as HTMLParagraphElement;
     const percentRightEl = document.querySelector('#statistics-percent') as HTMLParagraphElement;
+    const learntEl = document.querySelector('#statistics-learnt') as HTMLParagraphElement;
     const sprintLearntEl = document.querySelector('#sprint-learnt') as HTMLSpanElement;
     const sprintRightEl = document.querySelector('#sprint-right-answers') as HTMLSpanElement;
     const sprintBestSerieEl = document.querySelector('#sprint-longest-serie') as HTMLSpanElement;
     const audiocallLearntEl = document.querySelector('#audiocall-learnt') as HTMLSpanElement;
     const audiocallRightEl = document.querySelector('#audiocall-right-answers') as HTMLSpanElement;
     const audiocallBestSerieEl = document.querySelector('#audiocall-longest-serie') as HTMLSpanElement;
-    learnedWordsEl.innerText = dayStatData.allGamesRight.toString();
+    const todayStatWrap = document.querySelector('.statistics__today') as HTMLParagraphElement;
+
+    if (authStorage.get()) {
+      const date = new Date();
+      let count = 0;
+      herokuApi.getUserWords().then((res) => {
+        const newData = res.data
+          .filter((el) => el.difficulty === Difficulty.learned)
+          .filter((el2) => {
+            const dateStat = new Date(el2.optional.addTime);
+            if (date.getFullYear() === dateStat.getFullYear()
+              && date.getMonth() === dateStat.getMonth()
+              && date.getDate() === dateStat.getDate()) {
+              return true;
+            }
+            return false;
+          });
+        count = newData.length;
+        learntEl.innerText = count.toString();
+      });
+    } else {
+      todayStatWrap.classList.add('hide-learnt');
+    }
+
+    newWordsEl.innerText = dayStatData.allGamesRight.toString();
     percentRightEl.innerText = dayStatData.allGamesRightPercent.toString();
 
     sprintLearntEl.innerText = dayStatData.games.sprint.right.toString();
