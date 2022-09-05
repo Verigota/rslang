@@ -27,12 +27,11 @@ export default class StatisticsView implements IMainSectionViewRender {
     const audiocallBestSerieEl = document.querySelector('#audiocall-longest-serie') as HTMLSpanElement;
     const todayStatWrap = document.querySelector('.statistics__today') as HTMLParagraphElement;
 
-    if (!authStorage.get()) {
-      todayStatWrap.classList.add('hide-learnt');
+    if (authStorage.get()) {
       const date = new Date();
       let count = 0;
       herokuApi.getUserWords().then((res) => {
-        count = res.data
+        const newData = res.data
           .filter((el) => el.difficulty === Difficulty.learned)
           .filter((el2) => {
             const dateStat = new Date(el2.optional.addTime);
@@ -42,9 +41,12 @@ export default class StatisticsView implements IMainSectionViewRender {
               return true;
             }
             return false;
-          }).length;
+          });
+        count = newData.length;
+        learntEl.innerText = count.toString();
       });
-      learntEl.innerText = count.toString();
+    } else {
+      todayStatWrap.classList.add('hide-learnt');
     }
 
     newWordsEl.innerText = dayStatData.allGamesRight.toString();
