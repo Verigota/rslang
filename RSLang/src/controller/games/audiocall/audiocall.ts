@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { WordsDataT } from '../../../types/types';
+import { WordDataT, WordsDataT } from '../../../types/types';
 import { herokuApi } from '../../../api';
 import { IApi } from '../../../api/interfaces';
 import { IGameControllers, IStageInfo, initGameControllersObj } from './interfaces';
@@ -10,12 +10,34 @@ import GameAudioCallStartView from '../../../view/games/audiocall/audioCallStart
 import { ICommonGame } from '../interfaces';
 import DayStatistics from '../../daystatistics/daystatistics';
 
-function getRandomAnswers(wordTranslate: string, words: WordsDataT): string[] {
-  return words
+function getRandomAnswers(word: WordDataT, words: WordsDataT): string[] {
+  const additionalAnswers = [
+    ['реклама', 'знают', 'батарея', 'черный', 'чистый', 'город', 'страна', 'развивать', 'электрический', 'в конце концов', 'стакан', 'факт', 'история', 'природа', 'никогда', 'пластик', 'люди', 'проблема', 'улица', 'считать'],
+    ['древний', 'академия', 'доска', 'век', 'концерт', 'округ', 'подсказка', 'толковый словарь', 'существовать', 'квартира', 'джентльмен', 'скрытый', 'может быть', 'офицер', 'фунт', 'обработать', 'оригинальный', 'публиковать', 'театр', 'богатство'],
+    ['скамейка', 'ромашка', 'спор', 'пустой', 'ужастик', 'инцидент', 'туман', 'объект', 'сирота', 'беременный', 'сюжет', 'ярость', 'месть', 'позор', 'вздох', 'красться', 'запасной', 'стебель', 'ужин', 'тендер'],
+    ['астрология', 'пара', 'отклоняться', 'дифференцировать', 'сорвать', 'уравнение', 'ошибочный', 'неистовый', 'непреднамеренное', 'импровизировать', 'моряк', 'широта', 'множество', 'неизменность', 'вращаются', 'неприятность', 'успокаивают', 'мель', 'техника'],
+    ['аффект', 'автограф', 'шарик', 'заварить', 'очарование', 'судьба', 'оборудование', 'рог', 'раздраженный', 'лаг', 'кошмарный сон', 'питательный', 'белок', 'подпись', 'материал', 'подсознание', 'ван', 'предупредить', 'разрабатывать', 'увеличить'],
+    ['аккумулируют', 'антенна', 'устройство', 'разрядка', 'лавина', 'нетронутый', 'согласованность', 'эпизод', 'смертный', 'горький', 'предзнаменование', 'пасмурная погода', 'следопыт', 'щебень', 'боком', 'рыдать', 'уединиться', 'трезвый', 'пятнышко', 'воспитание'],
+  ];
+
+  const answers = words
     .map((el) => el.wordTranslate)
-    .filter((el) => el !== wordTranslate)
+    .filter((el) => el !== word.wordTranslate)
     .sort(() => 0.5 - Math.random())
     .slice(0, 4);
+
+  if (answers.length < 5) {
+    const addWords = additionalAnswers[word.group].sort(() => 0.5 - Math.random());
+    for (let i = 0; i < addWords.length; i += 1) {
+      if (!answers.includes(addWords[i])) {
+        answers.push(addWords[i]);
+      }
+      if (answers.length === 5) {
+        break;
+      }
+    }
+  }
+  return answers;
 }
 
 function getGameControllers(): IGameControllers {
@@ -159,9 +181,6 @@ export default class AudioCall implements ICommonGame {
         this.updateCurrentStage();
         this.currentAudio.play();
       });
-    if (this.returnToView instanceof GameAudioCallStartView) {
-      this.returnToView = this.view;
-    }
   }
 
   private checkAnswer(userChoice: string | null, answer: HTMLElement) {
@@ -270,7 +289,7 @@ export default class AudioCall implements ICommonGame {
     this.words.forEach((word) => {
       stages.push({
         word: { ...word },
-        answers: getRandomAnswers(word.wordTranslate, this.words),
+        answers: getRandomAnswers(word, this.words),
       });
     });
     this.stages = [...stages];
