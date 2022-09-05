@@ -1,3 +1,4 @@
+import { Difficulty, IOptional } from '../controller/games/interfaces';
 import PageName from '../enums/enums';
 
 export type WordsDataT = WordDataT[];
@@ -64,8 +65,8 @@ export type PageNameT = PageName.handbook | PageName.complicatedWords;
 export type UserWord = {
   id: string,
   wordId: string,
-  difficulty: string,
-  optional: Record<string, never>,
+  difficulty: Difficulty,
+  optional: IOptional,
 };
 
 export type UserWordsT = UserWord[];
