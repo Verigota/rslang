@@ -12,7 +12,13 @@
 }
 
 .choice {
+    display: grid;
     grid-column: 2/3;
+    grid-template: 10rem auto 5rem/ repeat(3, 1fr);
+    
+    @media (max-width: 1300px) {
+        grid-template: 10rem repeat(3, auto) 5rem/1fr 1fr 1fr;
+    }
 }
 
 .choice__wrap {
@@ -20,11 +26,19 @@
     &.audio {
         grid-column: 1/2;
         grid-row: 2/3;
+        @media (max-width: 1300px) {
+            grid-column: 2/3;
+            grid-row: 2/3;
+        }
     }
     
     &.sprint {
         grid-column: 3/4;
         grid-row: 2/3;
+        @media (max-width: 1300px) {
+            grid-column: 2/3;
+            grid-row: 4/5;
+        }
     }
 }
 
@@ -32,6 +46,10 @@
     justify-self: center;
     grid-column: 2/3;
     grid-row: 2/3;
+        @media (max-width: 1300px) {
+            grid-column: 2/3;
+            grid-row: 3/4;
+        }
 }
 
 .choice__title {
@@ -47,4 +65,7 @@
     grid-row: 3/4;
     align-self: center;
     justify-self: center;
+        @media (max-width: 1300px) {
+            grid-row: 5/6;
+        }
 }
