@@ -2,7 +2,6 @@ import AudioCall from '../../../controller/games/audiocall/audiocall';
 import { IGameStart } from '../../../controller/games/audiocall/interfaces';
 import getGameWords from '../../../controller/games/GameController';
 import { IMainSectionViewRender } from '../../common/IMainViewRender';
-import GameSelectorView from '../../gameSelector/gameSelectorView';
 import { gameAudioCallStart } from '../../viewsContent/views';
 
 export default class GameAudioCallStartView implements IMainSectionViewRender {
@@ -17,7 +16,7 @@ export default class GameAudioCallStartView implements IMainSectionViewRender {
   constructor(startOpts: IGameStart, startView: IMainSectionViewRender) {
     this.content = document.querySelector('#main') as HTMLElement;
     this.selectedLevel = startOpts?.level;
-    this.page = startOpts.page || null;
+    this.page = startOpts.page;
     this.returnView = startView;
   }
 
