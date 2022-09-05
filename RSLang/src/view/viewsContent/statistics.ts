@@ -3,12 +3,16 @@ const sectionStatistics = `
                 <div class="statistics__today">
                     <h2 class="section-title statistics__title">Статистика за сегодня</h2>
                     <div class="statistics__today-item">
-                        <p class="statistics__value" id="statistics-learnt">0</p>
-                        <p class="statistics__hint">слов изучено</p>
+                        <p class="statistics__value" id="statistics-newwords">0</p>
+                        <p class="statistics__hint">новых слов</p>
                     </div>
                     <div class="statistics__today-item">
                         <p class="statistics__value"><span id="statistics-percent">0</span>%</p>
                         <p class="statistics__hint">правильных ответов</p>
+                    </div>
+                    <div class="statistics__today-item">
+                        <p class="statistics__value" id="statistics-learnt">0</p>
+                        <p class="statistics__hint">слов изучено</p>
                     </div>
                 </div>
                 <div class="statistics__games">
