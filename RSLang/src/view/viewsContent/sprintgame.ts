@@ -2,13 +2,12 @@ export const sectionSprintGameStart = `
             <section class="game content__item">
                 <div class="game__about">
                     <h2 class="game__title">Спринт</h2>
-                    <p class="game__desc">Используйте эту тренировку для ...</p>
+                    <p class="game__desc">Используйте эту тренировку для того, чтобы проверить насколько хорошо вы запомнили слова</p>
                     <img class="game__icon" src="./public/assets/images/sprint.png" width="300" height="150" alt="">
                 </div>
-                <div class="game__help">
-                    <p class="game__help-item">Для игры с помощью клавиатуры, используйте клавиши:</p>
-                    <p class="game__help-item">стрелка влево, стрелка вправо - чтобы дать ответ</p>
-                    <p class="game__help-item"></p>
+                <div class="game__help sprint__help">
+                    <p class="game__help-item">Чтобы дать ответ с помощью клавиатуры, используйте клавиши:</p>
+                    <p class="game__help-item">стрелка влево, стрелка вправо</p>
                 </div>
                 <div class="game__start">
                     <button class="game__start-btn button">Начнём!</button>
@@ -57,10 +56,6 @@ export const sectionSprintGameBody = `
                         </div>
                     </div>
                     <div class="game__questions">
-                        <div class="game__word-img">
-                            <img class="game__answer-img" src="./public/assets/icons/question.svg" alt="answer image">
-                            <img class="game__question-img" src="./public/assets/icons/question.svg" alt="question image">
-                        </div>
                         <p class="game__word" id="engWord">Слово</p>
                         <p class="game__word-translate" id="translation">Перевод</p>
                     </div>

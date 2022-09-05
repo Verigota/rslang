@@ -47,18 +47,30 @@ export const sectionTeam = `<section class="team content__item">
                     <p class="member-card__name">Татьяна</p>
                     <p class="member-card__contribution">
                     Занималась настройкой сборки проекта, реализовала процесс авторизации и регистрации пользователя, разработала функционал игры Спринт, а также функцию получения слов для игр</p>
+                    <a href="https://github.com/Verigota/" class="member-card__github" target="_blank">
+                        <img class="member-card__github-img" src="./public/assets/icons/github.svg" alt="github">
+                        <span class="member-card__github-nickname">Verigota</span>
+                    </a>
                 </div>
                 <div class="member-card team__item">
                     <img src="./public/assets/icons/avatar-1.svg" alt="memeber photo" class="member-card__photo">
                     <p class="member-card__role">Developer</p>
                     <p class="member-card__name">Артур</p>
                     <p class="member-card__contribution">Разработал весь функционал раздела Учебник, в том числе отображение слов для авторизованного и анонимного пользователей, реализовал возможность добавления слов в изученные и сложные, а также оторажение статистики по отдельновзятому слову</p>
+                    <a href="https://github.com/Nozeil/" class="member-card__github" target="_blank">
+                        <img class="member-card__github-img" src="./public/assets/icons/github.svg" alt="github">
+                        <span class="member-card__github-nickname">Nozeil</span>
+                    </a>
                 </div>
                 <div class="member-card team__item">
                     <img src="./public/assets/icons/avatar-3.svg" alt="memeber photo" class="member-card__photo">
                     <p class="member-card__role">Developer</p>
                     <p class="member-card__name">Евгений</p>
                     <p class="member-card__contribution">Отвечал за верстку проекта, реализовал функционал игры Аудио Вызов, а также отображение и хранение дневной статистики</p>
+                    <a href="https://github.com/beaJeniuS/" class="member-card__github" target="_blank">
+                        <img class="member-card__github-img" src="./public/assets/icons/github.svg" alt="github">
+                        <span class="member-card__github-nickname">beaJeniuS</span>
+                    </a>
                 </div>
                 <div class="member-card team__item">
                     <img src="./public/assets/icons/avatar-4.svg" alt="memeber photo" class="member-card__photo">

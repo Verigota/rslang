@@ -3,5 +3,6 @@
   grid-template-columns: repeat(4, minmax(150px, 1fr));
   gap: 10px;
   grid-area: word-cards;
+  grid-auto-rows: 100px;
   @include addFont('Philosopher', normal, 400, 1.2rem, 0.01em, $text-dark, 1.2rem);
 }
