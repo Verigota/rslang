@@ -6,7 +6,9 @@ export interface IGameStat {
 }
 
 export enum Difficulty {
-  'hard', 'learned', 'process',
+  hard = 'hard',
+  learned = 'learned',
+  process = 'process',
 }
 
 export interface IAggregatedWord {
