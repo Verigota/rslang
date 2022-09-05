@@ -21,7 +21,7 @@ export const sectionScope = `<section class="scope content__item">
                 <div class="scope-card scope__item">
                     <img class="scope-card__img" src="./public/assets/icons/dictionary.svg" alt="handbook">
                     <h3 class="scope-card__title">Продуманный учебник</h3>
-                    <p class="scope-card__text">Наш учебник состоит из шести разделов, разделённых по уровням сложности.
+                    <p class="scope-card__text">Наш учебник состоит из семи разделов, разделённых по уровням сложности.
                         Словарь представляет собой интерактивные карточки, содержащие перевод
                         слова, тематическое изображение, произношение как слова отдельно, так и в составе фразы.</p>
                 </div>
@@ -56,7 +56,7 @@ export const sectionTeam = `<section class="team content__item">
                     <img src="./public/assets/icons/avatar-1.svg" alt="memeber photo" class="member-card__photo">
                     <p class="member-card__role">Developer</p>
                     <p class="member-card__name">Артур</p>
-                    <p class="member-card__contribution">Разработал весь функционал раздела Учебник, в том числе отображение слов для авторизованного и анонимного пользователей, реализовал возможность добавления слов в изученные и сложные, а также оторажение статистики по отдельновзятому слову</p>
+                    <p class="member-card__contribution">Разработал весь функционал раздела Учебник, в том числе отображение слов для авторизованного и анонимного пользователей, реализовал возможность добавления слов в изученные и сложные, а также оторажение статистики по отдельно взятому слову</p>
                     <a href="https://github.com/Nozeil/" class="member-card__github" target="_blank">
                         <img class="member-card__github-img" src="./public/assets/icons/github.svg" alt="github">
                         <span class="member-card__github-nickname">Nozeil</span>
