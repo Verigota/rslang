@@ -40,6 +40,8 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
 
   private timerId: NodeJS.Timeout | null;
 
+  private counter: number;
+
   constructor(words: WordsDataT, returnView: IMainSectionViewRender) {
     this.game = new SprintGame(words);
     this.content = document.querySelector('#main') as HTMLElement;
@@ -54,10 +56,11 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
     this.returnView = returnView;
     this.keyDownHandler = this.keyDownHandler.bind(this);
     this.timerId = null;
+    this.counter = 0;
   }
 
   renderStage() {
-    if (this.words.length === 0) {
+    if (this.words.length < 5 && this.words.length <= this.counter) {
       const stat = new GameStatisticsView(
         this.bestSerie,
         this.wrongAnswers,
@@ -67,15 +70,17 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
       );
       stat.render();
       if (this.timerId) clearTimeout(this.timerId);
+      document.querySelector('.timer')?.classList.remove('start');
+    } else {
+      const btns = this.content.querySelectorAll('.answer') as NodeListOf<HTMLButtonElement>;
+      btns?.forEach((btn) => btn?.classList.remove('fault', 'ok'));
+      const engWord = this.content.querySelector('#engWord') as HTMLElement;
+      this.currentAudio = new Audio(`${axios.defaults.baseURL}/${this.game.currentStage.sound}`);
+      this.currentAudio.play();
+      const translation = this.content.querySelector('#translation') as HTMLElement;
+      engWord.innerHTML = this.game.currentStage.engWord;
+      translation.innerHTML = this.game.currentStage.translation;
     }
-    const btns = this.content.querySelectorAll('.answer') as NodeListOf<HTMLButtonElement>;
-    btns?.forEach((btn) => btn?.classList.remove('fault', 'ok'));
-    const engWord = this.content.querySelector('#engWord') as HTMLElement;
-    this.currentAudio = new Audio(`${axios.defaults.baseURL}/${this.game.currentStage.sound}`);
-    this.currentAudio.play();
-    const translation = this.content.querySelector('#translation') as HTMLElement;
-    engWord.innerHTML = this.game.currentStage.engWord;
-    translation.innerHTML = this.game.currentStage.translation;
   }
 
   render() {
@@ -119,6 +124,7 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
     const btns = this.content.querySelectorAll('.answer') as NodeListOf<HTMLButtonElement>;
     btns?.forEach((btn) => {
       btn.addEventListener('click', () => {
+        this.counter += 1;
         if (btn.name === isRightTranslation(this.game.currentStage)) {
           btn?.classList.add('ok');
           this.rightAnswerAudio.play();
@@ -145,6 +151,7 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
 
   keyDownHandler(e: KeyboardEvent) {
     if (e.code === 'ArrowRight') {
+      this.counter += 1;
       e.stopPropagation();
       if (isRightTranslation(this.game.currentStage) === 'wrong') {
         this.content.querySelector('#answer2')?.classList.add('ok');
@@ -166,6 +173,7 @@ export default class GameSprintPlayView implements ICommonGame, IMainSectionView
       setTimeout(() => this.renderStage(), 600);
     }
     if (e.code === 'ArrowLeft') {
+      this.counter += 1;
       e.stopPropagation();
       if (isRightTranslation(this.game.currentStage) === 'right') {
         this.content.querySelector('#answer1')?.classList.add('ok');
