@@ -25,7 +25,7 @@ function getRandomAnswers(word: WordDataT, words: WordsDataT): string[] {
     .filter((el) => el !== word.wordTranslate)
     .sort(() => 0.5 - Math.random())
     .slice(0, 4);
-  if (answers.length < 5) {
+  if (answers.length < 4) {
     const addWords = additionalAnswers[word.group].sort(() => 0.5 - Math.random());
     for (let i = 0; i < addWords.length; i += 1) {
       if (!answers.includes(addWords[i])) {
@@ -227,6 +227,7 @@ export default class AudioCall implements ICommonGame {
 
   public setKeyboardEvents() {
     const game = document.querySelector('.game') as HTMLDivElement;
+    game.focus();
     game.addEventListener('keydown', this.keyDownHandler);
   }
 
@@ -254,6 +255,8 @@ export default class AudioCall implements ICommonGame {
     playBtn?.addEventListener('click', () => {
       this.currentAudio.play();
     });
+
+    document.querySelector('.game__skip-btn')?.addEventListener('click', this.answerClick);
   }
 
   private resetMouseEvents() {
