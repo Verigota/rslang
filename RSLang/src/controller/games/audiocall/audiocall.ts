@@ -25,14 +25,13 @@ function getRandomAnswers(word: WordDataT, words: WordsDataT): string[] {
     .filter((el) => el !== word.wordTranslate)
     .sort(() => 0.5 - Math.random())
     .slice(0, 4);
-
   if (answers.length < 5) {
     const addWords = additionalAnswers[word.group].sort(() => 0.5 - Math.random());
     for (let i = 0; i < addWords.length; i += 1) {
       if (!answers.includes(addWords[i])) {
         answers.push(addWords[i]);
       }
-      if (answers.length === 5) {
+      if (answers.length === 4) {
         break;
       }
     }
