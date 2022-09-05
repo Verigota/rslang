@@ -41,7 +41,7 @@ export default class GameSelectorView implements IMainSectionViewRender {
     const audioGameBtn = document.querySelector('#audio-game') as HTMLAnchorElement;
     audioGameBtn.addEventListener('click', () => {
       if (this.selectedLevel != null) {
-        const gameAudioCall = new GameAudioCallStartView({ level: this.selectedLevel });
+        const gameAudioCall = new GameAudioCallStartView({ level: this.selectedLevel }, this);
         gameAudioCall.render();
       } else {
         const popup = new PopupMessageView('Не выбран уровень сложности!', 'Выберите уровень сложности, чтобы продолжить!');
